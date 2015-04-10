@@ -1,0 +1,53 @@
+{
+  "name": "kangaroo-court",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Andrew Lukichev <andrewlukichev@gmail.com>",
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/gulp/bin/gulp.js install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/upwellteam/kangaroocourt.git"
+  },
+  "dependencies": {
+    "async": "*",
+    "bluebird": "*",
+    "express": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "debug": "*",
+    "extend": "*",
+    "multer": "*",
+    "mysql": "*",
+    "node-uuid": "*",
+    "redis": "*",
+    "request": "*",
+    "sequelize": "*",
+    "serve-static": "*",
+    "then-redis": "*",
+    "underscore": "*",
+    "uuid": "*",
+    "yargs": "*",
+    "bower": "*",
+    "gulp": "*",
+    "gulp-rename": "*",
+    "gulp-add-src": "*",
+    "gulp-concat": "*",
+    "gulp-if": "*",
+    "gulp-jade": "*",
+    "gulp-less": "*",
+    "gulp-minify-css": "*",
+    "gulp-sourcemaps": "*",
+    "serve-favicon": "*",
+    "serve-static": "*"
+  },
+  "devDependencies": {
+    "dotenv" : "*"
+  },
+  "license": "MIT",
+  "engines": {
+    "iojs": "1.6.*"
+  }
+}

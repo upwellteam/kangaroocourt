@@ -1,0 +1,56 @@
+mixin template-modal-createDispute
+    div.modal.fade#newDispute(tabindex="-1", role="dialog", aria-hidden="true")
+        div.modal-dialog
+            form(action='/api/disputes', method='post', enctype='multipart/form-data')
+                div.modal-content.create-dispute
+                    div.modal-header File Complain
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') &times;
+                    div.modal-body.money.row
+                        p Amount wagared
+                        div.col-md-4.col-sm-4.col-xs-4
+                            div.btn.btn-success#remove
+                                span.mdi-content-remove-circle-outline
+                        div.col-md-4.col-sm-4.col-xs-4
+                            input.form-control#bet(type='text', name='bet')
+                        div.col-md-4.col-sm-4.col-xs-4
+                            div.btn.btn-success#add
+                                span.mdi-content-add-circle-outline
+                    div.modal-body
+                        div.form-group
+                            label.control-label Name
+                            input.form-control(type='text', name='name')
+                        div.form-group
+                            label.control-label Complain Summary
+                            textarea.form-control(type='text', name='description')
+                        div.form-group
+                            label.control-label Plaintiff Email
+                            input.form-control(type='email', placeholder='Email', name='email')
+                        div.form-group
+                            label.control-label Category
+                            div.radio.radio-primary
+                                label
+                                    input(type="radio", name="type", value="relationship",checked="")
+                                    span.circle
+                                    span.check
+                                    p Relationship
+                            div.radio.radio-primary
+                                label
+                                    input(type="radio", name="type", value="housing", checked="")
+                                    span.circle
+                                    span.check
+                                    p Housing
+                            div.radio.radio-primary
+                                label
+                                    input(type="radio", name="type", value="food", checked="")
+                                    span.circle
+                                    span.check
+                                    p Food
+                        label.control-label(for="inputFile") Photo-evidence
+                        div.form-control-wrapper.fileinput
+                            input.form-control.empty(type="text", readonly="")
+                            input#inputFile(type="file" multiple="", name='image')
+                            div.floating-label Browse...
+                            span.material-input
+                    div.modal-footer
+                        button.btn.btn-default(type='submit') File complain

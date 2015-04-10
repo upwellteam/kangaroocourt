@@ -1,0 +1,13 @@
+{
+  "name": "kangaroo-court",
+  "dependencies": {
+    "async": "*",
+    "jquery": "*",
+    "jquery.cookie": "*",
+    "backbone": "*",
+    "bootstrap": "*",
+    "bootstrap-material-design": "*",
+    "moment": "*",
+    "localforage": "*"
+  }
+}
