@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
         setterMethods : {},
         classMethods : {
             associate : function(models) {
-                models.Jury.belongsTo(models.User, {as: 'user'});
+                models.Jury.belongsTo(models.User, {as: 'User'});
                 models.Jury.belongsTo(models.Dispute);
             }
         },

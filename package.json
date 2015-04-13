@@ -12,6 +12,7 @@
     "url": "https://github.com/upwellteam/kangaroocourt.git"
   },
   "dependencies": {
+    "dotenv" : "*",
     "async": "*",
     "bluebird": "*",
     "express": "*",
@@ -32,6 +33,7 @@
     "yargs": "*",
     "bower": "*",
     "gulp": "*",
+    "gulp-babel": "*",
     "gulp-rename": "*",
     "gulp-add-src": "*",
     "gulp-concat": "*",
@@ -42,9 +44,6 @@
     "gulp-sourcemaps": "*",
     "serve-favicon": "*",
     "serve-static": "*"
-  },
-  "devDependencies": {
-    "dotenv" : "*"
   },
   "license": "MIT",
   "engines": {

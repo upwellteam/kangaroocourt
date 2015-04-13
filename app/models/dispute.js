@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true
         },
-        type: {
+        category: {
             type: DataTypes.STRING,
             allowNull : false
         },
@@ -28,13 +28,14 @@ module.exports = function(sequelize, DataTypes) {
         bet: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
-        }
+        },
+        defendantEmail : DataTypes.STRING(128)
     }, {
         setterMethods : {},
         classMethods : {
             associate : function(models) {
-                models.Dispute.belongsTo(models.User, {as: 'defendant'});
-                models.Dispute.belongsTo(models.User, {as: 'plaintiff'});
+                models.Dispute.belongsTo(models.User, {as: 'Defendant'});
+                models.Dispute.belongsTo(models.User, {as: 'Plaintiff'});
                 models.Dispute.hasMany(models.Argument);
                 models.Dispute.hasMany(models.Jury);
             }

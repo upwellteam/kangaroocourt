@@ -12,7 +12,7 @@ var express = require('express'),
 var app = module.exports = express(),
     config = require('./configure');
 
-var redisCon = redis.createClient(config.redis.port, config.redis.hostname);
+var redisCon = redis.createClient(config.redis.port, config.redis.host);
 redisCon.auth(config.redis.password).catch(function(err){
     debug('redis err');
     console.log(err);

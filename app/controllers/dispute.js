@@ -1,8 +1,10 @@
-var debug = require('debug')('kangaroo:dispute'),
+var debug = require('debug')('kangaroo:dispute');
 
-    router = require('express').Router(),
+var router = require('express').Router(),
     utils = require('../utils'),
     path = require('path');
+
+var ROOT = path.resolve(`${__dirname}/../../`);
 
 var authMiddleware = require('../middleware/auth.js');
 /**
@@ -10,18 +12,34 @@ var authMiddleware = require('../middleware/auth.js');
  */
 router.post('/disputes/', authMiddleware, function(req, res) {
     debug('POST /disputes/');
+
     var models = res.app.get('models');
+
     var data = req.body;
 
-    if (req.files.image) {
-        data.imgUrl = path.relative(`${__dirname}/../../`, req.files.image.path);
-    } else data.imgUrl = 'no_image';
+    console.log(data);
 
-    data.activeUntil = (new Date()).setDate((new Date()).getDate()+7);
+    var user = res.locals.user;
 
     // TODO: проверка наличия plaintiff в базе данных
-    models.Dispute
-        .create(data)
+    models.User
+        .find({ where : { email : data.email } })
+        .then(function(defendant) {
+            return models.Dispute
+                .create({
+                    bet: data.bet,
+                    name: data.name,
+                    description: data.description,
+                    email: data.defendantEmail,
+                    type: data.type,
+                    activeUntil : (new Date()).setDate((new Date()).getDate()+7),
+                    imgUrl : req.files.image
+                        ? path.relative(`${ROOT}`, req.files.image.path)
+                        : 'no_image',
+                    PlaintiffId : user.id,
+                    DefendantId : defendant ? defendant.id : null
+                })
+        })
         .then(function(dispute) {
             debug('dispute created');
             res.redirect('/disputes/'+dispute.id);
@@ -43,7 +61,13 @@ router.get('/disputes/', function(req, res) {
     models.Dispute
         .findAll({
             where : req.query.type ? { type : req.query.type } : {},
-            limit : 5,
+            include : [
+                { model: models.User, as : 'Defendant' },
+                { model: models.User, as : 'Plaintiff' },
+                models.Argument,
+                models.Jury
+            ],
+            limit : 4,
             offset : (page-1) * 3,
             order : 'createdAt DESC'
         })
@@ -66,7 +90,7 @@ router.get('/user/:id', function(req, res) {
 
     models.Dispute
         .findAll({
-            where : { defendantId : user },
+            where : { DefendantId : user },
             limit : 5,
             offset : (page-1) * 3,
             order : 'createdAt DESC'
@@ -84,15 +108,17 @@ router.get('/user/:id', function(req, res) {
  */
 router.get('/disputes/:id', function(req, res) {
     debug('GET /disputes/:id');
+
     var models = res.app.get('models');
+
     var id = req.params.id;
 
     models.Dispute
         .find({
             where : { id : id },
             include : [
-                { model: models.User, as : 'defendant' },
-                { model: models.User, as : 'plaintiff' },
+                { model: models.User, as : 'Defendant' },
+                { model: models.User, as : 'Plaintiff' },
                 models.Argument,
                 models.Jury
             ]
@@ -101,7 +127,7 @@ router.get('/disputes/:id', function(req, res) {
             if (!dispute) {
                 throw new utils.NotFoundError('no_such_dispute');
             }
-            res.json(dispute.toJSON());
+            res.json(dispute);
         })
         .catch(utils.NotFoundError, function(err){
             res.status(404).json({ error : err.message });

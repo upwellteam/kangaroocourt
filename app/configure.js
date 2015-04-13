@@ -1,8 +1,9 @@
 var url = require('url');
 
-var rtg = url.parse(process.env.REDISTOGO_URL);
+//var rtg = url.parse(process.env.REDISTOGO_URL);
+var rtg = url.parse('redis://redistogo:db074fd31122d1d70293013d215db077@tetra.redistogo.com:9059/');
 
-module.exports = {
+var config = {
     salt : process.env.SALT,
     mysql : {
         username : process.env.MYSQL_USERNAME,
@@ -26,3 +27,5 @@ module.exports = {
         }
     }
 };
+
+module.exports = config;

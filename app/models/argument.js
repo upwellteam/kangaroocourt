@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
         classMethods : {
             associate : function(models) {
                 models.Argument.belongsTo(models.Dispute);
-                models.Argument.belongsTo(models.User, {as: 'user'});
+                models.Argument.belongsTo(models.User, {as: 'User'});
             }
         },
         instanceMethods: {}

@@ -1,0 +1,31 @@
+script#header-menu(type="text/html")
+    .container
+        .row
+            .col-md-6.col-sm-6.col-xs-12.pull-left
+                img.img-responsive.logo-img(src='/img/logo.png', alt='')
+            .col-md-6.col-sm-6.col-xs-12.pull-right
+                .header-right-area
+                    ul.ul-header
+                        li(data-toggle='modal', data-target='#modal-auth'): a(href='#')
+                            img(src='/img/admin.png', alt='')
+                            |  Login
+                        li.case: a(href='')
+                            img(src='/img/case.png', alt='')
+                            |  My Cases
+                    button(data-toggle='modal', data-target='#modal-newDispute')
+                        span +
+                        |  New complaint
+
+script#navigation(type="text/html")
+    section.section-navigation
+        .container
+            ul.ul-mainmenu
+                li: a(href='#')#all All
+                li: a(href='#')#love Love
+                li: a(href='#')#animals Animals
+                li: a(href='#')#kids Kids
+                li: a(href='#')#money Money
+                li: a(href='#')#work Work
+                li: a(href='#')#health Health
+                li: a(href='#')#intimacy Intimacy
+                li: a(href='#')#miscellaneous Miscellaneous

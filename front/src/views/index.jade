@@ -1,36 +1,41 @@
 doctype html
-
-include mixins/modals
-
-html
+html(ng-app="kangaroo")
     head
         title Kangaroo Court
+        base(href="/")
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='description', content='')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
         block styles
-            link(href="/css/bootstrap.css", rel="stylesheet", type="text/css")
-            link(href="/css/material.css", rel="stylesheet", type="text/css")
-            link(href="/css/style.css", rel="stylesheet", type="text/css")
-    body
-        nav.navbar.navbar-default.navbar-fixed-top
-            div.container#navbar-container
-                div.navbar-header
-                    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.navbar-brand(href="/") Kangaroo Court
-                div.collapse.navbar-collapse#navbar
-                    div#navbar-left
-                    div#navbar-right
-        div#content
+            link(rel="stylesheet", href="/css/bootstrap.css", type="text/css")
+            link(rel="stylesheet", href="/css/style.css", type="text/css")
 
-        block scripts
+        link(href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', rel='stylesheet')
+        link(href='http://fonts.googleapis.com/css?family=Roboto:400,700', rel='stylesheet', type='text/css')
+
+        //-script(type="text/javascript",src='js/vendor/modernizr-2.6.2.min.js')
+
+    body
+        header-menu
+        div(ng-view)
+            //header.header-area
+            //    div#header-menu
+            //div#navigation
+            //
+            //section.section-main-content
+            //    div#content
+
+        footer.footer-area
+            .container
+                .row
+                    .col-md-6.col-sm-6
+                        p Copyright © Kangaroo Court 2015
+                    .col-md-6.col-sm-6
+                        ul.ul-footer
+                            li: a(href='#') About
+                            li: a(href='#') Contact
+                            li: a(href='#') Follow us on Twitter
+        block script
             script(type='text/javascript', src='/js/vendor.js')
             script(type='text/javascript', src='/js/all.js')
-
-        block templates
-            +template-modal-createDispute
-
-            include partials/front
-            include partials/dispute
-            include mixins/navbar
