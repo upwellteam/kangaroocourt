@@ -12,10 +12,10 @@ var express = require('express'),
 var app = module.exports = express(),
     config = require('./configure');
 
-var redisCon = redis.createClient(config.redis.port, config.redis.host);
-redisCon.auth(config.redis.password).catch(function(err){
-    debug('redis err');
-    console.log(err);
+var redisCon = redis.createClient({
+    host: config.redis.host,
+    port: config.redis.port,
+    password: config.redis.password
 });
 
 app.set('root', path.resolve(__dirname, './../'));
