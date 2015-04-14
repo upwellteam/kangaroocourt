@@ -1,5 +1,6 @@
-mixin template-modal-newDispute
-    .container
+div(ng-controller="ModalDemoCtrl")
+<script type="text/ng-template" id="myModalContent.html">
+.container
     .modal.fade#modal-newDispute(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
         .modal-dialog
             form(action='/api/disputes', method='post', enctype='multipart/form-data')
@@ -32,7 +33,6 @@ mixin template-modal-newDispute
                                     span.text-top
                                         .text-top-left Plaintiff Email
                                     input.form-control(type='email', placeholder='Email', name='email')
-
                                 .form-control-wrapper.fileinput
                                     span.text-top
                                         .text-top-left Photo
@@ -42,20 +42,3 @@ mixin template-modal-newDispute
                                     input(type='checkbox', name='private-checkbox', checked='')
                                     | Private?
                                 button.modal-button New complaint
-
-
-mixin template-modal-auth
-    .modal.fade#modal-auth(tabindex='-1', role='dialog', aria-labelledby='myModalLabel1', aria-hidden='true')
-        .modal-dialog
-            .row
-                .col-md-8.col-md-offset-2
-                    .modal-content
-                        .modal-header
-                            button.close(type='button', data-dismiss='modal', aria-label='Close')
-                                span(aria-hidden='true') &times;
-                            p#myModalLabel1.modal-title Login
-                        .modal-footer
-                            .login
-                                a(href='#')
-                                    i.fa.fa-facebook-square
-                                    | Log in with Facebook

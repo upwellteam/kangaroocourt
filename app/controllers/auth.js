@@ -77,6 +77,7 @@ router.get('/oauth/:provider', function (req, res){
         .catch(function(err){
             debug('err happened');
             console.log(err);
+            res.status(500).send(err);
         });
 
 });
@@ -84,23 +85,6 @@ router.get('/oauth/:provider', function (req, res){
 router.get('/logout', authMiddleware, function(req, res){
     res.app.get('redis').del(req.query.token);
     res.json({ result : 'ok' })
-});
-
-
-router.post('/auth/temp', function(req, res) {
-    var models = res.app.get('models');
-
-    var data = req.body;
-
-    models.User
-        .create(data)
-        .then(function(user){
-            res.status(201).json(user.toJSON());
-        })
-        .catch(function(err){
-            res.status(500).json({ error : 'internal'});
-            console.log(err);
-        })
 });
 
 module.exports = router;

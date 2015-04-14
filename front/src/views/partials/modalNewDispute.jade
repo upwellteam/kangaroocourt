@@ -1,0 +1,49 @@
+
+.modal-header
+    button.close(type='button', ng-click='modal.cancel()')
+        span(aria-hidden='true') &times;
+    p#modal-newDispute.modal-title File complaint
+.modal-body#amount
+    p Amount wagared
+    .col-md-4.col-sm-4.col-xs-4
+        .btn.btn-success.dollar-minus(
+            ng-click='modal.changeBet(-1)',
+            ng-mousedown='modal.startChange(-1)',
+            ng-mouseup='modal.endChange()') -
+    .col-md-4.col-sm-4.col-xs-4
+        #bet {{modal.dispute.bet}}
+    .col-md-4.col-sm-4.col-xs-4
+        .btn.btn-success.dollar-plus(
+            ng-click='modal.changeBet(1)',
+            ng-mousedown='modal.startChange(1)',
+            ng-mouseup='modal.endChange()') +
+.modal-body
+
+    .form-group
+        span.text-top
+            .text-top-left Name
+        input.form-control(type='text', placeholder="Dispute name", ng-model="modal.dispute.name")
+    .form-group
+        span.text-top
+            .text-top-left Complain summary
+            .text-top-right 240 of 400
+        textarea.form-control(type='text', placeholder="Dispute summary", ng-model="modal.dispute.description")
+    .form-group
+        span.text-top
+            .text-top-left Defendant Email
+        input.form-control(type='email', placeholder='Email', ng-model="modal.dispute.defendant.email")
+    //.form-control-wrapper.fileinput
+    //    span.text-top
+    //        .text-top-left Photo
+    //    input#inputFile(type="file", multiple="", name='image')
+    .form-group
+        span.text-top
+            .text-top-left Dispute category
+        select.form-control(ng-model="modal.dispute.category", ng-options="category for category in modal.categories")
+.modal-footer
+    .modal-check
+        input(type='checkbox', name='private-checkbox', checked='')
+        | Private?
+    button.modal-button(ng-click='modal.submit()') New complaint
+
+  

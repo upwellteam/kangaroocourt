@@ -5,13 +5,21 @@ header.header-area
         .col-md-6.col-sm-6.col-xs-12.pull-right
             .header-right-area
                 ul.ul-header
-                    li(data-toggle='modal', data-target='#modal-auth'): a(href='#')
-                        img(src='/img/admin.png', alt='')
-                        |  Login
-                    li.case: a(href='')
-                        img(src='/img/case.png', alt='')
-                        |  My Cases
-                button(data-toggle='modal', data-target='#modal-newDispute')
+                    li(ng-show='!authenticated')
+                        a(ng-href='{{oauthLinks.facebook}}')
+                            span Login
+                    li(ng-show='authenticated')
+                        a(ng-href='/')
+                            img#avatar(ng-src='{{user.imgUrl}}', alt='')
+                            span {{user.name}}
+                    li.case(ng-show='authenticated')
+                        a(href='')
+                            img(src='/img/case.png', alt='')
+                            |  My Cases
+                    li(ng-show='authenticated')
+                        a(href='/logout')
+                            |  Logout
+                button(ng-click='createDispute()')
                     span +
                     |  New complaint
 section.section-navigation

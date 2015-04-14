@@ -28,7 +28,7 @@ var paths = {
         'front/vendor/angular/angular.js',
         'front/vendor/angular-route/angular-route.js',
         'front/vendor/angular-cookies/angular-cookies.js',
-        'front/vendor/angular-bootstrap/ui-bootstrap.js',
+        'front/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
         'front/vendor/angular-relative-date/angular-relative-date.js'
     ]
 };

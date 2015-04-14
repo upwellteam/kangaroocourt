@@ -23,26 +23,27 @@ router.post('/disputes/', authMiddleware, function(req, res) {
 
     // TODO: проверка наличия plaintiff в базе данных
     models.User
-        .find({ where : { email : data.email } })
+        .find({ where : { email : data.defendant.email } })
         .then(function(defendant) {
             return models.Dispute
                 .create({
                     bet: data.bet,
                     name: data.name,
                     description: data.description,
-                    email: data.defendantEmail,
-                    type: data.type,
+                    email: data.defendant.email,
+                    category: data.category,
                     activeUntil : (new Date()).setDate((new Date()).getDate()+7),
                     imgUrl : req.files.image
                         ? path.relative(`${ROOT}`, req.files.image.path)
-                        : 'no_image',
+                        : null,
                     PlaintiffId : user.id,
                     DefendantId : defendant ? defendant.id : null
                 })
         })
         .then(function(dispute) {
             debug('dispute created');
-            res.redirect('/disputes/'+dispute.id);
+            //res.redirect('/disputes/'+dispute.id);
+            res.status(201).send(dispute);
         })
         .catch(function(err){
             debug(err);

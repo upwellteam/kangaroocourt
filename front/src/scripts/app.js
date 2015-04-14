@@ -2,6 +2,22 @@ angular
     .module('kangaroo', [
         'ngRoute', 'ngCookies', 'ui.bootstrap', 'relativeDate'
     ])
+    .constant('OAUTH_PROVIDERS', {
+        facebook : {
+            client_id : '1430810303881868',
+            redirect_uri : 'http://kangaroo.loc:5000/oauth/facebook'
+        }
+    })
+    .constant('DISPUTE_CATEGORIES', [
+        'Love',
+        'Animals',
+        'Kids',
+        'Money',
+        'Work',
+        'Health',
+        'Intimacy',
+        'Miscellaneous'
+    ])
     .config(($logProvider, $locationProvider, $routeProvider) => {
         $logProvider.debugEnabled(true);
 

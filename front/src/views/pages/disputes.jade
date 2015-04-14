@@ -4,9 +4,9 @@
             div(ng-repeat="dispute in disputesCtrl.disputes")
                 .single-content
                     .row
-                        .col-md-2.col-sm-2
+                        .col-md-2.col-sm-2(ng-show="!! dispute.imgUrl")
                             img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}', alt='')
-                        .col-md-10.col-sm-10
+                        div(ng-class="dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
                             .only-content-text
                                 h2: a(href='disputes/1') {{ dispute.name }}
                                 p {{ dispute.description }}

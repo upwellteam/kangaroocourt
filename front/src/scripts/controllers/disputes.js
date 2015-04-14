@@ -7,7 +7,6 @@ function DisputeListController($http) {
         .get('/api/disputes')
         .success(function(result) {
             self.disputes = result;
-            console.log(self.disputes);
         })
 }
 
