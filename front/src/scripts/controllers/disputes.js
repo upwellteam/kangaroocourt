@@ -10,8 +10,15 @@ function DisputeListController($http) {
         })
 }
 
-function DisputeOneController() {
-    console.log('one');
+function DisputeOneController($routeParams, $http) {
+    var self = this;
+    
+    $http
+        .get(`/api/disputes/${$routeParams.id}`)
+        .success(function(result) {
+            console.log(result);
+            self.dispute = result;
+        })
 }
 
 angular

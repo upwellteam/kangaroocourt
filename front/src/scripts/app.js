@@ -32,25 +32,25 @@ angular
         //
         $routeProvider.when('/', {
             controller : 'FrontController as disputesCtrl',
-            templateUrl: 'pages/disputes.html',
+            templateUrl: 'pages/disputes/list.html',
             resolve : {}
         });
 
         $routeProvider.when('/category/:alias', {
             controller : 'FrontController as disputesCtrl',
-            templateUrl: 'pages/disputes.html',
+            templateUrl: 'pages/disputes/list.html',
             resolve : {}
         });
 
         $routeProvider.when('/user/:id', {
             controller : 'FrontController as disputesCtrl',
-            templateUrl: 'pages/disputes.html',
+            templateUrl: 'pages/disputes/list.html',
             resolve : {}
         });
 
         $routeProvider.when('/disputes/:id', {
-            controller : 'DisputeController as disputeCtrl',
-            templateUrl: 'pages/disputes.html',
+            controller : 'DisputeController as ctrl',
+            templateUrl: 'pages/disputes/one.html',
             resolve : {}
         });
 

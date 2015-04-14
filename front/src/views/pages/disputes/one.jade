@@ -1,0 +1,31 @@
+.container
+    .row
+        .col-md-9.col-sm-9
+                .single-content
+                    .row
+                        .col-md-2.col-sm-2(ng-show="!! ctrl.dispute.imgUrl")
+                            img.img-circle.img-responsive(ng-src='/{{ctrl.dispute.imgUrl}}', alt='')
+                        div(ng-class="ctrl.dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
+                            .only-content-text
+                                h2 {{ ctrl.dispute.name }}
+                                p {{ ctrl.dispute.description }}
+                                ul.ul-single
+                                    //- TODO: Calculate actual `votes` number
+                                    li: a(href='#') {{ ctrl.dispute.Juries.length || 'no' }} votes
+                                    li /
+                                    li: a(href='#') {{ ctrl.dispute.createdAt | relativeDate }}
+                                    li /
+                                    li: a(ng-href='/category/{{ctrl.dispute.category}}') {{ ctrl.dispute.category }}
+                                    li /
+                                    li: a(href='#') {{ ctrl.dispute.Plaintiff.name }}
+
+        .col-md-3.col-sm-3
+            .right-content-area
+                .top-right-content
+                    h3 What?
+                    p
+                        | You're right.  Probably.  So prove it.  Kangaroo Court let's you resolve small ctrl.disputes in a fun way using your friends or the masses to judge who's right and award money to the victor.
+                .bottom-right-content
+                    h3 Why?
+                    p
+                        | Don't let little things blow up with people that matter.  This is fun, fast resolution.  And be a Kangaroo Judge to help other people police their small ctrl.disputes.
