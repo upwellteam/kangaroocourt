@@ -59,7 +59,7 @@
         oAuthLinks() {
             return {
                 facebook : `https://www.facebook.com/dialog/oauth?`+
-                    `client_id=${OAUTH.facebook.client_id}&` +
+                    `client_id=${OAUTH.facebook.client_id}` +
                     `&redirect_uri=${OAUTH.facebook.redirect_uri}` +
                     `&scope=email`
             };

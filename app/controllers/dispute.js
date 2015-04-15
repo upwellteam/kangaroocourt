@@ -68,7 +68,6 @@ router.get('/disputes/', function(req, res) {
                 models.Argument,
                 models.Jury
             ],
-            limit : 4,
             offset : (page-1) * 3,
             order : 'createdAt DESC'
         })
