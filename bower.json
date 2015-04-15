@@ -10,6 +10,7 @@
     "angular-route": "*",
     "angular-cookies": "*",
     "angular-bootstrap": "https://raw.githubusercontent.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-0.12.1.js",
-    "angular-relative-date": "*"
+    "angular-relative-date": "*",
+    "angular-ui-switch": "~0.1.0"
   }
 }

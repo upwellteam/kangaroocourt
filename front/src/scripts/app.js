@@ -1,6 +1,6 @@
 angular
     .module('kangaroo', [
-        'ngRoute', 'ngCookies', 'ui.bootstrap', 'relativeDate'
+        'ngRoute', 'ngCookies', 'ui.bootstrap', 'relativeDate', 'uiSwitch'
     ])
     .constant('OAUTH_PROVIDERS', {
         facebook : {
@@ -31,20 +31,21 @@ angular
         //      Disputes
         //
         $routeProvider.when('/', {
+            routeName : 'frontPage',
             controller : 'FrontController as disputesCtrl',
             templateUrl: 'pages/disputes/list.html',
             resolve : {}
         });
 
-        $routeProvider.when('/category/:alias', {
+        $routeProvider.when('/category/:category', {
             controller : 'FrontController as disputesCtrl',
             templateUrl: 'pages/disputes/list.html',
             resolve : {}
         });
 
         $routeProvider.when('/user/:id', {
-            controller : 'FrontController as disputesCtrl',
-            templateUrl: 'pages/disputes/list.html',
+            controller : 'UserDisputeController as disputesCtrl',
+            templateUrl: 'pages/disputes/myCases.html',
             resolve : {}
         });
 

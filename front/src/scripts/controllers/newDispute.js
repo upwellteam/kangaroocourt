@@ -28,7 +28,6 @@
             var self = this;
 
             // TODO: validate before submitting
-            console.log(this.dispute);
             http
                 .post('/api/disputes', this.dispute)
                 .success(function(result){

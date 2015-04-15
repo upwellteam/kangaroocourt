@@ -29,7 +29,8 @@ var paths = {
         'front/vendor/angular-route/angular-route.js',
         'front/vendor/angular-cookies/angular-cookies.js',
         'front/vendor/angular-bootstrap/index.js',
-        'front/vendor/angular-relative-date/angular-relative-date.js'
+        'front/vendor/angular-relative-date/angular-relative-date.js',
+        'front/vendor/angular-ui-switch/angular-ui-switch.js'
     ]
 };
 
@@ -151,8 +152,6 @@ gulp.task('install', [
 
 
 
-require('dotenv').load();
-
 var argv = require('yargs').argv,
     path = require('path'),
     mysql = require('mysql');
@@ -166,6 +165,7 @@ process.env.NODE_ENV = env;
 //      Database related tasks
 //
 gulp.task('database-create', function(cb) {
+    require('dotenv').load();
     var config = require('./app/app.js').get('config').mysql;
 
     var connection = mysql.createConnection({

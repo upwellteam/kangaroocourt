@@ -11,7 +11,6 @@
                                 h2: a(ng-href='disputes/{{dispute.id}}') {{ dispute.name }}
                                 p {{ dispute.description }}
                                 ul.ul-single
-                                    //- TODO: Calculate actual `votes` number
                                     li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.Juries.length || 'no' }} votes
                                     li /
                                     li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.createdAt | relativeDate }}
@@ -19,14 +18,3 @@
                                     li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
                                     li /
                                     li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.Plaintiff.name }}
-
-        .col-md-3.col-sm-3
-            .right-content-area
-                .top-right-content
-                    h3 What?
-                    p
-                        | You're right.  Probably.  So prove it.  Kangaroo Court let's you resolve small disputes in a fun way using your friends or the masses to judge who's right and award money to the victor.
-                .bottom-right-content
-                    h3 Why?
-                    p
-                        | Don't let little things blow up with people that matter.  This is fun, fast resolution.  And be a Kangaroo Judge to help other people police their small disputes.

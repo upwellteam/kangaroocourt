@@ -1,4 +1,4 @@
-function OAuthController($routeParams, $location, $timeout, Authentication) {
+function OAuthController($routeParams, $location, Authentication) {
     let provider = $routeParams.provider;
     let code = $location.search().code;
 
@@ -7,22 +7,18 @@ function OAuthController($routeParams, $location, $timeout, Authentication) {
         .then(function(result) {
             if (!result) { throw new Error('temp'); }
 
-            $timeout(()=>{
-                $location.url('/');
-            }, 0);
+            $location.url('/').replace();
         })
         .catch(function(err) {
             console.log(err);
         });
 }
 
-function LogoutController($location, $timeout, Authentication) {
+function LogoutController($location, Authentication) {
     Authentication
         .logout()
         .then(()=>{
-            $timeout(()=>{
-                $location.url('/');
-            }, 0);
+            $location.url('/').replace();
         })
 }
 

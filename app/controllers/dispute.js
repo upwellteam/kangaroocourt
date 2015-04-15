@@ -61,7 +61,7 @@ router.get('/disputes/', function(req, res) {
 
     models.Dispute
         .findAll({
-            where : req.query.type ? { type : req.query.type } : {},
+            where : req.query.category ? { category : req.query.category } : {},
             include : [
                 { model: models.User, as : 'Defendant' },
                 { model: models.User, as : 'Plaintiff' },

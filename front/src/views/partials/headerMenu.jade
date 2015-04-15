@@ -7,30 +7,28 @@ header.header-area
                 ul.ul-header
                     li(ng-show='!authenticated')
                         a(ng-href='{{oauthLinks.facebook}}')
-                            span Login
-                    li(ng-show='authenticated')
-                        a(ng-href='/')
-                            img#avatar(ng-src='{{user.imgUrl}}', alt='')
-                            span {{user.name}}
+                            | Login
+
+                    li(ng-controller='dropdownCtrl', ng-show='authenticated')
+                        span.dropdown(dropdown='', on-toggle='toggled(open)')
+                            a.dropdown-toggle(href='', dropdown-toggle='')
+                                img#avatar(ng-src='{{user.imgUrl}}', alt='')
+                                span {{user.name}}
+                            ul.dropdown-menu
+                                li: a(href='/logout')
+                                    span.glyphicon.glyphicon-log-out
+                                    | Logout
+
                     li.case(ng-show='authenticated')
-                        a(href='')
+                        a(ng-href='/user/{{user.id}}')
                             img(src='/img/case.png', alt='')
                             |  My Cases
-                    li(ng-show='authenticated')
-                        a(href='/logout')
-                            |  Logout
                 button(ng-click='createDispute()')
                     span +
                     |  New complaint
 section.section-navigation
     .container
         ul.ul-mainmenu
-            li: a(href='#')#all All
-            li: a(href='#')#love Love
-            li: a(href='#')#animals Animals
-            li: a(href='#')#kids Kids
-            li: a(href='#')#money Money
-            li: a(href='#')#work Work
-            li: a(href='#')#health Health
-            li: a(href='#')#intimacy Intimacy
-            li: a(href='#')#miscellaneous Miscellaneous
+            li: a(ng-class='mkActiveAll()' href='/') All
+            li(ng-repeat='category in categories')
+                a(ng-class='mkActive(category)', ng-href='/category/{{category}}') {{ category }}
