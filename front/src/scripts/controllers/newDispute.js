@@ -1,12 +1,16 @@
 (function(){
-    var Interval, Timeout, http, location;
+    var Interval, Timeout, location;
+
+    var DisputesService;
 
     class NewDisputeController {
-        constructor(DISPUTE_CATEGORIES, $location, $modalInstance, $http, $interval, $timeout, Authentication) {
+        constructor(DISPUTE_CATEGORIES, $location, $modalInstance, $interval, $timeout, Authentication, $DisputesService) {
             Interval = $interval;
             Timeout = $timeout;
-            http = $http;
             location = $location;
+
+            DisputesService = $DisputesService;
+
 
             this.categories = DISPUTE_CATEGORIES;
 
@@ -27,14 +31,13 @@
         submit() {
             var self = this;
 
-            // TODO: validate before submitting
-            http
-                .post('/api/disputes', this.dispute)
-                .success(function(result){
+            DisputesService
+                .create(this.dispute)
+                .then(function(result){
                     console.log(result);
                     self.instance.close();
                     location.path(`/disputes/${result.id}`);
-                });
+                })
         }
 
         cancel() {
@@ -60,6 +63,8 @@
             Interval.cancel(this.interval);
         }
     }
+
+    NewDisputeController.$inject = ['DISPUTE_CATEGORIES', '$location', '$modalInstance', '$interval', '$timeout', 'Authentication', 'DisputesService'];
 
     angular
         .module('kangaroo')

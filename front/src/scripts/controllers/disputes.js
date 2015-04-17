@@ -1,8 +1,9 @@
-function DisputeListController($http, $routeParams) {
+function DisputeListController($http, $routeParams, Authentication) {
     var self = this;
+    self.user = Authentication.getUser();
 
+    console.log(self.user);
     this.disputes = [];
-
     $http
         .get('/api/disputes', {
             params : $routeParams.category
@@ -11,17 +12,27 @@ function DisputeListController($http, $routeParams) {
         })
         .success(function(result) {
             self.disputes = result;
-        })
+            console.log(result);
+        });
 }
 
-function DisputeOneController($http, $routeParams) {
+function DisputeOneController($routeParams, $location, DisputesService, Authentication) {
     var self = this;
-    
-    $http
-        .get(`/api/disputes/${$routeParams.id}`)
-        .success(function(result) {
-            self.dispute = result;
-        })
+    self.user = Authentication.getUser();
+
+    DisputesService.load($routeParams.id)
+        .then((dispute) => { self.dispute = dispute; })
+        .catch((err, status) => {
+            console.log(err, status);
+            $location.path('/404').replace();
+        });
+
+    self.deleteDispute = () => {
+        DisputesService
+            .del(self.dispute)
+            .then(() => { $location.path(`/user/${self.user.id}`).replace(); })
+    };
+
 }
 
 function UserDisputeController($http, $routeParams) {

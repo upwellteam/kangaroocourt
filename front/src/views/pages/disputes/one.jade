@@ -6,8 +6,13 @@
                     .col-md-2.col-sm-2(ng-show="!! ctrl.dispute.imgUrl")
                         img.img-circle.img-responsive(ng-src='/{{ctrl.dispute.imgUrl}}', alt='')
                     div(ng-class="ctrl.dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
-                        btn.btn.btn-info#edit
+
+                        button.btn.btn-danger#edit-btn(
+                            ng-click='ctrl.deleteDispute()')
+                            span.glyphicon.glyphicon-trash
+                        button.btn.btn-info#edit-btn()
                             span.glyphicon.glyphicon-pencil
+
                         div.claim
                             h4 Claim
                             h3.name {{ ctrl.dispute.name }}
@@ -27,7 +32,7 @@
             .right-content-area
                 .top-right-content
                     h3 Case closes on
-                    h2 {{ ctrl.dispute.activeUntil | date : 'MM/dd/yyyy - h:mma' }}
+                    h2 {{ ctrl.dispute.activeUntil | date : 'MM.dd.yyyy - h:mma' }}
                 .bottom-right-content
                     h3 Jury
                     h3(ng-show='!ctrl.dispute.juries') No Jurors Yet

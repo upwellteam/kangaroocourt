@@ -4,15 +4,15 @@ angular
     ])
     .constant('OAUTH_PROVIDERS', {
         // Local
-        //facebook : {
-        //    client_id : '1430810303881868',
-        //    redirect_uri : 'http://kangaroo.loc:5000/oauth/facebook'
-        //}
-        // Heroku
         facebook : {
-            client_id : '1620271311542333',
-            redirect_uri : 'http://kangaroocourt.herokuapp.com/oauth/facebook'
+            client_id : '1430810303881868',
+            redirect_uri : 'http://kangaroo.loc:5000/oauth/facebook'
         }
+        // Heroku
+        //facebook : {
+        //    client_id : '1620271311542333',
+        //    redirect_uri : 'http://kangaroocourt.herokuapp.com/oauth/facebook'
+        //}
     })
     .constant('DISPUTE_CATEGORIES', [
         'Love',
@@ -72,6 +72,16 @@ angular
         $routeProvider.when('/logout', {
             controller : 'LogoutController',
             template: 'Wait...'
+        });
+
+        $routeProvider.when('/404', {
+            controller : function(){},
+            template: '404'
+        });
+
+        $routeProvider.when('/500', {
+            controller : function(){},
+            template: '500'
         });
 
         $routeProvider.otherwise({ redirectTo: '/' });

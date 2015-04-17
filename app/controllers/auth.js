@@ -6,8 +6,6 @@ var debug = require('debug')('kangaroo:auth'),
     request = Promise.promisify(require('request')),
     authMiddleware = require('../middleware/auth.js');
 
-
-
 router.get('/oauth/:provider', function (req, res){
     debug('GET /oauth');
     if (! ~ ['facebook', 'google'].indexOf(req.params.provider)) {
@@ -23,8 +21,6 @@ router.get('/oauth/:provider', function (req, res){
     var code = req.query.code,
         gToken, gProfileData, gUser;
 
-    console.log(code);
-
     request({
         uri : 'https://graph.facebook.com/v2.3/oauth/access_token',
         method : 'get',
@@ -37,7 +33,6 @@ router.get('/oauth/:provider', function (req, res){
     })
         .spread(function(response, body){
             var accessToken = JSON.parse(body).access_token;
-            console.log(body);
 
             return request({
                 uri : 'https://graph.facebook.com/me',
@@ -47,7 +42,6 @@ router.get('/oauth/:provider', function (req, res){
         })
         .spread(function(response, body){
             debug('user data obtained');
-            console.log(body);
 
             gProfileData = JSON.parse(body);
             return models.User.find({ where : { email : gProfileData.email } })

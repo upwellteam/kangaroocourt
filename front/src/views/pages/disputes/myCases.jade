@@ -1,12 +1,19 @@
 .container
     .row
         .col-md-9.col-sm-9
+            h3 My cases
             div(ng-repeat="dispute in disputesCtrl.disputes")
                 .single-content
                     .row
                         .col-md-2.col-sm-2(ng-show="!! dispute.imgUrl")
                             img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}', alt='')
                         div(ng-class="dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
+
+                            button.btn.btn-danger#edit-btn(ng-click='dispute.deleteDispute()')
+                                span.glyphicon.glyphicon-trash
+                            button.btn.btn-info#edit-btn()
+                                span.glyphicon.glyphicon-pencil
+
                             .only-content-text
                                 h2: a(ng-href='disputes/{{dispute.id}}') {{ dispute.name }}
                                 p {{ dispute.description }}
@@ -16,5 +23,3 @@
                                     li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.createdAt | relativeDate }}
                                     li /
                                     li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
-                                    li /
-                                    li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.Plaintiff.name }}

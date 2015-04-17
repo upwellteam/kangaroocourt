@@ -13,15 +13,10 @@ var authMiddleware = require('../middleware/auth.js');
 router.post('/disputes/', authMiddleware, function(req, res) {
     debug('POST /disputes/');
 
-    var models = res.app.get('models');
+    var models = res.app.get('models'),
+        data = req.body,
+        user = res.locals.user;
 
-    var data = req.body;
-
-    console.log(data);
-
-    var user = res.locals.user;
-
-    // TODO: проверка наличия plaintiff в базе данных
     models.User
         .find({ where : { email : data.defendant.email } })
         .then(function(defendant) {
@@ -42,7 +37,6 @@ router.post('/disputes/', authMiddleware, function(req, res) {
         })
         .then(function(dispute) {
             debug('dispute created');
-            //res.redirect('/disputes/'+dispute.id);
             res.status(201).send(dispute);
         })
         .catch(function(err){
@@ -55,9 +49,8 @@ router.post('/disputes/', authMiddleware, function(req, res) {
  */
 router.get('/disputes/', function(req, res) {
     debug('GET /disputes');
-    var models = res.app.get('models');
 
-    var page = req.query.page || 1;
+    var models = res.app.get('models');
 
     models.Dispute
         .findAll({
@@ -68,7 +61,6 @@ router.get('/disputes/', function(req, res) {
                 models.Argument,
                 models.Jury
             ],
-            offset : (page-1) * 3,
             order : 'createdAt DESC'
         })
         .then(function(dispute) {
@@ -84,15 +76,13 @@ router.get('/disputes/', function(req, res) {
  */
 router.get('/user/:id', function(req, res) {
     debug('GET /user/:id');
+
     var models = res.app.get('models'),
-        user = req.params.id,
-        page = req.query.page || 1;
+        user = req.params.id;
 
     models.Dispute
         .findAll({
-            where : { DefendantId : user },
-            limit : 5,
-            offset : (page-1) * 3,
+            where : { PlaintiffId : user },
             order : 'createdAt DESC'
         })
         .then(function(dispute) {
@@ -109,9 +99,8 @@ router.get('/user/:id', function(req, res) {
 router.get('/disputes/:id', function(req, res) {
     debug('GET /disputes/:id');
 
-    var models = res.app.get('models');
-
-    var id = req.params.id;
+    var models = res.app.get('models'),
+        id = req.params.id;
 
     models.Dispute
         .find({
@@ -137,6 +126,34 @@ router.get('/disputes/:id', function(req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
+/**
+ *
+ */
+router.delete('/disputes/:id', function(req, res) {
+    debug('DELETE /disputes/:id');
+
+    var models = res.app.get('models'),
+        id = req.params.id;
+
+    models.Dispute
+        .destroy({
+            where : { id : id }
+        })
+        .then(function(){
+            res.status(200).send('success')
+        })
+        .catch(utils.NotFoundError, function(err){
+            res.status(404).json({ error : err.message });
+        })
+        .catch(function(err){
+            debug(err);
+            res.status(500).json({ error : 'internal'});
+        })
+});
+/**
+ *
+ */
+// TODO: router.put();
 /**
  *
  */

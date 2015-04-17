@@ -1,11 +1,7 @@
 (function() {
     var OAUTH;
 
-    var root,
-        http,
-        location,
-        cookies,
-        storage;
+    var root, http, location, cookies, storage;
 
     class AuthenticationService {
         constructor(OAUTH_PROVIDERS, $rootScope, $http, $location, $cookies, Storage) {
