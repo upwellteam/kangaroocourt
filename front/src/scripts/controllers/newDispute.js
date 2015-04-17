@@ -34,7 +34,6 @@
             DisputesService
                 .create(this.dispute)
                 .then(function(result){
-                    console.log(result);
                     self.instance.close();
                     location.path(`/disputes/${result.id}`);
                 })

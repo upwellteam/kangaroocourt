@@ -1,6 +1,5 @@
 angular.module('kangaroo')
     .directive('headerMenu', function($rootScope, $timeout, $modal, $routeParams, $location, Authentication, DISPUTE_CATEGORIES) {
-
         return {
             restrict: 'E',
             scope : {},
@@ -25,6 +24,11 @@ angular.module('kangaroo')
                         controller: 'ModalNewDisputeController as modal',
                         size: 'md'
                     });
+                };
+
+                scope.collapsedMenu = true;
+                scope.toggleCollapsedMenu = () => {
+                    scope.collapsedMenu = !scope.collapsedMenu
                 };
 
                 scope.mkActive = function(el) {

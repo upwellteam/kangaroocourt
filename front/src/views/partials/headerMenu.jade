@@ -28,7 +28,15 @@ header.header-area
                     |  New complaint
 section.section-navigation
     .container
-        ul.ul-mainmenu
+        button.btn.hidden-sm.hidden-md.hidden-lg(ng-click="toggleCollapsedMenu()")#collapse-btn
+            span MENU
+            span.glyphicon.glyphicon-list
+        div(collapse="collapsedMenu", style="width:100%;")
+            ul.ul-mainmenu.hidden-sm.hidden-md.hidden-lg
+                li: a(ng-class='mkActiveAll()' href='/') All
+                li(ng-repeat='category in categories')
+                    a(ng-class='mkActive(category)', ng-href='/category/{{category}}') {{ category }}
+        ul.ul-mainmenu.hidden-xs
             li: a(ng-class='mkActiveAll()' href='/') All
             li(ng-repeat='category in categories')
                 a(ng-class='mkActive(category)', ng-href='/category/{{category}}') {{ category }}

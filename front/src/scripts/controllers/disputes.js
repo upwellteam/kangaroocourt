@@ -2,7 +2,6 @@ function DisputeListController($http, $routeParams, Authentication) {
     var self = this;
     self.user = Authentication.getUser();
 
-    console.log(self.user);
     this.disputes = [];
     $http
         .get('/api/disputes', {
@@ -12,7 +11,6 @@ function DisputeListController($http, $routeParams, Authentication) {
         })
         .success(function(result) {
             self.disputes = result;
-            console.log(result);
         });
 }
 
