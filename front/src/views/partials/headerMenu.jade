@@ -13,7 +13,7 @@ header.header-area
                         span.dropdown(dropdown='', on-toggle='toggled(open)')
                             a.dropdown-toggle(href='', dropdown-toggle='')
                                 img#avatar(ng-src='{{user.imgUrl}}', alt='')
-                                span {{user.name}}
+                                span {{user.firstName}}
                             ul.dropdown-menu
                                 li: a(href='/logout')
                                     span.glyphicon.glyphicon-log-out

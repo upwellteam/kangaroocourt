@@ -37,7 +37,6 @@ angular.module('kangaroo')
                         return "active";
                     }
                 }
-
             }
         }
     })

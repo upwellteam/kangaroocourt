@@ -49,7 +49,7 @@ gulp.task('jade', function() {
 //
 gulp.task('less-app', function() {
     return gulp
-        .src(['front/src/styles/*.less'])
+        .src(['front/src/styles/all.less'])
         .pipe(less())
         .pipe(gulp.dest('front/dist/css'))
 });
