@@ -13,16 +13,36 @@ function DisputeListController($http, $routeParams, Authentication) {
         });
 }
 
-function DisputeOneController($routeParams, $location, DisputesService, Authentication) {
+function DisputeOneController($http, $routeParams, $location, DisputesService, Authentication) {
     var self = this;
 
     self.user = Authentication.getUser();
-    self.argument = 'foobar';
+    self.role = null;
 
-    DisputesService.load($routeParams.id)
+    DisputesService
+        .load($routeParams.id)
         .then((dispute) => {
-            console.log(dispute);
+            var Arguments = {};
+
+            for(var i = 0; i <= dispute.Arguments.length-1; i++){
+                if(dispute.Arguments[i].role == 'defendant') {
+                    Arguments.defendant = dispute.Arguments[i];
+                }
+                if(dispute.Arguments[i].role == 'plaintiff') {
+                    Arguments.plaintiff = dispute.Arguments[i];
+                }
+            }
+
             self.dispute = dispute;
+            self.dispute.Arguments = Arguments;
+
+            if (dispute.DefendantId == self.user.id) {
+                self.role = 'defendant';
+            }
+
+            if (dispute.PlaintiffId == self.user.id) {
+                self.role = 'plaintiff';
+            }
         })
         .catch((err, status) => {
             console.log(err, status);
@@ -35,9 +55,22 @@ function DisputeOneController($routeParams, $location, DisputesService, Authenti
             .then(() => { $location.path(`/user/${self.user.id}`).replace(); })
     };
 
-    self.saveArgument = () => {
-        console.log('was here');
-        //$http.post()
+    self.saveArgument = (argument) => {
+        var arg = {
+            argument : argument,
+            dispute : self.dispute.id
+        };
+
+        $http
+            .post('/api/argument', arg)
+            .success(function(result) {
+                console.log('success');
+                self.dispute.Arguments[self.role] = result;
+            })
+            .catch((err, status) => {
+                console.log(err, status);
+            })
+
     }
 
 }
@@ -57,5 +90,4 @@ angular
     .module('kangaroo')
     .controller('FrontController', DisputeListController)
     .controller('DisputeController', DisputeOneController)
-    .controller('UserDisputeController', UserDisputeController)
-    .controller('AddArgController', AddArgument);
+    .controller('UserDisputeController', UserDisputeController);

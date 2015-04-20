@@ -13,14 +13,8 @@ router.post('/argument', authMiddleware, function(req, res) {
     debug('POST /argument');
     var models = res.app.get('models');
 
-    var data = req.body;
-    debug('incoming data:');
-    console.log(data);
-
-    var user = res.locals.user;
-    debug('user:');
-    console.log(user);
-
+    var data = req.body,
+        user = res.locals.user;
 
     models.Dispute
         .find({ where : { id : data.dispute } })
@@ -39,7 +33,6 @@ router.post('/argument', authMiddleware, function(req, res) {
                 default :
                     throw new utils.NotAllowedError(`not allowed`)
             }
-
             // TODO: Check argument for existance for current participant
             return models.Argument.create({
                     argument : data.argument,

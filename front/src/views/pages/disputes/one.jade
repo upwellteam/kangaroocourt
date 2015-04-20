@@ -30,20 +30,19 @@ section.section-main-content.index3
                                             .col-lg-9.col-md-9.col-sm-9.col-xs-9
                                                 h2 Plaintiff - Argument
 
-                                    .arg-add(ng-show='ctrl.dispute.Arguments.length == 0')
-                                        //input.form-control(type="text", ng-model="ctrl.argument")
-                                        span.add
-                                            i.fa.fa-plus
-                                            a(ng-click='ctrl.saveArgument()')  Add Argument
-                                    .arg-body(ng-show='ctrl.dispute.Arguments.length != 0')
-                                            i.fa.fa-plus
-                                            a(href='#')  Add Agrument
-                                        p {{ ctrl.dispute.Agruments.argument }}
+                                    .arg-body(ng-show='ctrl.dispute.Arguments.plaintiff')
+                                        p {{ ctrl.dispute.Arguments.plaintiff.argument }}
 
-                                    .arg-add
-                                        span.add
-                                            i.fa.fa-plus
-                                            a(href='#')  Add Evidence
+                                    div(ng-show="ctrl.role == 'plaintiff'")
+                                        .arg-add(ng-show='!ctrl.dispute.Arguments.plaintiff')
+                                            textarea.form-control(type="text", ng-model="Plaintiff.argument")
+                                            span.add
+                                                i.fa.fa-plus
+                                                a(ng-click='ctrl.saveArgument(Plaintiff.argument)')  Add Argument
+                                        .arg-add
+                                            span.add
+                                                i.fa.fa-plus
+                                                a(href='#')  Add Evidence
 
                             // Defendant
 
@@ -52,22 +51,23 @@ section.section-main-content.index3
                                     header.arg-heading
                                         .row
                                             .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                                                img.img-circle.img-responsive.img-disputants.two(src='img/addmin.png', alt='')
+                                                img.img-circle.img-responsive.img-disputants.two(ng-src='{{ ctrl.dispute.Defendant.imgUrl }}', alt='')
                                             .col-lg-9.col-md-9.col-sm-9.col-xs-9
                                                 h2 Defendant - Argument
-                                    .arg-add(ng-show='ctrl.dispute.Arguments.length == 0')
-                                        span.add
-                                            i.fa.fa-plus
-                                            a(href='#')  Add Argument
-                                    .arg-body(ng-show='ctrl.dispute.Arguments.length != 0')
-                                        i.fa.fa-plus
-                                        a(href='#')  Add Agrument
-                                    p {{ ctrl.dispute.Agruments.argument }}
 
-                                    .arg-add
-                                        span.add
-                                            i.fa.fa-plus
-                                            a(href='#')  Add Evidence
+                                    .arg-body(ng-show='ctrl.dispute.Arguments.defendant')
+                                        p {{ ctrl.dispute.Arguments.defendant.argument }}
+
+                                    div(ng-show="ctrl.role == 'defendant'")
+                                        .arg-add(ng-show='!ctrl.dispute.Arguments.defendant')
+                                            textarea.form-control(type="text", ng-model="Defendant.argument")
+                                            span.add
+                                                i.fa.fa-plus
+                                                a(ng-click='ctrl.saveArgument(Defendant.argument)')  Add Argument
+                                        .arg-add
+                                            span.add
+                                                i.fa.fa-plus
+                                                a(href='#')  Add Evidence
 
                     // Comments
 

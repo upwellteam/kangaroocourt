@@ -15,7 +15,6 @@
                 $http
                     .post('/api/disputes', dispute)
                     .success((result) => {
-                        console.log(result);
                         resolve(result);
                     })
                     .error(() => { reject(); })
