@@ -6,6 +6,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     redis = require('then-redis'),
+    mandrill = require('node-mandrill'),
+    bluebird = require('bluebird'),
     multer = require('multer');
 
 
@@ -22,6 +24,7 @@ app.set('root', path.resolve(__dirname, './../'));
 app.set('config', config);
 app.set('models', require('./models.js'));
 app.set('redis', redisCon);
+app.set('mandrill', bluebird.promisify(mandrill(config.mandrill.key)) );
 
 app.use(cookieParser());
 app.use(bodyParser.json());

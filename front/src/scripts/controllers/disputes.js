@@ -15,7 +15,10 @@ function DisputeListController($http, $routeParams, Authentication) {
 
 function DisputeOneController($routeParams, $location, DisputesService, Authentication) {
     var self = this;
+
     self.user = Authentication.getUser();
+    self.argument = 'foobar';
+
     DisputesService.load($routeParams.id)
         .then((dispute) => {
             console.log(dispute);
@@ -31,6 +34,11 @@ function DisputeOneController($routeParams, $location, DisputesService, Authenti
             .del(self.dispute)
             .then(() => { $location.path(`/user/${self.user.id}`).replace(); })
     };
+
+    self.saveArgument = () => {
+        console.log('was here');
+        //$http.post()
+    }
 
 }
 
@@ -49,4 +57,5 @@ angular
     .module('kangaroo')
     .controller('FrontController', DisputeListController)
     .controller('DisputeController', DisputeOneController)
-    .controller('UserDisputeController', UserDisputeController);
+    .controller('UserDisputeController', UserDisputeController)
+    .controller('AddArgController', AddArgument);

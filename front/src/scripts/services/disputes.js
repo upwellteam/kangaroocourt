@@ -20,7 +20,6 @@
                     })
                     .error(() => { reject(); })
             });
-
         }
 
         load(id) {
@@ -42,9 +41,6 @@
                     .error(() => { reject(); })
             })
         }
-
-
-
     }
 
     DisputesService.$inject = ['$http', '$location', '$q'];

@@ -1,6 +1,7 @@
 var debug = require('debug')('kangaroo:dispute');
 
 var router = require('express').Router(),
+    jade = require('jade'),
     utils = require('../utils'),
     path = require('path');
 
@@ -10,22 +11,29 @@ var authMiddleware = require('../middleware/auth.js');
 /**
  *
  */
+var disputeTemplate = jade.compileFile(`${__dirname}/../templates/invitation.jade`);
+
 router.post('/disputes/', authMiddleware, function(req, res) {
     debug('POST /disputes/');
 
     var models = res.app.get('models'),
+        mandrill = res.app.get('mandrill'),
         data = req.body,
         user = res.locals.user;
+
+    var gDefendant;
 
     models.User
         .find({ where : { email : data.defendant.email } })
         .then(function(defendant) {
+            gDefendant = defendant;
+
             return models.Dispute
                 .create({
                     bet: data.bet,
                     name: data.name,
                     description: data.description,
-                    email: data.defendant.email,
+                    defendantEmail: data.defendant.email,
                     category: data.category,
                     activeUntil : (new Date()).setDate((new Date()).getDate()+7),
                     imgUrl : req.files.image
@@ -38,6 +46,24 @@ router.post('/disputes/', authMiddleware, function(req, res) {
         .then(function(dispute) {
             debug('dispute created');
             res.status(201).send(dispute);
+
+            return mandrill('/messages/send', {
+                message: {
+                    to: [{
+                        email: data.defendant.email,
+                        name: gDefendant ? gDefendant.name : data.defendant.email
+                    }],
+                    from_email: 'noreply@kangaroocourt.com',
+                    subject: `Invitation to dispute "${dispute.name}" `,
+                    html: disputeTemplate({
+                        user : user,
+                        dispute : dispute
+                    })
+                }
+            });
+        })
+        .then(function(response) {
+            debug('mail sent');
         })
         .catch(function(err){
             debug(err);

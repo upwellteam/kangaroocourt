@@ -19,6 +19,9 @@ var config = {
         password : rtg.auth.split(":")[1],
         lifetime : process.env.REDIS_TOKEN_LIFETIME
     },
+    mandrill : {
+        key : process.env.MANDRILL_API_KEY
+    },
     credentials : {
         facebook : {
             client_id : process.env.FACEBOOK_ID,

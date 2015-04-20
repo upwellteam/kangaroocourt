@@ -1,7 +1,9 @@
 section.section-main-content.index3
     .container
         .row
+
             // Main content
+
             .col-md-9.col-sm-9
                 .content-folio
                     button.btn.btn-danger#edit-btn(ng-click='ctrl.deleteDispute()')
@@ -29,15 +31,16 @@ section.section-main-content.index3
                                                 h2 Plaintiff - Argument
 
                                     .arg-add(ng-show='ctrl.dispute.Arguments.length == 0')
+                                        //input.form-control(type="text", ng-model="ctrl.argument")
                                         span.add
                                             i.fa.fa-plus
-                                            a(href='#')  Add Argument
+                                            a(ng-click='ctrl.saveArgument()')  Add Argument
                                     .arg-body(ng-show='ctrl.dispute.Arguments.length != 0')
                                             i.fa.fa-plus
                                             a(href='#')  Add Agrument
                                         p {{ ctrl.dispute.Agruments.argument }}
 
-                                    .arg-add(ng-show='ctrl.dispute.Arguments.length != 0')
+                                    .arg-add
                                         span.add
                                             i.fa.fa-plus
                                             a(href='#')  Add Evidence
@@ -61,7 +64,7 @@ section.section-main-content.index3
                                         a(href='#')  Add Agrument
                                     p {{ ctrl.dispute.Agruments.argument }}
 
-                                    .arg-add(ng-show='ctrl.dispute.Arguments.length != 0')
+                                    .arg-add
                                         span.add
                                             i.fa.fa-plus
                                             a(href='#')  Add Evidence
