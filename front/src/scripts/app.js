@@ -4,11 +4,11 @@ angular
     ])
     .constant('OAUTH_PROVIDERS', {
         facebook : {
-            client_id : '1430810303881868',
-            redirect_uri : 'http://kangaroo.loc:5000/oauth/facebook'
+            //client_id : '1430810303881868',
+            //redirect_uri : 'http://kangaroo.loc:5000/oauth/facebook'
 
-            //client_id : '1620271311542333',
-            //redirect_uri : 'http://kangaroocourt.herokuapp.com/oauth/facebook'
+            client_id : '1620271311542333',
+            redirect_uri : 'http://kangaroocourt.herokuapp.com/oauth/facebook'
         }
     })
     .constant('DISPUTE_CATEGORIES', [
