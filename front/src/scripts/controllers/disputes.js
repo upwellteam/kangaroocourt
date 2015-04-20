@@ -1,7 +1,6 @@
 function DisputeListController($http, $routeParams, Authentication) {
     var self = this;
     self.user = Authentication.getUser();
-
     this.disputes = [];
     $http
         .get('/api/disputes', {
@@ -17,9 +16,11 @@ function DisputeListController($http, $routeParams, Authentication) {
 function DisputeOneController($routeParams, $location, DisputesService, Authentication) {
     var self = this;
     self.user = Authentication.getUser();
-
     DisputesService.load($routeParams.id)
-        .then((dispute) => { self.dispute = dispute; })
+        .then((dispute) => {
+            console.log(dispute);
+            self.dispute = dispute;
+        })
         .catch((err, status) => {
             console.log(err, status);
             $location.path('/404').replace();

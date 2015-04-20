@@ -9,14 +9,16 @@
         .btn.btn-success.dollar-minus(
             ng-click='modal.changeBet(-1)',
             ng-mousedown='modal.startChange(-1)',
-            ng-mouseup='modal.endChange()') -
+            ng-mouseup='modal.endChange()')
+            span.glyphicon.glyphicon-minus
     .col-md-4.col-sm-4.col-xs-4
         #bet {{modal.dispute.bet}}
     .col-md-4.col-sm-4.col-xs-4
         .btn.btn-success.dollar-plus(
             ng-click='modal.changeBet(1)',
             ng-mousedown='modal.startChange(1)',
-            ng-mouseup='modal.endChange()') +
+            ng-mouseup='modal.endChange()')
+            span.glyphicon.glyphicon-plus
 .modal-body
 
     .form-group

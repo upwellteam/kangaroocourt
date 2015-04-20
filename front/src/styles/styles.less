@@ -1,30 +1,31 @@
-
 //
 // My styles
 //
 
-header img#avatar { width: 32px; height: 32px; border-radius: 50%; }
-
-.logo-img{
-  cursor: pointer;
-  height: 46px;
-}
 input.ng-dirty.ng-invalid {
   border: 1px solid #822;
   background-color: #fcc;
 }
 
-#collapse-btn {
-  float: right;
-  background-color: #2196f3;
-  color: #ffffff;
-  font-size: 15px;
-  padding: 5px;
-  margin: 5px;
-  span {
-    margin: 4px;
+/* ==========================================================================
+   Header area
+   ========================================================================== */
+
+header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
+
+.logo {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+  }
+  .logo-img{
+    width: 68px;
+    height: 46px;
+    float: left;
   }
 }
+
 .case {
   a {
     img {
@@ -34,33 +35,17 @@ input.ng-dirty.ng-invalid {
   }
 }
 
-.ul-mainmenu {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  li{
-    float: left;
-    a {
-      border-bottom: 2px solid #1976d2;
-      color: #a8d3f6;
-      display: block;
-      font-size: 14px;
-      padding: 15px 17px 13px;
-      text-decoration: none;
-      &:hover {
-        color: #fff;
-        border-bottom: 2px solid #fff;
-      }
-      &.active {
-        color: #fff;
-        border-bottom: 2px solid #fff;
-      }
-    }
-  }
-}
-.ul-header li a {
-  padding: 10px 0;
-}
+#collapse-btn {
+   float: right;
+   background-color: #2196f3;
+   color: #ffffff;
+   font-size: 15px;
+   padding: 5px;
+   margin: 5px;
+   span {
+     margin: 4px;
+   }
+ }
 
 @media only screen and (max-width: 767px) {
   .ul-mainmenu {
@@ -94,41 +79,10 @@ input.ng-dirty.ng-invalid {
 }
 
 /* ==========================================================================
-   Footer
-   ========================================================================== */
-footer{
-  padding: 40px 0 30px;
-  p{
-    color: #727272;
-    font-size: 14px;
-  }
-}
-.ul-footer {
-  float: right;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  li{
-    float: left;
-    a{
-      color: #727272;
-      font-size: 14px;
-      margin-right: 15px;
-    }
-  }
-}
-
-/* ==========================================================================
    Modal Area
    ========================================================================== */
+
 .modal-content {
-  .modal-header {
-    background: #388e3c;
-    border-bottom: 1px solid #e5e5e5;
-    color: #fff;
-    padding: 9px;
-    text-align: center;
-  }
   #amount {
     height: 120px;
     background: #4caf50;
@@ -148,14 +102,14 @@ footer{
       box-shadow: none
     }
     .dollar-minus, .dollar-plus {
-      border: 1px solid #ddd;
+      border: 2px solid #ddd;
       border-radius: 50%;
       font-size: 20px;
-      height: 30px;
+      height: 40px;
+      width: 40px;
       overflow: hidden;
-      width: 30px;
-      margin-top: 14px;
-      padding: 0;
+      margin-top: 9px;
+      padding: 6px 4px 6px 6px;
     }
   }
   .modal-body {
@@ -169,6 +123,9 @@ footer{
       color: #a4a4a4;
       float: right;
       font-size: 12px;
+    }
+    .form-group textarea{
+      padding: 6px 12px;
     }
   }
   .modal-footer{
@@ -200,6 +157,7 @@ footer{
     }
   }
 }
+
 .dropdown-menu {
   border-radius: 0;
   background-color: #2196F3;
@@ -218,6 +176,7 @@ footer{
     }
   }
 }
+
 .modal-check {
   float: left;
   color: #a4a4a4;
@@ -229,46 +188,30 @@ footer{
   .switch {
     border-radius: 1px;
     float: left;
-  }
-  .switch small {
-    border-radius: 1px;
+    small {
+      border-radius: 1px;
+    }
   }
 }
+
 /* ==========================================================================
    Content Right Area
    ========================================================================== */
 
 .top-right-content {
   background: rgba(0, 0, 0, 0) url("../img/bg-1.png") no-repeat scroll e("0 0 / 100% 100%");
-  padding: 14px;
-  h3 {
-    color: #5e5e5e;
-  }
-  h2 {
-    font-weight: bold;
-    font-size: 18px;
-  }
 }
 .bottom-right-content {
   background: rgba(0, 0, 0, 0) url("../img/shape-4.png") no-repeat scroll e("0 0 / 100% 100%");
-  padding: 14px;
-}
-.right-content-area {
-  margin-top: 30px;
-  h3{
-    font-weight: bold;
-    font-size: 16px;
-  }
-  p{
-    font-weight: normal;
-    font-size: 12px;
-    color: #727272;
-  }
 }
 
 .form-control {
   border-radius: 1px;
 }
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
 
 #edit-btn {
   float: right;
@@ -276,4 +219,20 @@ footer{
   width: 40px;
   height: 40px;
   padding: 9px;
+}
+
+.folio-comment {
+  margin: 45px 0 28px 40px;
+}
+textarea.form-control {
+  width: 100%;
+  float: right;
+  margin-bottom: 15px;
+}
+#comment-input-btn {
+  margin-top: 10px;
+}
+.img-disputants {
+  height: 69px;
+  width: 69px;
 }

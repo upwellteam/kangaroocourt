@@ -1,39 +1,90 @@
-.container
-    .row
-        .col-md-9.col-sm-9
-            .single-content
-                .row
-                    .col-md-2.col-sm-2(ng-show="!! ctrl.dispute.imgUrl")
-                        img.img-circle.img-responsive(ng-src='/{{ctrl.dispute.imgUrl}}', alt='')
-                    div(ng-class="ctrl.dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
+section.section-main-content.index3
+    .container
+        .row
+            // Main content
+            .col-md-9.col-sm-9
+                .content-folio
+                    button.btn.btn-danger#edit-btn(ng-click='ctrl.deleteDispute()')
+                        span.glyphicon.glyphicon-trash
+                    button.btn.btn-info#edit-btn()
+                        span.glyphicon.glyphicon-pencil
 
-                        button.btn.btn-danger#edit-btn(
-                            ng-click='ctrl.deleteDispute()')
-                            span.glyphicon.glyphicon-trash
-                        button.btn.btn-info#edit-btn()
-                            span.glyphicon.glyphicon-pencil
+                    header.folio-headline
+                        span.cat Claim
+                        h2 {{ ctrl.dispute.name }}
+                        p
+                            | {{ ctrl.dispute.description }}
+                    article.folio-body
+                        .row
 
-                        div.claim
-                            h4 Claim
-                            h3.name {{ ctrl.dispute.name }}
-                            span.description {{ ctrl.dispute.description }}
-                                div.disputants.defendant
-                                    img#img(ng-src='{{ ctrl.dispute.Plaintiff.imgUrl }}')
-                                    div.description
-                                        p Plaintiff - Argument
-                                        span.text {{ ctrl.dispute.Agruments.argument }}
-                                div.disputants.defendant
-                                    img#img(ng-src='{{ ctrl.dispute.Defendant.imgUrl }}')
-                                    div.description
-                                        p Defendant - Argument
-                                        span.text   {{ ctrl.dispute.Agruments.argument }}
+                            // Plaintiff
 
-        .col-md-3.col-sm-3
-            .right-content-area
-                .top-right-content
-                    h3 Case closes on
-                    h2 {{ ctrl.dispute.activeUntil | date : 'MM.dd.yyyy - h:mma' }}
-                .bottom-right-content
-                    h3 Jury
-                    h3(ng-show='!ctrl.dispute.juries') No Jurors Yet
-                    a(href='/') Invite Jurors
+                            .col-md-6.col-sm-6
+                                .argument
+                                    header.arg-heading
+                                        .row
+                                            .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                                                img.img-circle.img-responsive.img-disputants.one(ng-src='{{ ctrl.dispute.Plaintiff.imgUrl }}', alt='')
+                                            .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                                                h2 Plaintiff - Argument
+
+                                    .arg-add(ng-show='ctrl.dispute.Arguments.length == 0')
+                                        span.add
+                                            i.fa.fa-plus
+                                            a(href='#')  Add Argument
+                                    .arg-body(ng-show='ctrl.dispute.Arguments.length != 0')
+                                            i.fa.fa-plus
+                                            a(href='#')  Add Agrument
+                                        p {{ ctrl.dispute.Agruments.argument }}
+
+                                    .arg-add(ng-show='ctrl.dispute.Arguments.length != 0')
+                                        span.add
+                                            i.fa.fa-plus
+                                            a(href='#')  Add Evidence
+
+                            // Defendant
+
+                            .col-md-6.col-sm-6
+                                .argument
+                                    header.arg-heading
+                                        .row
+                                            .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                                                img.img-circle.img-responsive.img-disputants.two(src='img/addmin.png', alt='')
+                                            .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                                                h2 Defendant - Argument
+                                    .arg-add(ng-show='ctrl.dispute.Arguments.length == 0')
+                                        span.add
+                                            i.fa.fa-plus
+                                            a(href='#')  Add Argument
+                                    .arg-body(ng-show='ctrl.dispute.Arguments.length != 0')
+                                        i.fa.fa-plus
+                                        a(href='#')  Add Agrument
+                                    p {{ ctrl.dispute.Agruments.argument }}
+
+                                    .arg-add(ng-show='ctrl.dispute.Arguments.length != 0')
+                                        span.add
+                                            i.fa.fa-plus
+                                            a(href='#')  Add Evidence
+
+                    // Comments
+
+                    article.folio-comment.row
+                        .col-md-12.col-sm-12
+                            .form-group
+                                textarea.form-control(rows='3', placeholder='Enter your comments on the case....')
+                            .form-group
+                                button.btn.btn-default#comment-input-btn(type='submit') Submit Comment
+
+            // Right content
+
+            .col-md-3.col-sm-3
+                .right-content-area.index3-right
+                    .top-right-content.index3-tpct
+                        span.clase Case closes on
+                        h2 {{ ctrl.dispute.activeUntil | date : 'MM.dd.yyyy - h:mma' }}
+                    .bottom-right-content.index3-tpcb
+                        h3 Jury
+                        span.list
+                            img.img-circle.img-responsive(src='img/list.png', alt='', ng-show='!ctrl.dispute.juries')
+                            |  No Jurors Yet
+                        a.index3-invite(href='#') Invite Jurors
