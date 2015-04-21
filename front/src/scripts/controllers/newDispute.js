@@ -19,6 +19,7 @@
 
             this.dispute = {
                 name : '',
+                isPrivate : false,
                 description : '',
                 bet : 15,
                 category : 'Miscellaneous',
@@ -30,7 +31,6 @@
 
         submit() {
             var self = this;
-
             DisputesService
                 .create(this.dispute)
                 .then(function(result){

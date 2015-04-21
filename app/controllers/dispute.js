@@ -33,6 +33,7 @@ router.post('/disputes/', authMiddleware, function(req, res) {
                     bet: data.bet,
                     name: data.name,
                     description: data.description,
+                    isPrivate: data.isPrivate,
                     defendantEmail: data.defendant.email,
                     category: data.category,
                     activeUntil : (new Date()).setDate((new Date()).getDate()+7),
@@ -80,7 +81,9 @@ router.get('/disputes/', function(req, res) {
 
     models.Dispute
         .findAll({
-            where : req.query.category ? { category : req.query.category } : {},
+            where : req.query.category ? {
+                category : req.query.category,
+                isPrivate : 0} : { isPrivate : 0},
             include : [
                 { model: models.User, as : 'Defendant' },
                 { model: models.User, as : 'Plaintiff' },

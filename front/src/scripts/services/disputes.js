@@ -10,14 +10,13 @@
 
         create(dispute) {
             // TODO: validate before submitting
-
             return $q(function(resolve, reject){
                 $http
                     .post('/api/disputes', dispute)
                     .success((result) => {
                         resolve(result);
                     })
-                    .error(() => { reject(); })
+                    .error(() => { reject();  })
             });
         }
 

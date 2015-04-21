@@ -12,14 +12,7 @@ angular
         }
     })
     .constant('DISPUTE_CATEGORIES', [
-        'Love',
-        'Animals',
-        'Kids',
-        'Money',
-        'Work',
-        'Health',
-        'Intimacy',
-        'Miscellaneous'
+        'Love', 'Animals', 'Kids', 'Money', 'Work', 'Health', 'Intimacy', 'Miscellaneous'
     ])
     .config(($logProvider, $locationProvider, $routeProvider) => {
         $logProvider.debugEnabled(true);

@@ -1,8 +1,8 @@
-
 .modal-header
     button.close(type='button', ng-click='modal.cancel()')
         span(aria-hidden='true') &times;
     p#modal-newDispute.modal-title File complaint
+
 .modal-body#amount
     p Amount wagared
     .col-md-4.col-sm-4.col-xs-4
@@ -12,15 +12,15 @@
             ng-mouseup='modal.endChange()')
             span.glyphicon.glyphicon-minus
     .col-md-4.col-sm-4.col-xs-4
-        #bet {{modal.dispute.bet}}
+        #bet ${{modal.dispute.bet}}
     .col-md-4.col-sm-4.col-xs-4
         .btn.btn-success.dollar-plus(
             ng-click='modal.changeBet(1)',
             ng-mousedown='modal.startChange(1)',
             ng-mouseup='modal.endChange()')
             span.glyphicon.glyphicon-plus
-.modal-body
 
+.modal-body
     .form-group
         span.text-top
             .text-top-left Name
@@ -34,20 +34,14 @@
         span.text-top
             .text-top-left Defendant Email
         input.form-control(type='email', placeholder='Email', ng-model="modal.dispute.defendant.email")
-
-    // TODO: fileinput
-    //.form-control-wrapper.fileinput
-    //    span.text-top
-    //        .text-top-left Photo
-    //    input#inputFile(type="file", multiple="", name='image')
-
     .form-group
         span.text-top
             .text-top-left Dispute category
         select.form-control(ng-model="modal.dispute.category", ng-options="category for category in modal.categories")
+
 .modal-footer
     .modal-check
-        switch#private(name="enabled", ng-model="enabled", class="green")
+        switch#private(name="private", ng-model="modal.dispute.isPrivate", class="green")
         span.text Private?
     button.modal-button(ng-click='modal.submit()') New complaint
 

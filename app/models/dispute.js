@@ -29,6 +29,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
+        isPrivate: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
         defendantEmail : DataTypes.STRING(128)
     }, {
         setterMethods : {},

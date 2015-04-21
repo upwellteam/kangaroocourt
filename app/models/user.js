@@ -25,7 +25,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull : true,
             unique: true
         }
-
     }, {
         setterMethods : {},
         classMethods : {

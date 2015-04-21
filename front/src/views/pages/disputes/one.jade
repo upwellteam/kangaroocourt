@@ -13,6 +13,7 @@ section.section-main-content.index3
 
                     header.folio-headline
                         span.cat Claim
+                            span.private-dispute(ng-show='ctrl.dispute.isPrivate == 1') Private case
                         h2 {{ ctrl.dispute.name }}
                         p
                             | {{ ctrl.dispute.description }}

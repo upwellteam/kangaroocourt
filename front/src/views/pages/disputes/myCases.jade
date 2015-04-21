@@ -6,7 +6,9 @@ section.section-main-content.index2
                     .row
                         .col-lg-4.col-md-4.col-sm-4.col-xs-12
                             .single-content-part
+
                                 h1 My Cases
+
                                 .single-content-column(ng-repeat="dispute in disputesCtrl.disputes")
                                     .row
                                         .col-lg-3.col-md-3.col-sm-3.col-xs-3(ng-show="!! dispute.imgUrl")
@@ -22,9 +24,14 @@ section.section-main-content.index2
                                                     li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.createdAt | relativeDate }}
                                                     li /
                                                     li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
+                                                    br
+                                                    li: a(ng-show='dispute.isPrivate == 1', style='color: #FF504D;') Private
+
                         .col-lg-4.col-md-4.col-sm-4.col-xs-12
                             .single-content-part
+
                                 h1 Judging
+
                                 .single-content-column
                                     .row
                                         .col-lg-3.col-md-3.col-sm-3.col-xs-3
@@ -70,9 +77,12 @@ section.section-main-content.index2
                                                     li /
                                                     li
                                                         a(href='#') Intimacy
+
                         .col-lg-4.col-md-4.col-sm-4.col-xs-12
                             .single-content-part
+
                                 h1 Voting
+
                                 .single-content-column
                                     .row
                                         .col-lg-3.col-md-3.col-sm-3.col-xs-3

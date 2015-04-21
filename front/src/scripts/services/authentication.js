@@ -33,8 +33,6 @@
         }
 
         setToken(token) {
-            console.log(token);
-            storage.set('token', token);
             cookies.token = token;
         }
 
@@ -44,7 +42,6 @@
 
         removeToken() {
             storage.remove('token');
-            console.log(cookies);
             cookies.token = null;
         }
 
