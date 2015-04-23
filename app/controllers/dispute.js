@@ -21,7 +21,7 @@ router.post('/disputes/', authMiddleware, function(req, res) {
         data = req.body,
         user = res.locals.user;
 
-    var gDefendant;
+    var gDefendant, gDispute;
 
     models.User
         .find({ where : { email : data.defendant.email } })
@@ -47,7 +47,15 @@ router.post('/disputes/', authMiddleware, function(req, res) {
         .then(function(dispute) {
             debug('dispute created');
             res.status(201).send(dispute);
+            gDispute = dispute;
 
+            if(!gDefendant) {
+                return models.UserInvitation.create({ email: data.defendant.email})
+            }
+
+            return new Promise(function(resolve){ resolve(); })
+        })
+        .then(function(invitation){
             return mandrill('/messages/send', {
                 message: {
                     to: [{
@@ -55,10 +63,11 @@ router.post('/disputes/', authMiddleware, function(req, res) {
                         name: gDefendant ? gDefendant.name : data.defendant.email
                     }],
                     from_email: 'noreply@kangaroocourt.com',
-                    subject: `Invitation to dispute "${dispute.name}" `,
+                    subject: `Invitation to dispute "${gDispute.name}" `,
                     html: disputeTemplate({
                         user : user,
-                        dispute : dispute
+                        dispute : gDispute,
+                        invitation : invitation ? invitation.code : null
                     })
                 }
             });
@@ -103,15 +112,18 @@ router.get('/disputes/', function(req, res) {
 /**
  *
  */
-router.get('/user/:id', function(req, res) {
+router.get('/disputes/my', authMiddleware, function(req, res) {
     debug('GET /user/:id');
 
     var models = res.app.get('models'),
-        user = req.params.id;
+        user = res.locals.user;
 
     models.Dispute
         .findAll({
-            where : { PlaintiffId : user },
+            where : { $or : [
+                { PlaintiffId : user.id },
+                { DefendantId : user.id }
+            ]},
             order : 'createdAt DESC'
         })
         .then(function(dispute) {
@@ -123,7 +135,7 @@ router.get('/user/:id', function(req, res) {
         })
 });
 /**
- *
+ *      // TODO: check for privacy
  */
 router.get('/disputes/:id', function(req, res) {
     debug('GET /disputes/:id');

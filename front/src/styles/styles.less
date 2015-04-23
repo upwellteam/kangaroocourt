@@ -47,8 +47,12 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
    }
  }
 
-@media only screen and (max-width: 767px) {
+.ul-mainmenu li a.active{
+  color: #fff;
+  border-bottom: 4px solid #fff;
+}
 
+@media only screen and (max-width: 767px) {
   .ul-mainmenu {
     padding: 0;
     margin: 0;
@@ -195,15 +199,27 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
   }
 }
 
+#auth-btn-back {
+  background: #4caf50 none repeat scroll 0 0;
+  color: #fff;
+  font-size: 18px;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+  width: 85%;
+}
+
 /* ==========================================================================
    Content Right Area
    ========================================================================== */
 
 .top-right-content {
-  background: rgba(0, 0, 0, 0) url("../img/bg-1.png") no-repeat scroll e("0 0 / 100% 100%");
+  background: rgba(0, 0, 0, 0) url("../img/das.png") no-repeat scroll e("0 0 / 100% 100%");
+  height: auto;
 }
 .bottom-right-content {
   background: rgba(0, 0, 0, 0) url("../img/shape-4.png") no-repeat scroll e("0 0 / 100% 100%");
+  height: auto;
 }
 
 .form-control {
@@ -213,6 +229,12 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
 /* ==========================================================================
    Main Content Area
    ========================================================================== */
+.private-dispute {
+  font-size: 12px;
+  color: #FF504D;
+  margin-left: 10px;
+  vertical-align: top;
+}
 
 #edit-btn {
   float: right;
@@ -225,14 +247,11 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
 .folio-comment {
   margin: 45px 0 28px 40px;
 }
-textarea.form-control {
-  width: 100%;
-  float: right;
-  margin-bottom: 15px;
-}
+
 #comment-input-btn {
   margin-top: 10px;
 }
+
 .img-disputants {
   height: 69px;
   width: 69px;
@@ -240,12 +259,17 @@ textarea.form-control {
 
 .arg-add {
   height: auto;
-  padding: 32px 24px;
+  padding: 15px 15px;
 }
 
-.private-dispute {
-  font-size: 12px;
-  color: #FF504D;
-  margin-left: 10px;
-  vertical-align: top;
+textarea.form-control {
+  width: 100%;
+  float: right;
+  margin-bottom: 25px;
+  padding: 5px;
+  color: #000000;
 }
+
+/* ==========================================================================
+
+   ========================================================================== */

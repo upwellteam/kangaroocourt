@@ -1,0 +1,16 @@
+.modal-header
+    p.modal-title Welcome
+
+.modal-body
+    p Login via Facebook first to procceed
+
+.modal-body
+    .login
+        a(ng-href='{{modal.Authentication.oAuthLinks().facebook}}')
+            i.fa.fa-facebook-square
+            | Log in with Facebook
+
+.modal-footer
+    .login#auth-btn-back
+        a(href='/')
+            | Main page

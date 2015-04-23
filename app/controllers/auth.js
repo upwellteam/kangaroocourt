@@ -19,6 +19,7 @@ router.get('/oauth/:provider', function (req, res){
         credentials = config.credentials[req.params.provider];
 
     var code = req.query.code,
+        invitation = req.query.invitation,
         gToken, gProfileData, gUser;
 
     request({
@@ -64,6 +65,20 @@ router.get('/oauth/:provider', function (req, res){
         })
         .then(function(){
             return redis.expire(gToken, config.redis.lifetime);
+        })
+        .then(function(){
+            if (invitation != null) {
+                return models.UserInvitation
+                    .find({ where : { code : invitation } })
+                    .then(function(invitation) {
+                        debug('handling invitation');
+
+                        return invitation
+                            ? invitation.handle(gUser)
+                            : new Promise(function(resolve){ resolve(); });
+                    })
+            }
+            return new Promise(function(resolve){ resolve(); })
         })
         .then(function(){
             debug(`sending token: ${gToken}`);

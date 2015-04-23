@@ -37,6 +37,10 @@
                     self.instance.close();
                     location.path(`/disputes/${result.id}`);
                 })
+                .catch(() => {
+                    console.log('failed to create dispute');
+                    self.instance.close()
+                });
         }
 
         cancel() {

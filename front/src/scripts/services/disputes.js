@@ -16,7 +16,10 @@
                     .success((result) => {
                         resolve(result);
                     })
-                    .error(() => { reject();  })
+                    .error(() => {
+                        console.log('services:dispute: failed to create dispute');
+                        reject();
+                    })
             });
         }
 

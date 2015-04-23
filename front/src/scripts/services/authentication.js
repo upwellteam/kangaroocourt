@@ -30,10 +30,13 @@
         clear() {
             root.user = null;
             storage.remove('user');
+            return this;
         }
 
         setToken(token) {
             cookies.token = token;
+            storage.set('token', token);
+            return this;
         }
 
         getToken() {
@@ -43,6 +46,7 @@
         removeToken() {
             storage.remove('token');
             cookies.token = null;
+            return this;
         }
 
         isAuthenticated() {
@@ -50,15 +54,18 @@
         }
 
         oAuthLinks() {
+            var invitation = location.search().invitation;
             return {
                 facebook : `https://www.facebook.com/dialog/oauth?`+
                     `client_id=${OAUTH.facebook.client_id}` +
                     `&redirect_uri=${OAUTH.facebook.redirect_uri}` +
-                    `&scope=email`
+                    `&scope=email`+
+                    `&state=returnto:${location.path()}`
+                        + (invitation ? `;invitation:${location.search().invitation}` : '')
             };
         }
 
-        oAuthExecute(provider, code) {
+        oAuthExecute(provider, code, invitation) {
             var self = this;
 
             if (! provider in OAUTH) {
@@ -67,9 +74,8 @@
 
             return new Promise(function(resolve, reject){
                 http
-                    .get(`/api/oauth/${provider}?code=${code}`)
+                    .get(`/api/oauth/${provider}?code=${code}` + (invitation ? `&invitation=${invitation}` : '') )
                     .success(function(response, status) {
-                        console.log(response);
 
                         if (status !== 200 || response.error) {
                             return reject(new Error(response.data.error));

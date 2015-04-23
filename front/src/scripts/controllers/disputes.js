@@ -10,14 +10,26 @@ function DisputeListController($http, $routeParams, Authentication) {
         })
         .success(function(result) {
             self.disputes = result;
-        });
+        })
+        .catch(function(){
+            console.log('error');
+        })
 }
 
-function DisputeOneController($http, $routeParams, $location, DisputesService, Authentication) {
+function DisputeOneController($http, $routeParams, $modal, $location, DisputesService, Authentication) {
     var self = this;
 
     self.user = Authentication.getUser();
     self.role = null;
+
+    if ($location.search().invitation != null) {
+        $modal.open({
+            templateUrl: 'partials/modalAuth.html',
+            controller: 'ModalAuth as modal',
+            size: 'sm',
+            backdrop : 'static'
+        })
+    }
 
     DisputesService
         .load($routeParams.id)
@@ -36,11 +48,10 @@ function DisputeOneController($http, $routeParams, $location, DisputesService, A
             self.dispute = dispute;
             self.dispute.Arguments = Arguments;
 
-            if (dispute.DefendantId == self.user.id) {
+            if (self.user && dispute.DefendantId == self.user.id) {
                 self.role = 'defendant';
             }
-
-            if (dispute.PlaintiffId == self.user.id) {
+            if (self.user && dispute.PlaintiffId == self.user.id) {
                 self.role = 'plaintiff';
             }
         })
@@ -64,23 +75,20 @@ function DisputeOneController($http, $routeParams, $location, DisputesService, A
         $http
             .post('/api/argument', arg)
             .success(function(result) {
-                console.log('success');
                 self.dispute.Arguments[self.role] = result;
             })
             .catch((err, status) => {
                 console.log(err, status);
             })
-
     }
-
 }
 
-function UserDisputeController($http, $routeParams) {
+function UserDisputeController($http) {
     var self = this;
 
     this.disputes = [];
     $http
-        .get(`/api/user/${$routeParams.id}`)
+        .get(`/api/disputes/my`)
         .success(function(result) {
             self.disputes = result;
         })

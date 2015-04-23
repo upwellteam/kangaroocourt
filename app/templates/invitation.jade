@@ -6,4 +6,8 @@ p #{user.name} and jurors are waiting for you to participate.
 p The case:
 h3 #{dispute.name}
 span Have fun!
-| kangaroocourt.herokuapp.com/disputes/#{dispute.id}
+
+if invitation
+    p kangaroocourt.herokuapp.com/disputes/#{dispute.id}?invitation=#{invitation}
+else
+    p kangaroocourt.herokuapp.com/disputes/#{dispute.id}
