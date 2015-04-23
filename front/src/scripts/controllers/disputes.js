@@ -80,6 +80,14 @@ function DisputeOneController($http, $routeParams, $modal, $location, DisputesSe
             .catch((err, status) => {
                 console.log(err, status);
             })
+    };
+
+    self.inviteJuries = () => {
+        $modal.open({
+            templateUrl: 'partials/modalInvite.html',
+            controller: 'InviteJuries as invite',
+            size: 'sm'
+        })
     }
 }
 
@@ -94,8 +102,28 @@ function UserDisputeController($http) {
         })
 }
 
+function InviteJuries ($modalInstance) {
+    var InviteJuries = this;
+
+    this.list = [];
+
+    this.addEmail = function() {
+        InviteJuries.list.push(InviteJuries.email);
+        InviteJuries.email = '';
+    };
+
+    this.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+    this.sendInvite = function(){
+        // TODO: send invitation
+    }
+}
+
 angular
     .module('kangaroo')
     .controller('FrontController', DisputeListController)
     .controller('DisputeController', DisputeOneController)
-    .controller('UserDisputeController', UserDisputeController);
+    .controller('UserDisputeController', UserDisputeController)
+    .controller('InviteJuries', InviteJuries);

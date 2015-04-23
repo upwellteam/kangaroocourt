@@ -6,9 +6,10 @@ header.header-area
         .col-md-6.col-sm-6.col-xs-12.pull-right
             .header-right-area
                 ul.ul-header
-                    li(ng-show='!authenticated')
+                    li#fb-login(ng-show='!authenticated')
                         a(ng-href='{{oauthLinks.facebook}}')
-                            | Login
+                            i.fa.fa-facebook-square
+                            | Facebook Login
 
                     li(ng-controller='dropdownCtrl', ng-show='authenticated')
                         span.dropdown(dropdown='', on-toggle='toggled(open)')

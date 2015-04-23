@@ -1,0 +1,14 @@
+.modal-header
+    button.close(type='button', ng-click='invite.cancel()')
+        span(aria-hidden='true') &times;
+    p.modal-title Invite juries
+
+.modal-body
+    li(ng-repeat='email in invite.list')
+        span {{email}}
+
+.modal-footer
+    form.form-group#invite(ng-submit='invite.addEmail()')
+        input.form-control.ng-pristine.ng-valid.ng-touched(type='text', ng-model='invite.email', size='30', placeholder='email')
+        input.btn.btn-success(value='Invite')
+        input.btn.btn-primary(type='submit', value='Add')

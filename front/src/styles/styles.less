@@ -13,6 +13,14 @@ input.ng-dirty.ng-invalid {
 
 header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
 
+#fb-login {
+  margin-top: 9px;
+  a i {
+    margin-right: 10px;
+    font-size: 15px;
+  }
+}
+
 .logo {
   text-decoration: none;
   &:hover {
@@ -50,37 +58,6 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
 .ul-mainmenu li a.active{
   color: #fff;
   border-bottom: 4px solid #fff;
-}
-
-@media only screen and (max-width: 767px) {
-  .ul-mainmenu {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    li{
-      width: 100%;
-      a {
-        border-bottom: none;
-        color: #a8d3f6;
-        display: block;
-        font-size: 14px;
-        padding: 6px 6px 6px 10px;
-        text-decoration: none;
-        border-radius: 10px;
-        margin: 2px;
-        &:hover {
-          color: #fff;
-          border-bottom: none;
-          background-color: #2196f3;
-        }
-        &.active {
-          color: #fff;
-          border-bottom: none;
-          background-color: #2196f3;
-        }
-      }
-    }
-  }
 }
 
 /* ==========================================================================
@@ -273,3 +250,22 @@ textarea.form-control {
 /* ==========================================================================
 
    ========================================================================== */
+
+#invite{
+  .btn-success {
+    float: right;
+    width: 100px;
+    height: 35px;
+    margin-top: 10px;
+  }
+  .btn-primary {
+    float: left;
+    width: 100px;
+    height: 35px;
+    margin-top: 10px;
+  }
+}
+
+footer {
+  padding: 30px 0 0px;
+}
