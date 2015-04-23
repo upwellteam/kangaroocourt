@@ -17,6 +17,7 @@ var fs = require('fs'),
 //
 var paths = {
     js : [
+        'front/src/scripts/polyfills.js',
         'front/src/scripts/app.js',
         'front/src/scripts/services/*.js',
         'front/src/scripts/providers/*.js',
@@ -91,10 +92,10 @@ gulp.task('less', ['less-app', 'less-bootstrap']);
 gulp.task('js-app', function() {
     return gulp
         .src(paths.js)
-        .pipe(sourcemaps.init())
+        //.pipe(sourcemaps.init())
         .pipe(babel())
         .pipe(concat('all.js'))
-        .pipe(sourcemaps.write('.'))
+        //.pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('front/dist/js'))
 });
 

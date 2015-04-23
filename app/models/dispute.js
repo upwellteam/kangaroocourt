@@ -42,6 +42,7 @@ module.exports = function(sequelize, DataTypes) {
                 models.Dispute.belongsTo(models.User, {as: 'Plaintiff'});
                 models.Dispute.hasMany(models.Argument);
                 models.Dispute.hasMany(models.Jury);
+                models.Dispute.hasMany(models.Comment);
             }
         },
         instanceMethods: {}

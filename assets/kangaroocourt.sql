@@ -13,6 +13,15 @@ CREATE TABLE IF NOT EXISTS `Arguments` (
   `UserId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `Comments` (
+  `id` int(11) NOT NULL,
+  `text` text COLLATE utf8_unicode_ci NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `DisputeId` int(11) DEFAULT NULL,
+  `UserId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `Disputes` (
   `id` int(11) NOT NULL,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
@@ -62,6 +71,11 @@ ADD PRIMARY KEY (`id`),
 ADD KEY `DisputeId` (`DisputeId`),
 ADD KEY `UserId` (`UserId`);
 
+ALTER TABLE `Comments`
+ADD PRIMARY KEY (`id`),
+ADD KEY `DisputeId` (`DisputeId`),
+ADD KEY `UserId` (`UserId`);
+
 ALTER TABLE `Disputes`
 ADD PRIMARY KEY (`id`),
 ADD KEY `DefendantId` (`DefendantId`),
@@ -83,6 +97,8 @@ ADD UNIQUE KEY `imgUrl` (`imgUrl`);
 
 ALTER TABLE `Arguments`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Comments`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Disputes`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Juries`
@@ -95,6 +111,10 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Arguments`
 ADD CONSTRAINT `Arguments_ibfk_1` FOREIGN KEY (`DisputeId`) REFERENCES `Disputes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
 ADD CONSTRAINT `Arguments_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE `Comments`
+ADD CONSTRAINT `Comments_ibfk_1` FOREIGN KEY (`DisputeId`) REFERENCES `Disputes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+ADD CONSTRAINT `Comments_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 ALTER TABLE `Disputes`
 ADD CONSTRAINT `Disputes_ibfk_1` FOREIGN KEY (`DefendantId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,

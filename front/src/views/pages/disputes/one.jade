@@ -15,8 +15,7 @@ section.section-main-content.index3
                         span.cat Claim
                             span.private-dispute(ng-show='ctrl.dispute.isPrivate == 1') Private case
                         h2 {{ ctrl.dispute.name }}
-                        p
-                            | {{ ctrl.dispute.description }}
+                        p {{ ctrl.dispute.description }}
                     article.folio-body
                         .row
 
@@ -26,9 +25,9 @@ section.section-main-content.index3
                                 .argument
                                     header.arg-heading
                                         .row
-                                            .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                                            .col-lg-3.col-md-3.col-sm-3
                                                 img.img-circle.img-responsive.img-disputants.one(ng-src='{{ ctrl.dispute.Plaintiff.imgUrl }}', alt='')
-                                            .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                                            .col-lg-9.col-md-9.col-sm-9
                                                 h2 Plaintiff - Argument
 
                                     .arg-body(ng-show='ctrl.dispute.Arguments.plaintiff')
@@ -36,7 +35,7 @@ section.section-main-content.index3
 
                                     div(ng-show="ctrl.role == 'plaintiff'")
                                         .arg-add(ng-show='!ctrl.dispute.Arguments.plaintiff')
-                                            textarea.form-control(type="text", ng-model="Plaintiff.argument")
+                                            textarea.form-control(type="text", ng-model="Plaintiff.argument", placeholder='Type your argument here...')
                                             span.add
                                                 i.fa.fa-plus
                                                 a(ng-click='ctrl.saveArgument(Plaintiff.argument)')  Add Argument
@@ -51,13 +50,13 @@ section.section-main-content.index3
                                 .argument
                                     header.arg-heading
                                         .row
-                                            .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                                            .col-lg-3.col-md-3.col-sm-3
                                                 img.img-circle.img-responsive.img-disputants.two(ng-snow='ctrl.dispute.Defendant',
                                                                                                  ng-src='{{ ctrl.dispute.Defendant.imgUrl }}', alt='')
                                                 img.img-circle.img-responsive.img-disputants.two(ng-show='!ctrl.dispute.Defendant',
                                                                                                  src='/img/defendant.png', alt='')
 
-                                            .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                                            .col-lg-9.col-md-9.col-sm-9
                                                 h2 Defendant - Argument
 
                                     .arg-body(ng-show='ctrl.dispute.Arguments.defendant')
@@ -65,7 +64,7 @@ section.section-main-content.index3
 
                                     div(ng-show="ctrl.role == 'defendant'")
                                         .arg-add(ng-show='!ctrl.dispute.Arguments.defendant')
-                                            textarea.form-control(type="text", ng-model="Defendant.argument")
+                                            textarea.form-control(type="text", ng-model="Defendant.argument", placeholder='Type your argument here...')
                                             span.add
                                                 i.fa.fa-plus
                                                 a(ng-click='ctrl.saveArgument(Defendant.argument)')  Add Argument
@@ -76,12 +75,38 @@ section.section-main-content.index3
 
                     // Comments
 
-                    article.folio-comment.row
-                        .col-md-12.col-sm-12
-                            .form-group
-                                textarea.form-control(rows='3', placeholder='Enter your comments on the case....')
-                            .form-group
-                                button.btn.btn-default#comment-input-btn(type='submit') Submit Comment
+                    article.folio-comment
+                        form.form-horizontal
+                            .form-group.index4-cmnt(ng-repeat='comment in ctrl.dispute.Comments')
+                                ul
+                                    li
+                                        .left-group1
+                                            img.img-circle.img-responsive.index4-cd1(ng-src='{{ comment.User.imgUrl }}', alt='')
+                                        .left-group2
+                                            img.img-circle.img-responsive.index4-cd2(ng-src='{{ comment.User.imgUrl }}', alt='')
+                                        .right-group1
+                                            header.tafo-cmnt1
+                                                h2 {{ comment.User.name }}
+                                                span.ago {{ comment.createdAt | relativeDate }}
+                                                p {{ comment.text }}
+                                                a(ng-click='ctrl.removeComment(comment.id)', ng-show='comment.User.id == ctrl.user.id')
+                                                    span.glyphicon.glyphicon-trash
+                                        .right-group2
+                                            header.tafo-cmnt2
+                                                .title
+                                                    h2 {{ comment.User.name }}
+                                                    span.ago {{ comment.createdAt | relativeDate }}
+                                                p {{ comment.text }}
+                                                a(ng-click='ctrl.removeComment(comment.id)', ng-show='comment.User.id == ctrl.user.id')
+                                                    span.glyphicon.glyphicon-trash
+
+                            // Comments input
+
+                            .form-group(ng-show='ctrl.user')
+                                textarea.form-control.one(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="ctrl.newComment")
+                                textarea.form-control.two(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="ctrl.newComment")
+                            .form-group(ng-show='ctrl.user')
+                                button.btn.btn-default(type='submit', ng-click='ctrl.addComment(ctrl.newComment)') Submit Comment
 
             // Right content
 

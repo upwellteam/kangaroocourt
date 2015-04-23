@@ -221,14 +221,6 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
   padding: 9px;
 }
 
-.folio-comment {
-  margin: 45px 0 28px 40px;
-}
-
-#comment-input-btn {
-  margin-top: 10px;
-}
-
 .img-disputants {
   height: 69px;
   width: 69px;
@@ -245,6 +237,10 @@ textarea.form-control {
   margin-bottom: 25px;
   padding: 5px;
   color: #000000;
+}
+
+.glyphicon-trash {
+  float: right;
 }
 
 /* ==========================================================================
@@ -266,6 +262,56 @@ textarea.form-control {
   }
 }
 
-footer {
-  padding: 30px 0 0px;
+@media only screen and (max-width: 767px) {
+  .section-navigation {
+    margin-top: 231px;
+  }
+  .section-main-content {
+    top: 0;
+  }
+
+  .ul-mainmenu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    li{
+      width: 100%;
+      a {
+        border-bottom: none;
+        color: #a8d3f6;
+        display: block;
+        font-size: 14px;
+        padding: 6px 6px 6px 10px;
+        text-decoration: none;
+        border-radius: 10px;
+        margin: 2px;
+        &:hover {
+          color: #fff;
+          border-bottom: none;
+          background-color: #2196f3;
+        }
+        &.active {
+          color: #fff;
+          border-bottom: none;
+          background-color: #2196f3;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .section-navigation {
+    margin-top: 217px;
+  }
+}
+
+.index4-cd1 {
+  height: 50px;
+  width: 50px;
+  margin-top: 7px;
+}
+.index4-cd2 {
+  height: 50px;
+  width: 50px;
 }

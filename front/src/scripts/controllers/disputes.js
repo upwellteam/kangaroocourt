@@ -21,6 +21,7 @@ function DisputeOneController($http, $routeParams, $modal, $location, DisputesSe
 
     self.user = Authentication.getUser();
     self.role = null;
+    self.newComment = '';
 
     if ($location.search().invitation != null) {
         $modal.open({
@@ -85,9 +86,43 @@ function DisputeOneController($http, $routeParams, $modal, $location, DisputesSe
     self.inviteJuries = () => {
         $modal.open({
             templateUrl: 'partials/modalInvite.html',
-            controller: 'InviteJuries as invite',
+            controller: 'InviteJuriesController as invite',
             size: 'sm'
         })
+    };
+
+    self.addComment = (text) => {
+        var user = self.user,
+            comment = {
+                text : text,
+                DisputeId : self.dispute.id,
+                UserId : self.user.id
+            };
+
+
+        $http
+            .post('/api/comments', comment)
+            .success((result) => {
+                result.User = user;
+                self.dispute.Comments.push(result);
+                self.newComment = '';
+            })
+            .error(() => {
+                console.log(err, status);
+            })
+
+    };
+
+    self.removeComment = (id) => {
+        $http
+            .delete('/api/comments/'+id)
+            .success((result) => {
+                var i = self.dispute.Comments.findIndex((el) => el.id == id);
+                self.dispute.Comments.splice(i, 1);
+            })
+            .error(() => {
+                console.log(err, status);
+            })
     }
 }
 
@@ -102,7 +137,7 @@ function UserDisputeController($http) {
         })
 }
 
-function InviteJuries ($modalInstance) {
+function InviteJuriesController ($modalInstance) {
     var InviteJuries = this;
 
     this.list = [];
@@ -126,4 +161,4 @@ angular
     .controller('FrontController', DisputeListController)
     .controller('DisputeController', DisputeOneController)
     .controller('UserDisputeController', UserDisputeController)
-    .controller('InviteJuries', InviteJuries);
+    .controller('InviteJuriesController', InviteJuriesController);
