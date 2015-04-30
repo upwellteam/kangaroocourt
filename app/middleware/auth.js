@@ -13,7 +13,6 @@ module.exports = function authorize(req, res, next) {
 
     var token = req.cookies.token || req.query.token;
 
-
     redis
         .exists(token)
         .then(function(result){

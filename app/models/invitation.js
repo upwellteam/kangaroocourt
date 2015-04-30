@@ -1,4 +1,4 @@
-var debug = require('debug')('kangaroo:models:UserInvitation');
+var debug = require('debug')('kangaroo:models:Invitation');
 
 var Promise = require('bluebird');
 
@@ -6,7 +6,11 @@ var Promise = require('bluebird');
  *
  */
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('UserInvitation', {
+    return sequelize.define('Invitation', {
+        type : {
+            type : DataTypes.ENUM('jury', 'defendant'),
+            allowNull : false
+        },
         email: {
             type: DataTypes.STRING(128),
             allowNull : false
@@ -18,24 +22,43 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         setterMethods : {},
-        classMethods : {},
+        classMethods : {
+            associate : function(models) {
+                models.Invitation.belongsTo(models.Dispute);
+            }
+        },
         instanceMethods: {
             handle : function(user){
                 var self = this,
                     models = require('../app').get('models');
-
-                models.Dispute
-                    .findAll({ where : { defendantEmail : self.email} })
-                    .then(function(disputes){
-                        return Promise.map(disputes, function(dispute){
-                            dispute.DefendantId = user.id;
-                            disputes.defendantEmail = user.email;
-                            return dispute.save();
-                        });
+                return models.Invitation
+                    .findAll({
+                        where : { email : self.email },
+                        include : [
+                            models.Dispute
+                        ]
+                    })
+                    .then(function(invitations){
+                        return Promise.map(invitations, function(invitation) {
+                            switch (invitation.type) {
+                                case 'defendant' :
+                                    var dispute = invitation.Dispute;
+                                    dispute.setDataValue('DefendantId', user.id);
+                                    return dispute.save();
+                                case 'jury' :
+                                    return models.Jury
+                                        .find({ where : { InviteId : invitation.id} })
+                                        .then(function(jury){
+                                            jury.setDataValue('UserId', user.id);
+                                            jury.setDataValue('InviteId', null);
+                                            return jury.save();
+                                        });
+                            }
+                        })
                     })
                     .then(function(){
-                        return models.UserInvitation.destroy({ where : { email : self.email }})
-                    })
+                        return models.Invitation.destroy({ where : { email : self.email }})
+                    });
             }
         }
     });

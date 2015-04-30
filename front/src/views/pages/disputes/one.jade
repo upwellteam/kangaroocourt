@@ -6,11 +6,6 @@ section.section-main-content.index3
 
             .col-md-9.col-sm-9
                 .content-folio
-                    button.btn.btn-danger#edit-btn(ng-click='ctrl.deleteDispute()')
-                        span.glyphicon.glyphicon-trash
-                    button.btn.btn-info#edit-btn()
-                        span.glyphicon.glyphicon-pencil
-
                     header.folio-headline
                         span.cat Claim
                             span.private-dispute(ng-show='ctrl.dispute.isPrivate == 1') Private case
@@ -25,9 +20,9 @@ section.section-main-content.index3
                                 .argument
                                     header.arg-heading
                                         .row
-                                            .col-lg-3.col-md-3.col-sm-3
+                                            .col-lg-3.col-md-3.col-sm-4
                                                 img.img-circle.img-responsive.img-disputants.one(ng-src='{{ ctrl.dispute.Plaintiff.imgUrl }}', alt='')
-                                            .col-lg-9.col-md-9.col-sm-9
+                                            .col-lg-9.col-md-9.col-sm-8
                                                 h2 Plaintiff - Argument
 
                                     .arg-body(ng-show='ctrl.dispute.Arguments.plaintiff')
@@ -44,19 +39,29 @@ section.section-main-content.index3
                                                 i.fa.fa-plus
                                                 a(href='#')  Add Evidence
 
+                                    div(ng-show="ctrl.role =='jury' && ctrl.isVoted == false")
+                                        .arg-vote
+                                            button.btn.btn-defaultt.puff.plaintiff(type="submit", ng-click ="ctrl.saveVote('plaintiff')") Vote for Plaintiff
+
+                                    div(ng-show="ctrl.role =='jury' && ctrl.isVoted == true")
+                                        .arg-vote
+                                            span {{ctrl.plaintiffValue}}%
+                                            progressbar(value='ctrl.plaintiffValue')
+
+
                             // Defendant
 
                             .col-md-6.col-sm-6
                                 .argument
                                     header.arg-heading
                                         .row
-                                            .col-lg-3.col-md-3.col-sm-3
+                                            .col-lg-3.col-md-3.col-sm-4
                                                 img.img-circle.img-responsive.img-disputants.two(ng-snow='ctrl.dispute.Defendant',
                                                                                                  ng-src='{{ ctrl.dispute.Defendant.imgUrl }}', alt='')
                                                 img.img-circle.img-responsive.img-disputants.two(ng-show='!ctrl.dispute.Defendant',
                                                                                                  src='/img/defendant.png', alt='')
 
-                                            .col-lg-9.col-md-9.col-sm-9
+                                            .col-lg-9.col-md-9.col-sm-8
                                                 h2 Defendant - Argument
 
                                     .arg-body(ng-show='ctrl.dispute.Arguments.defendant')
@@ -72,6 +77,15 @@ section.section-main-content.index3
                                             span.add
                                                 i.fa.fa-plus
                                                 a(href='#')  Add Evidence
+
+                                    div(ng-show="ctrl.role =='jury' && ctrl.isVoted == false")
+                                        .arg-vote
+                                            button.btn.btn-defaultt.puff.defendant(type="submit", ng-click ="ctrl.saveVote('defendant')") Vote for Defendant
+
+                                    div(ng-show="ctrl.role =='jury' && ctrl.isVoted == true")
+                                        .arg-vote
+                                            span {{ctrl.defendantValue}}%
+                                            progressbar(value='ctrl.defendantValue', type='success')
 
                     // Comments
 
@@ -89,17 +103,18 @@ section.section-main-content.index3
                                                 h2 {{ comment.User.name }}
                                                 span.ago {{ comment.createdAt | relativeDate }}
                                                 p {{ comment.text }}
-                                                a(ng-click='ctrl.removeComment(comment.id)', ng-show='comment.User.id == ctrl.user.id')
-                                                    span.glyphicon.glyphicon-trash
+                                                span.glyphicon.glyphicon-trash#btn-remove-comment(ng-click='ctrl.removeComment(comment.id)',
+                                                                                                  ng-show='comment.User.id == ctrl.user.id',
+                                                                                                  title='Remove comment')
                                         .right-group2
                                             header.tafo-cmnt2
                                                 .title
                                                     h2 {{ comment.User.name }}
                                                     span.ago {{ comment.createdAt | relativeDate }}
                                                 p {{ comment.text }}
-                                                a(ng-click='ctrl.removeComment(comment.id)', ng-show='comment.User.id == ctrl.user.id')
-                                                    span.glyphicon.glyphicon-trash
-
+                                                span.glyphicon.glyphicon-trash#btn-remove-comment(ng-click='ctrl.removeComment(comment.id)',
+                                                                                                  ng-show='comment.User.id == ctrl.user.id',
+                                                                                                  title='Remove comment')
                             // Comments input
 
                             .form-group(ng-show='ctrl.user')
@@ -114,10 +129,21 @@ section.section-main-content.index3
                 .right-content-area.index3-right
                     .top-right-content.index3-tpct
                         span.clase Case closes on
-                        h2 {{ ctrl.dispute.activeUntil | date : 'MM.dd.yyyy - h:mma' }}
+                        h2 {{ ctrl.dispute.activeUntil | date : 'MMM d - h:mma' }}
+
                     .bottom-right-content.index3-tpcb
                         h3 Jury
-                        span.list
+                        span.list(ng-show='ctrl.dispute.Juries.length == 0')
                             img.img-circle.img-responsive(src='img/list.png', alt='', ng-show='!ctrl.dispute.juries')
-                            |  No Jurors Yet
-                        a.index3-invite(ng-click='ctrl.inviteJuries()') Invite Jurors
+                            | No Jurors Yet
+
+                        ul(ng-show='ctrl.dispute.Juries != 0')
+                            li(ng-repeat='jury in ctrl.dispute.Juries', ng-show='ctrl.dispute.Juries != 0')
+                                a(ng-href='#', title='{{jury.User.name}}')
+                                    img.img-responsive.tapo(ng-show='jury.User', ng-src='{{jury.User.imgUrl}}', alt='')
+                                    img.img-responsive.tapo(ng-show='!jury.User', src='img/list.png', alt='')
+
+                        a.juror(ng-show="ctrl.role == 'plaintiff' || ctrl.role == 'defendant'", ng-click='ctrl.inviteJuries(ctrl.dispute, ctrl.user)') Invite Jurors
+
+                    button.btn.btn-danger#remove-btn(ng-click='ctrl.deleteDispute()', ng-show='ctrl.user.id == ctrl.dispute.PlaintiffId')
+                        | Remove case

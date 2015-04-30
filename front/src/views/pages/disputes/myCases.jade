@@ -1,121 +1,49 @@
 section.section-main-content.index2
     .container
-        .row
-            .col-md-12.col-sm-12
-                .content-part
-                    .row
-                        .col-lg-4.col-md-4.col-sm-4.col-xs-12
-                            .single-content-part
+        .content-part
+            .row
+                .col-lg-6.col-md-6.col-sm-6.col-xs-12
+                    .single-content-part
 
-                                h1 My Cases
+                        h1 My Cases
 
-                                .single-content-column(ng-repeat="dispute in disputesCtrl.disputes")
-                                    .row
-                                        .col-lg-3.col-md-3.col-sm-3.col-xs-3(ng-show="!! dispute.imgUrl")
-                                            img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}', alt='')
-                                        .col-md-9.col-sm-9.col-sm-9.col-xs-9
-                                            .only-content-text.kid
-                                                h2: a(ng-href='disputes/{{dispute.id}}') {{ dispute.name }}
-                                                p
-                                                    | {{ dispute.description }}
-                                                ul.ul-single
-                                                    li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.Juries.length || 'no' }} votes
-                                                    li /
-                                                    li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.createdAt | relativeDate }}
-                                                    li /
-                                                    li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
-                                                    br
-                                                    li: a(ng-show='dispute.isPrivate == 1', style='color: #FF504D;') Private
+                        .single-content-column(ng-repeat="dispute in disputesCtrl.disputes.myCases")
+                            .row
+                                .col-lg-3.col-md-3.col-sm-3(ng-show="!! dispute.imgUrl")
+                                    img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}')
+                                .col-md-9.col-sm-9.col-sm-9
+                                    .only-content-text.kid
+                                        h2: a(ng-href='disputes/{{dispute.id}}') {{ dispute.name }}
+                                        p {{ dispute.description }}
+                                        ul.ul-single
+                                            li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.votes || 'no' }} votes
+                                            li /
+                                            li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.createdAt | relativeDate }}
+                                            li /
+                                            li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
+                                            br
+                                            li: a(ng-show='dispute.isPrivate == 1', style='color: #FF504D;') Private
 
-                        .col-lg-4.col-md-4.col-sm-4.col-xs-12
-                            .single-content-part
+                .col-lg-6.col-md-6.col-sm-6.col-xs-12
+                    .single-content-part
 
-                                h1 Judging
+                        h1 Judging
 
-                                .single-content-column
-                                    .row
-                                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                                            img.img-circle.img-responsive(src='img/img-2.png', alt='')
-                                        .col-md-9.col-sm-9.col-sm-9.col-xs-9
-                                            .only-content-text.kid
-                                                h2 Tamin used my toothbrush and should have to...
-                                                p
-                                                    | Dude uses my toothbrush, it's disgusting. I want him to buy me a new one. It's electric and costs $180!
-                                                ul.ul-single
-                                                    li
-                                                        a(href='#') 183 Votes
-                                                    li /
-                                                    li
-                                                        a(href='#') Money
-                                .single-content-column
-                                    .row
-                                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                                            img.img-circle.img-responsive(src='img/img-3.png', alt='')
-                                        .col-md-9.col-sm-9.col-sm-9.col-xs-9
-                                            .only-content-text.kid
-                                                h2 Little brother broke my Xbox One
-                                                p
-                                                    | My 12 year old little brother  "accidentally" threw my Xbox One out of  his tree house..
-                                                ul.ul-single
-                                                    li
-                                                        a(href='#') 174 Votes
-                                                    li /
-                                                    li
-                                                        a(href='#') Kids
-                                .single-content-column
-                                    .row
-                                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                                            img.img-circle.img-responsive(src='img/img-4.png', alt='')
-                                        .col-md-9.col-sm-9.col-sm-9.col-xs-9
-                                            .only-content-text.kid
-                                                h2 Wife says the new glasses make me look...
-                                                p
-                                                    | My wife thinks my new reading glasses make me look like a serial killer. I 100% disagree....
-                                                ul.ul-single
-                                                    li
-                                                        a(href='#') 126 Votes
-                                                    li /
-                                                    li
-                                                        a(href='#') Intimacy
-
-                        .col-lg-4.col-md-4.col-sm-4.col-xs-12
-                            .single-content-part
-
-                                h1 Voting
-
-                                .single-content-column
-                                    .row
-                                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                                            img.img-circle.img-responsive(src='img/img-3.png', alt='')
-                                        .col-md-9.col-sm-9.col-sm-9.col-xs-9
-                                            .only-content-text.kid
-                                                h2 Little brother broke my Xbox One
-                                                p
-                                                    | My 12 year old little brother  "accidentally" threw my Xbox One out of his tree house..
-                                                ul.ul-single
-                                                    li
-                                                        a(href='#') 174 Votes
-                                                    li /
-                                                    li
-                                                        a(href='#') Kids
-                                                    li /
-                                                    li.xtra
-                                                        a.com(href='#') Ending in 2 Days
-                                .single-content-column
-                                    .row
-                                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                                            img.img-circle.img-responsive(src='img/img-1.png', alt='')
-                                        .col-md-9.col-sm-9.col-sm-9.col-xs-9
-                                            .only-content-text.kid
-                                                h2 Roommate broke iPhone and should pay to fix it.
-                                                p
-                                                    | Two weeks ago my roommate stepped on my phone while drunk. I think he should pay to fix it...
-                                                ul.ul-single
-                                                    li
-                                                        a(href='#') 227 Votes
-                                                    li /
-                                                    li
-                                                        a(href='#') Miscellaneous
-                                                    li /
-                                                    li
-                                                        a.com(href='#') Ending in 4 Days
+                        .single-content-column(ng-repeat="dispute in disputesCtrl.disputes.judging")
+                            .row
+                                .col-lg-3.col-md-3.col-sm-3(ng-show="!! dispute.imgUrl")
+                                    img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}')
+                                .col-md-9.col-sm-9.col-sm-9
+                                    .only-content-text.kid
+                                        h2: a(ng-href='disputes/{{dispute.id}}') {{ dispute.name }}
+                                        p {{ dispute.description }}
+                                        ul.ul-single
+                                            li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.votes || 'no' }} votes
+                                            li /
+                                            li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.createdAt | relativeDate }}
+                                            li /
+                                            li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
+                                            li /
+                                            li: a(ng-href='disputes/{{dispute.id}}') By {{ dispute.Plaintiff.name }}
+                                            br
+                                            li: a(ng-show='dispute.isPrivate == 1', style='color: #FF504D;') Private

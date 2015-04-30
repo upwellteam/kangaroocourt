@@ -22,21 +22,21 @@
 
 .modal-body
     .form-group
-        span.text-top
-            .text-top-left Name
+        p.text-top
+            span.text-top-left Name
         input.form-control(type='text', placeholder="Dispute name", ng-model="modal.dispute.name")
     .form-group
-        span.text-top
-            .text-top-left Complain summary
-            .text-top-right {{400 - modal.dispute.description.length}} of 400
+        p.text-top
+            span.text-top-left Complain summary
+            span.text-top-right {{400 - modal.dispute.description.length}} of 400
         textarea.form-control(type='text', placeholder="Dispute summary", ng-model="modal.dispute.description")
     .form-group
-        span.text-top
-            .text-top-left Defendant Email
+        p.text-top
+            span.text-top-left Defendant Email
         input.form-control(type='email', placeholder='Email', ng-model="modal.dispute.defendant.email")
     .form-group
-        span.text-top
-            .text-top-left Dispute category
+        p.text-top
+            span.text-top-left Dispute category
         select.form-control(ng-model="modal.dispute.category", ng-options="category for category in modal.categories")
 
 .modal-footer

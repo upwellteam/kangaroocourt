@@ -5,3 +5,5 @@ front/vendor
 front/dist
 npm-debug.log
 assets/schema.mwb.bak
+
+app/controllers/poligon.js

@@ -3,19 +3,23 @@ var debug = require('debug')('kangaroo:comments'),
     router = require('express').Router(),
     utils = require('../utils');
 
-
 var authMiddleware = require('../middleware/auth.js');
 /**
  *
  */
-router.post('/comments', function(req, res) {
+router.post('/comments', authMiddleware, function(req, res) {
     debug('POST /comments');
 
     var models = res.app.get('models'),
-        data = req.body;
+        data = req.body,
+        user = res.locals.user;
 
     models.Comment
-        .create(data)
+        .create({
+            text : data.text,
+            DisputeId : data.dispute,
+            UserId : user.id
+        })
         .then(function(Comment){
             res.status(201).json(Comment);
         })
@@ -24,7 +28,6 @@ router.post('/comments', function(req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
-
 /**
  *  @example: /comments?dispute=:disputeId
  */
@@ -37,31 +40,6 @@ router.get('/comments', function (req, res) {
     models.Comment
         .findAll({
             where : { DisputeId : disputeId },
-            order : 'createdAt DESC'
-        })
-        .then(function(Comment) {
-            res.json(Comment);
-        })
-        .catch(utils.NotFoundError, function(err){
-            res.status(404).json({ error : err.message });
-        })
-        .catch(function(err){
-            debug(err);
-            res.status(500).json({ error : 'internal'});
-        })
-});
-/**
- *
- */
-router.get('/comments/:id', function (req, res) {
-    debug('GET /comments/:id');
-
-    var models = res.app.get('models'),
-        id = req.params.id;
-
-    models.Comment
-        .find({
-            where : { id : id },
             order : 'createdAt DESC'
         })
         .then(function(Comment) {

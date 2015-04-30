@@ -1,12 +1,8 @@
-h3 You have been invited by #{user.name}
-p You’ve been summoned to KC notice to the defendant look like?
-p #{user.name} has summoned you as a DEFENDANT in Kangaroo Court!
-p Body: You or #{user.name} will win #{dispute.bet}$, judged by you friends or anybody else.
-p #{user.name} and jurors are waiting for you to participate.
-p The case:
-h3 #{dispute.name}
-span Have fun!
-
+p #{user.name} has summoned you as a defendant in Kangaroo Court.
+p You or #{user.name} will win $#{dispute.bet}, judged by you friends or anybody else.
+p The filed complaint states:
+p #{dispute.name}
+p To read the full-complaint and write a counter-argument, please visit:
 if invitation
     p kangaroocourt.herokuapp.com/disputes/#{dispute.id}?invitation=#{invitation}
 else

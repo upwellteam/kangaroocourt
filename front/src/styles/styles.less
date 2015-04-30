@@ -21,8 +21,26 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
   }
 }
 
+.dropdown-menu {
+  border-radius: 0;
+  background-color: #2196F3;
+  border-top: none;
+  li {
+    width: 100%;
+    span {
+      margin: 2px 15px;
+    }
+    a {
+      color: #ffffff;
+      display: block;
+      font-size: 14px;
+      padding: 15px 17px 13px;
+      text-decoration: none;
+    }
+  }
+}
+
 .logo {
-  text-decoration: none;
   &:hover {
     text-decoration: none;
     color: #fff;
@@ -34,13 +52,9 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
   }
 }
 
-.case {
-  a {
-    img {
-      height: 24px;
-      width: 24px;
-    }
-  }
+.case a img {
+  height: 24px;
+  width: 24px;
 }
 
 #collapse-btn {
@@ -96,82 +110,38 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
   }
   .modal-body {
     background-color: #ffffff;
-    .text-top-left {
-      color: #a4a4a4;
-      float: left;
-      font-size: 12px;
-    }
-    .text-top-right {
-      color: #a4a4a4;
-      float: right;
-      font-size: 12px;
-    }
-    .form-group textarea{
-      padding: 6px 12px;
+    .form-group {
+      textarea{
+        padding: 6px 12px;
+      }
+      .text-top {
+        height: 10px;
+      }
     }
   }
   .modal-footer{
+    .modal-check {
+      float: left;
+      color: #a4a4a4;
+      font-size: 13px;
+      .text {
+        margin: 6px;
+        position: absolute;
+      }
+      .switch {
+        border-radius: 1px;
+        float: left;
+        small {
+          border-radius: 1px;
+        }
+      }
+    }
     .modal-button {
       float: right;
       background-color: #FF5252;
       color: #fff;
       padding: 10px 15px;
       border: none;
-    }
-    .login {
-      background: #5171a7 none repeat scroll 0 0;
-      color: #fff;
-      font-size: 18px;
-      margin: 0 auto;
-      padding: 10px;
-      text-align: center;
-      width: 85%;
-      a {
-        color: #fff;
-        text-decoration: none;
-        &:hover{
-          text-decoration: none;
-        }
-      }
-      .fa {
-        margin-right: 10px;
-      }
-    }
-  }
-}
-
-.dropdown-menu {
-  border-radius: 0;
-  background-color: #2196F3;
-  border-top: none;
-  li {
-    width: 100%;
-    span {
-      margin: 2px 15px;
-    }
-    a {
-      color: #ffffff;
-      display: block;
-      font-size: 14px;
-      padding: 15px 17px 13px;
-      text-decoration: none;
-    }
-  }
-}
-
-.modal-check {
-  float: left;
-  color: #a4a4a4;
-  font-size: 13px;
-  .text {
-    margin: 6px;
-    position: absolute;
-  }
-  .switch {
-    border-radius: 1px;
-    float: left;
-    small {
-      border-radius: 1px;
     }
   }
 }
@@ -184,6 +154,19 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
   padding: 10px;
   text-align: center;
   width: 85%;
+}
+
+.messages {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#invite-btn{
+  float: right;
+  width: 100px;
+  height: 35px;
+  margin-top: 15px;
+  border-radius: 1px;
 }
 
 /* ==========================================================================
@@ -203,9 +186,21 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
   border-radius: 1px;
 }
 
+.index3-tpcb li {
+  margin: 0 10px 7px 0;
+  a .tapo {
+    border-radius: 50%;
+  }
+}
+
+.juror {
+  cursor: pointer;
+}
+
 /* ==========================================================================
    Main Content Area
    ========================================================================== */
+
 .private-dispute {
   font-size: 12px;
   color: #FF504D;
@@ -213,17 +208,18 @@ header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
   vertical-align: top;
 }
 
-#edit-btn {
+#remove-btn {
   float: right;
-  margin: 10px 2px 2px 0;
-  width: 40px;
+  margin-top: 40px;
   height: 40px;
-  padding: 9px;
+  .glyphicon {
+    margin-left: 2px;
+  }
 }
 
 .img-disputants {
-  height: 69px;
-  width: 69px;
+  height: 75px;
+  width: 75px;
 }
 
 .arg-add {
@@ -239,26 +235,31 @@ textarea.form-control {
   color: #000000;
 }
 
-.glyphicon-trash {
+#btn-remove-comment {
   float: right;
+  color: #2196f3;
+  cursor: pointer;
 }
 
-/* ==========================================================================
+.arg-vote {
+  border-top: 1px solid #e5e5e5;
+}
 
+.progress {
+  margin-bottom: 0;
+  margin-top: 3px;
+  border-radius: 10px;
+  height: 13px;
+}
+
+
+/* ==========================================================================
+   My responsive stuff
    ========================================================================== */
 
-#invite{
-  .btn-success {
-    float: right;
-    width: 100px;
-    height: 35px;
-    margin-top: 10px;
-  }
-  .btn-primary {
-    float: left;
-    width: 100px;
-    height: 35px;
-    margin-top: 10px;
+@media only screen and (max-width: 767px) and (min-width: 480px) {
+  .arg-heading {
+    height: 120px;
   }
 }
 
@@ -266,7 +267,7 @@ textarea.form-control {
   .section-navigation {
     margin-top: 231px;
   }
-  .section-main-content {
+  .section-main-content, footer{
     top: 0;
   }
 

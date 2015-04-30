@@ -2,17 +2,14 @@ var debug = require('debug')('kangaroo:dispute');
 
 var router = require('express').Router(),
     jade = require('jade'),
-    utils = require('../utils'),
-    path = require('path');
-
-var ROOT = path.resolve(`${__dirname}/../../`);
+    utils = require('../utils');
 
 var authMiddleware = require('../middleware/auth.js');
+
+var disputeTemplate = jade.compileFile(`${__dirname}/../templates/invitation.jade`);
 /**
  *
  */
-var disputeTemplate = jade.compileFile(`${__dirname}/../templates/invitation.jade`);
-
 router.post('/disputes/', authMiddleware, function(req, res) {
     debug('POST /disputes/');
 
@@ -37,9 +34,7 @@ router.post('/disputes/', authMiddleware, function(req, res) {
                     defendantEmail: data.defendant.email,
                     category: data.category,
                     activeUntil : (new Date()).setDate((new Date()).getDate()+7),
-                    imgUrl : req.files.image
-                        ? path.relative(`${ROOT}`, req.files.image.path)
-                        : null,
+                    imgUrl : 'img/img-1.png',
                     PlaintiffId : user.id,
                     DefendantId : defendant ? defendant.id : null
                 })
@@ -50,7 +45,12 @@ router.post('/disputes/', authMiddleware, function(req, res) {
             gDispute = dispute;
 
             if(!gDefendant) {
-                return models.UserInvitation.create({ email: data.defendant.email})
+                debug('creating invite');
+                return models.Invitation.create({
+                    DisputeId : gDispute.id,
+                    type : 'defendant',
+                    email: data.defendant.email
+                })
             }
 
             return new Promise(function(resolve){ resolve(); })
@@ -72,7 +72,7 @@ router.post('/disputes/', authMiddleware, function(req, res) {
                 }
             });
         })
-        .then(function(response) {
+        .then(function() {
             debug('mail sent');
         })
         .catch(function(err){
@@ -113,21 +113,55 @@ router.get('/disputes/', function(req, res) {
  *
  */
 router.get('/disputes/my', authMiddleware, function(req, res) {
-    debug('GET /user/:id');
+    debug('GET /disputes/my');
 
     var models = res.app.get('models'),
         user = res.locals.user;
 
-    models.Dispute
+    var disputesJury = [],
+        disputes = {};
+
+    models.Jury
         .findAll({
-            where : { $or : [
-                { PlaintiffId : user.id },
-                { DefendantId : user.id }
-            ]},
+            where : { UserId : user.id },
             order : 'createdAt DESC'
         })
-        .then(function(dispute) {
-            res.json(dispute)
+        .then(function(jury) {
+            jury.forEach(function(jury){
+                disputesJury.push(jury.DisputeId);
+            });
+            return models.Dispute
+                .findAll({
+                    where : { id : disputesJury },
+                    include : [
+                        { model: models.User, as : 'Defendant' },
+                        { model: models.User, as : 'Plaintiff' },
+                        models.Jury
+                    ],
+                    order : 'createdAt DESC'
+                })
+        })
+        .then(function(data){
+            disputes.judging = data;
+
+            return models.Dispute
+                .findAll({
+                    where : {
+                        $or : [
+                            { PlaintiffId : user.id },
+                            { DefendantId : user.id }
+                        ]},
+                    include : [
+                        { model: models.User, as : 'Defendant' },
+                        { model: models.User, as : 'Plaintiff' },
+                        models.Jury
+                    ],
+                    order : 'createdAt DESC'
+                })
+        })
+        .then(function(data) {
+            disputes.myCases = data;
+            res.json(disputes)
         })
         .catch(function(err){
             debug(err);
@@ -150,8 +184,8 @@ router.get('/disputes/:id', function(req, res) {
                 { model: models.User, as : 'Defendant' },
                 { model: models.User, as : 'Plaintiff' },
                 { model: models.Comment, include : [{ model: models.User }] },
-                models.Argument,
-                models.Jury
+                { model: models.Jury, include : [{ model: models.User }] },
+                models.Argument
             ]
         })
         .then(function(dispute) {

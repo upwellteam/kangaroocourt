@@ -68,7 +68,7 @@ router.get('/oauth/:provider', function (req, res){
         })
         .then(function(){
             if (invitation != null) {
-                return models.UserInvitation
+                return models.Invitation
                     .find({ where : { code : invitation } })
                     .then(function(invitation) {
                         debug('handling invitation');

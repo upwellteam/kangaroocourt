@@ -11,9 +11,7 @@
 
             DisputesService = $DisputesService;
 
-
             this.categories = DISPUTE_CATEGORIES;
-
             this.instance = $modalInstance;
             this.user = Authentication.getUser();
 

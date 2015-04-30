@@ -1,0 +1,9 @@
+p #{user.name} has summoned you as a jury in Kangaroo Court.
+
+p The filed complaint states:
+p #{dispute.name}
+p To read the full-complaint and vote, please visit:
+if invitation
+    p kangaroocourt.herokuapp.com/disputes/#{dispute.id}?invitation=#{invitation}
+else
+    p kangaroocourt.herokuapp.com/disputes/#{dispute.id}
