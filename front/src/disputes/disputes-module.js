@@ -25,7 +25,7 @@ function configure($stateProvider) {
             controllerAs : 'self',
             resolve : {
                 dispute : [ '$stateParams', 'DisputesService', function($stateParams, DisputesService) {
-                    return DisputesService.load($stateParams.id);
+                    return DisputesService.loadDispute($stateParams.id);
                 }]
             }
         })

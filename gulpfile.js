@@ -36,6 +36,10 @@ var paths = {
     js : [
         'front/src/app.js',
 
+        // common
+        'front/src/common/common-module.js',
+        'front/src/common/*.js',
+
         // base
         'front/src/base/base-module.js',
         'front/src/base/**/*.js',
@@ -44,18 +48,17 @@ var paths = {
         'front/src/auth/auth-module.js',
         'front/src/auth/**/*.js',
 
-        // common
-        'front/src/common/common-module.js',
-        'front/src/common/*.js',
-
         // menu
         'front/src/menu/menu-module.js',
         'front/src/menu/**/*.js',
 
         // disputes
         'front/src/disputes/disputes-module.js',
-        'front/src/disputes/**/*.js'
+        'front/src/disputes/**/*.js',
 
+        // profile
+        'front/src/profile/profile-module.js',
+        'front/src/profile/**/*.js'
     ],
     libs : [
         'front/vendor/jquery/dist/jquery.js',
@@ -67,7 +70,8 @@ var paths = {
         'front/vendor/angular-ui-switch/angular-ui-switch.js',
         'front/vendor/angular-moment/angular-moment.js',
         'front/vendor/angular-permission/dist/angular-permission.js',
-        'front/vendor/angular-animate/angular-animate.js'
+        'front/vendor/angular-animate/angular-animate.js',
+        'front/vendor/angular-relative-date/angular-relative-date.js'
     ]
 };
 
@@ -141,7 +145,7 @@ gulp.task('copy-fonts', function() {
     return gulp
         .src([
             'front/vendor/bootstrap/fonts/*.*',
-            'front/vendor/bootstrap-material-design/fonts/*.*',
+            'front/vendor/font-awesome/fonts/*.*',
             'front/src/fonts/*.*'
         ])
         .pipe(gulp.dest('front/dist/fonts/'))

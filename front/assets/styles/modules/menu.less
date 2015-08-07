@@ -1,5 +1,159 @@
-// Menu
+/* ==========================================================================
+   Header Menu
+   ========================================================================== */
 menu {
+  background-color: #2196F3;
   margin: 0;
   padding: 0;
+  .navbar {
+    padding: 20px 30px;
+    margin-bottom: 0;
+    .navbar-header {
+      cursor: pointer;
+      position: relative;
+      top: 6px;
+      .logo {
+        width: 68px;
+        height: 46px;
+        float: left;
+      }
+      .navbar-brand {
+        font-size: 27px;
+        font-weight: bold;
+        color: #fff;
+        letter-spacing: 0.5px;
+      }
+    }
+    .navbar-right {
+      li {
+        &.open > a { background: none; }
+        a {
+          cursor: pointer;
+          color: #fff;
+          border-radius: 50px;
+          display: block;
+          font-size: 14px;
+          text-decoration: none;
+          outline: none;
+          .fa {
+            margin-right: 4px;
+          }
+          .avatar {
+            width: 36px;
+            height: 36px;
+            float: left;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 1;
+            margin: -7px 7px 0 0;
+            img {
+              height: 36px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+          &:hover {
+            background: darken(#2196F3, 3%);
+            color: #fff;
+          }
+        }
+        &.create {
+          background-color: #ff5252;
+          a:hover {
+            background: none;
+            border-radius: 0;
+            box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.5);
+          }
+        }
+        .dropdown-menu {
+          border-radius: 0;
+          background-color: #2196F3;
+          border-top: none;
+          li {
+            span { margin-right: 4px; }
+            a { border-radius: 0; }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   Navigation Menu
+   ========================================================================== */
+menu .navigation {
+  background-color: #1976D2;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 30px;
+  #collapse-btn {
+    float: right;
+    background-color: #2196f3;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 5px;
+    margin: 5px;
+    span { margin: 4px; }
+  }
+  .ul-mainmenu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    li {
+      float: left;
+      a {
+        border-bottom: 4px solid #1976d2;
+        color: #a8d3f6;
+        display: block;
+        font-size: 14px;
+        padding: 15px 17px 11px;
+        text-decoration: none;
+      }
+    }
+    li a:hover, li a.active {
+      color: #fff;
+      border-bottom: 4px solid #fff;
+    }
+  }
+}
+
+/* ==========================================================================
+   Navigation Menu Collapsed
+   ========================================================================== */
+@media only screen and (max-width: 767px) {
+  menu .navigation {
+    .ul-mainmenu {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      li {
+        width: 100%;
+        a {
+          border-bottom: none;
+          color: #a8d3f6;
+          display: block;
+          font-size: 14px;
+          padding: 6px 6px 6px 10px;
+          text-decoration: none;
+          border-radius: 10px;
+          margin: 2px;
+          &:hover {
+            color: #fff;
+            border-bottom: none;
+            background-color: #2196f3;
+          }
+          &.active {
+            color: #fff;
+            border-bottom: none;
+            background-color: #2196f3;
+          }
+        }
+      }
+    }
+  }
 }

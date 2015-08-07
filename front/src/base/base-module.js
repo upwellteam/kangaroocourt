@@ -1,6 +1,6 @@
 angular
     .module('kangaroo.base', [
-        'ui.router'
+        'kangaroo.common'
     ])
     .config(configure)
     .run(run);

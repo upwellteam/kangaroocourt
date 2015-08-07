@@ -16,7 +16,7 @@
     "angular-cookies": "~1.4.3",
     "angular-bootstrap": "*",
     "angular-permission": "~0.3.1",
-    "angular-relative-date": "*",
+    "angular-relative-date": "~1.0.0",
     "angular-moment": "*",
     "angular-ui-switch": "~0.1.0",
     "angular-animate": "~1.4.3",

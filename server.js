@@ -25,6 +25,8 @@ server.get([
     '/disputes/list/',
     '/disputes/list/:category',
     '/disputes/:id',
+    '/profile',
+    '/profile/disputes',
     '/403',
     '/404'
 ], function(req, res) {

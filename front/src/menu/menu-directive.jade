@@ -1,50 +1,46 @@
-header.header-area
-    .container: .row
-        .col-md-6.col-sm-6.col-xs-12.pull-left
-            a.logo.logo-text(ui-sref='disputes.list') Kangaroo Court
-                img.img-responsive.logo-img(src='/images/logo.png', alt='')
-        .col-md-6.col-sm-6.col-xs-12.pull-right
-            .header-right-area
-                ul.ul-header
-                    li#fb-login(ng-show='!self.authenticated')
-                        a(ng-href='{{self.oauthLinks.facebook}}')
-                            i.fa.fa-facebook-square
-                            | Facebook Login
-                    li(ng-show='self.authenticated')
-                        span.dropdown(dropdown='', on-toggle='toggled(open)')
-                            a.dropdown-toggle(dropdown-toggle='')
-                                img#avatar(ng-src='{{self.user.imgUrl}}')
-                                span {{self.user.firstName}}
-                            ul.dropdown-menu
-                                li: a(href='/logout')
-                                    span.glyphicon.glyphicon-log-out
-                                    | Logout
+nav.navbar
+    .navbar-header(ui-sref='disputes.list')
+        img.logo(src='/images/logo.png', alt='')
+        span.navbar-brand Kangaroocourt
+    ul.nav.navbar-nav.navbar-right
+        li.facebook(ng-show='!self.authenticated')
+            a(ng-href='{{self.oauthLinks.facebook}}')
+                i.fa.fa-facebook-square
+                | Facebook Login
+        li.dropdown(ng-show='self.authenticated', dropdown, on-toggle='toggled(open)')
+            a.dropdown-toggle(dropdown-toggle='')
+                .avatar
+                    img(ng-src='{{self.user.imgUrl}}')
+                span {{self.user.firstName}}
+            ul.dropdown-menu
+                li: a(ng-click='self.logout()')
+                    span.glyphicon.glyphicon-log-out
+                    | Logout
 
-                    li.case(ng-show='self.authenticated')
-                        a(ng-href='/my')
-                            img(src='/images/case.png', alt='')
-                            |  My Cases
+        li.case(ng-show='self.authenticated')
+            a(ui-sref='profile.disputes')
+                i.fa.fa-briefcase
+                |  My Cases
+        li.create(ng-click='self.createDispute()')
+            a + New complaint
 
-                button(ng-click='self.createDispute()')
-                    span +
-                    |  New complaint
-section.section-navigation
-    .container
-        button.btn.hidden-sm.hidden-md.hidden-lg(ng-click="self.toggleCollapsedMenu()")#collapse-btn
-            span MENU
-            span.glyphicon.glyphicon-list
 
-        div(collapse="self.collapsedMenu", style="width:100%;")
-            ul.ul-mainmenu.hidden-sm.hidden-md.hidden-lg
-                li: a(ui-sref="disputes.list({ category : 'All'})"
-                      ui-sref-active='active') All
-                li(ng-repeat='category in self.categories')
-                    a(ui-sref="disputes.list({ category : 'All'})"
-                      ui-sref-active='active') {{ self.CommonService.capitalize(category) }}
+.container.navigation
+    button.btn.hidden-sm.hidden-md.hidden-lg(ng-click="self.toggleCollapsedMenu()")#collapse-btn
+        span MENU
+        span.glyphicon.glyphicon-list
 
-        ul.ul-mainmenu.hidden-xs
+    div(collapse="self.collapsedMenu")
+        ul.ul-mainmenu.hidden-sm.hidden-md.hidden-lg
             li: a(ui-sref="disputes.list({ category : 'All'})"
                   ui-sref-active='active') All
             li(ng-repeat='category in self.categories')
-                a(ui-sref='disputes.list({ category : category })'
+                a(ui-sref="disputes.list({ category : category})"
                   ui-sref-active='active') {{ self.CommonService.capitalize(category) }}
+
+    ul.ul-mainmenu.hidden-xs
+        li: a(ui-sref="disputes.list({ category : 'All'})"
+              ui-sref-active='active') All
+        li(ng-repeat='category in self.categories')
+            a(ui-sref='disputes.list({ category : category })'
+              ui-sref-active='active') {{ self.CommonService.capitalize(category) }}

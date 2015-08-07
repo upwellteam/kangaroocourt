@@ -1,2 +1,4 @@
 angular
-    .module('kangaroo.menu', []);
+    .module('kangaroo.menu', [
+
+    ]);

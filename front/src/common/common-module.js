@@ -15,6 +15,6 @@ function configure($stateProvider) {
 
     frontController.$inject = ['$state'];
     function frontController($state) {
-        return $state.go("disputes.list({ category : 'all'})")
+        return $state.go("disputes.list")
     }
 }

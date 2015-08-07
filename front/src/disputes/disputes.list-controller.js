@@ -2,22 +2,18 @@ angular
     .module('kangaroo.disputes')
     .controller('DisputesListController', DisputesListController);
 
-DisputesListController.$inject = ['$http', '$stateParams', 'Authentication'];
+DisputesListController.$inject = ['$stateParams', 'Authentication', 'DisputesService'];
 
-function DisputesListController($http, $stateParams, Authentication) {
+function DisputesListController($stateParams, Authentication, DisputesService) {
     var self = this;
 
     self.user = Authentication.getUser();
     self.disputes = [];
 
-    $http
-        .get('/api/disputes', {
-            params : $stateParams.category
-                ? { category : $stateParams.category }
-                : {}
-        })
-        .success(function(result) {
-            self.disputes = result;
+    DisputesService
+        .loadDisputes($stateParams.category)
+        .then((response) => {
+            self.disputes = response;
             self.disputes.forEach(function(dispute){
                 dispute.votes = 0;
                 dispute.Juries.forEach(function(jury) {

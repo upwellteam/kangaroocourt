@@ -2,6 +2,8 @@ angular
     .module('kangaroo.disputes')
     .controller('DisputeController', DisputeController);
 
+DisputeController.$inject = ['dispute', '$http', '$modal', '$location', 'DisputesService', 'Authentication'];
+
 function DisputeController(dispute, $http, $modal, $location, DisputesService, Authentication) {
     var self = this;
 

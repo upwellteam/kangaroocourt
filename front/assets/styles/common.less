@@ -6,78 +6,13 @@ input.ng-dirty.ng-invalid {
   border: 1px solid #822;
   background-color: #fcc;
 }
-
-/* ==========================================================================
-   Header area
-   ========================================================================== */
-
-header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
-
-#fb-login {
-  margin-top: 9px;
-  a i {
-    margin-right: 10px;
-    font-size: 15px;
-  }
-}
-
-.dropdown-menu {
-  border-radius: 0;
-  background-color: #2196F3;
-  border-top: none;
-  li {
-    width: 100%;
-    span {
-      margin: 2px 15px;
-    }
-    a {
-      color: #ffffff;
-      display: block;
-      font-size: 14px;
-      padding: 15px 17px 13px;
-      text-decoration: none;
-    }
-  }
-}
-
-.logo {
-  &:hover {
-    text-decoration: none;
-    color: #fff;
-  }
-  .logo-img{
-    width: 68px;
-    height: 46px;
-    float: left;
-  }
-}
-
-.case a img {
-  height: 24px;
-  width: 24px;
-}
-
-#collapse-btn {
-   float: right;
-   background-color: #2196f3;
-   color: #ffffff;
-   font-size: 15px;
-   padding: 5px;
-   margin: 5px;
-   span {
-     margin: 4px;
-   }
- }
-
-.ul-mainmenu li a.active{
-  color: #fff;
-  border-bottom: 4px solid #fff;
+main {
+  margin-top: 50px;
 }
 
 /* ==========================================================================
    Modal Area
    ========================================================================== */
-
 .modal-content {
   #amount {
     height: 120px;
@@ -264,46 +199,8 @@ textarea.form-control {
 }
 
 @media only screen and (max-width: 767px) {
-  .section-navigation {
-    margin-top: 231px;
-  }
   .section-main-content, footer{
     top: 0;
-  }
-
-  .ul-mainmenu {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    li{
-      width: 100%;
-      a {
-        border-bottom: none;
-        color: #a8d3f6;
-        display: block;
-        font-size: 14px;
-        padding: 6px 6px 6px 10px;
-        text-decoration: none;
-        border-radius: 10px;
-        margin: 2px;
-        &:hover {
-          color: #fff;
-          border-bottom: none;
-          background-color: #2196f3;
-        }
-        &.active {
-          color: #fff;
-          border-bottom: none;
-          background-color: #2196f3;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .section-navigation {
-    margin-top: 217px;
   }
 }
 

@@ -10,9 +10,9 @@ function MenuDirective() {
     }
 }
 
-MenuDirectiveController.$inject = ['DISPUTE_CATEGORIES', '$modal', 'Authentication', 'CommonService'];
+MenuDirectiveController.$inject = ['DISPUTE_CATEGORIES', '$modal', '$state', 'Authentication', 'CommonService'];
 
-function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, Authentication, CommonService) {
+function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, $state, Authentication, CommonService) {
     var self = this;
 
     this.categories = DISPUTE_CATEGORIES;
@@ -36,6 +36,17 @@ function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, Authentication, Com
         self.collapsedMenu = !self.collapsedMenu
     };
 
+    this.logout = () => {
+        Authentication
+            .logout()
+            .then(() => {
+                $state.go('front')
+            })
+            .catch((err) => {
+                console.error(err);
+                $state.go('front')
+            })
+    };
     //$timeout(()=>{
     //    $rootScope.$watch('user', function(){
     //        scope.user = Authentication.getUser();
@@ -43,20 +54,4 @@ function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, Authentication, Com
     //        scope.authenticated = Authentication.isAuthenticated();
     //    });
     //}, 1);
-    //
-    //scope.mkActive = function(el) {
-    //    if ($routeParams.category == el) {
-    //        return "active";
-    //    }
-    //};
-    //scope.mkActiveAll = function() {
-    //    if ($location.path() == '/') {
-    //        return "active";
-    //    }
-    //}
-    //$scope.toggleDropdown = function($event) {
-    //    $event.preventDefault();
-    //    $event.stopPropagation();
-    //    $scope.status.isopen = !$scope.status.isopen;
-    //};
 }

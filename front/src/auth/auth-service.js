@@ -95,21 +95,11 @@
         logout() {
             var self = this;
             return http
-                .post('/logout')
+                .get(`/api/logout`)
                 .then(function(){
                     self.removeToken();
                     self.clear();
                 })
-        }
-
-        register(data) {
-            var self = this;
-            return http
-                .post('/users', data)
-                .then(function(response) {
-                    self.setToken(response.token);
-                    self.setUser(response.user);
-                });
         }
     }
 

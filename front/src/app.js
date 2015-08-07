@@ -6,7 +6,8 @@ angular
         'kangaroo.menu',
 
         'kangaroo.disputes',
-        'ui.router',
+        'kangaroo.profile',
+
         'ui.bootstrap',
         'ngAnimate'
     ])

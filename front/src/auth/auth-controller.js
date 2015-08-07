@@ -12,8 +12,6 @@ function OAuthController($stateParams, $location, Authentication) {
             state[param[0]] = param[1];
         });
 
-    console.log(provider, code, state.invitation);
-
     Authentication
         .oAuthExecute(provider, code, state.invitation || null)
         .then(function(result) {
@@ -25,14 +23,6 @@ function OAuthController($stateParams, $location, Authentication) {
         });
 }
 
-function LogoutController($location, Authentication) {
-    Authentication
-        .logout()
-        .then(()=>{
-            $location.url('/').replace();
-        })
-}
-
 function ModalAuth (Authentication) {
     this.Authentication = Authentication;
 }
@@ -42,5 +32,4 @@ OAuthController.$inject = ['$stateParams', '$location', 'Authentication'];
 angular
     .module('kangaroo.auth')
     .controller('OAuthController', OAuthController)
-    .controller('LogoutController', LogoutController)
     .controller('ModalAuth', ModalAuth);

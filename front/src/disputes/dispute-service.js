@@ -22,10 +22,25 @@
             });
         }
 
-        load(id) {
+        loadDispute(id) {
             return $q(function(resolve, reject){
                 $http
                     .get(`/api/disputes/${id}`)
+                    .success(function(result) {
+                        resolve(result);
+                    })
+                    .error((error, status) => { reject(error, status); })
+            })
+        }
+
+        loadDisputes(category) {
+            return $q(function(resolve, reject){
+                $http
+                    .get('/api/disputes', {
+                        params : category
+                            ? { category : category }
+                            : {}
+                    })
                     .success(function(result) {
                         resolve(result);
                     })
