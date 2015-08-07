@@ -1,0 +1,17 @@
+.modal-header
+    button.close(type='button', ng-click='invite.cancel()')
+        span(aria-hidden='true') &times;
+    p.modal-title Invite juries
+.modal-body(ng-show='invite.jury.length !=0')
+    li(ng-repeat='jury in invite.jury')
+        span {{ jury.User.email }}
+.modal-footer
+    form.form-group
+        input.form-control(type='email', ng-model='email', size='30', placeholder='email')
+        div.messages
+            div.alert.alert-danger(ng-show='email == invite.dispute.Plaintiff.email')
+                span Plaintiff can't be a jury
+            div.alert.alert-danger(ng-show='email == invite.dispute.defendantEmail')
+                span Defendant can't be a jury
+        input.btn.btn-success#invite-btn(ng-click='invite.sendInvite(email)', value='Invite',
+        ng-disabled='email == invite.dispute.Plaintiff.email || email == invite.dispute.defendantEmail')

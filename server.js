@@ -1,12 +1,15 @@
-var debug = require('debug')('all');
+require('dotenv').load({ silent: true });
 
-require('dotenv').load();
+var debug = require('debug')('kangaroo:server');
 
+// Libraries
 var express = require('express'),
-	server = express(),
     application = require('./app/app.js');
 
-server.set('port', (process.env.PORT || 5000));
+var server = express();
+
+server.set('port', (process.env.PORT || 3000));
+server.set('x-powered-by', false);
 
 server.use(function(req, res, next){
     debug(req.url);
@@ -16,12 +19,26 @@ server.use(function(req, res, next){
 server.use('/api', application);
 server.use('/uploads', express.static(`${__dirname}/uploads`));
 server.use(express.static(`${__dirname}/front/dist`));
-server.use(function(req, res){
-    res.sendFile(`${__dirname}/front/dist/index.html`)
+server.get([
+    '/',
+    '/oauth/:provider',
+    '/disputes/list/',
+    '/disputes/list/:category',
+    '/disputes/:id',
+    '/403',
+    '/404'
+], function(req, res) {
+    res.sendFile(`${__dirname}/front/dist/index.html`);
+});
+
+server.use(function(req, res, next) {
+    debug(`unresolved url: ${req.headers.host}${req.url}`);
+    next();
 });
 
 server.listen(server.get('port'), function () {
-	console.log('Running on ' + server.get('port'));
+    debug(`Server listening on port ${server.get('port')}`);
+    debug('Environment is ' + application.get('env'));
 });
 
 module.exports = server;

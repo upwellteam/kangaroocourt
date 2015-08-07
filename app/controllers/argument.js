@@ -17,10 +17,10 @@ router.post('/argument', authMiddleware, function(req, res) {
         user = res.locals.user;
 
     models.Dispute
-        .find({ where : { id : data.dispute } })
+        .find({ where : { id : data.DisputeId } })
         .then(function(dispute){
             if (!dispute) {
-                throw new utils.NotFoundError(`no dispute with id = ${data.dispute}`)
+                throw new utils.NotFoundError(`no dispute with id = ${data.DisputeId}`)
             }
 
             switch (user.id) {
@@ -37,7 +37,7 @@ router.post('/argument', authMiddleware, function(req, res) {
             return models.Argument.create({
                     argument : data.argument,
                     role : data.role,
-                    DisputeId : data.dispute,
+                    DisputeId : data.DisputeId,
                     UserId : user.id
                 })
         })

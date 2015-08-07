@@ -1,0 +1,31 @@
+doctype html
+
+html(ng-app="kangaroocourt", ng-scrict-di)
+    head
+        title Kangaroo Court
+        base(href="/")
+        meta(charset='utf-8')
+        meta(name="viewport",content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0")
+        link(rel="stylesheet", href="/css/bootstrap.css", type="text/css")
+        link(rel="stylesheet", href="/css/styles.css", type="text/css")
+        link(href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', rel='stylesheet')
+        link(href='http://fonts.googleapis.com/css?family=Roboto:400,700', rel='stylesheet', type='text/css')
+
+    body(ng-class="$state.current.name|expandState")
+        menu
+
+        main(ui-view)
+
+        footer.footer-area
+            .container
+                .row
+                    .col-md-6.col-sm-6
+                        p Copyright © Kangaroo Court 2015
+                    .col-md-6.col-sm-6
+                        ul.ul-footer
+                            li: a(href='#') About
+                            li: a(href='#') Contact
+                            li: a(href='#') Follow us on Twitter
+
+        script(type='text/javascript', src='/js/vendor.js')
+        script(type='text/javascript', src='/js/all.js')

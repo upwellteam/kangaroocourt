@@ -1,37 +1,73 @@
 'use strict';
 
-//   Libraries
+require('dotenv').load();
 
-var fs = require('fs'),
+
+//   Libraries
+var argv = require('yargs').argv,
     gulp = require('gulp'),
+    fs = require('fs'),
+
     jade = require('gulp-jade'),
     less = require('gulp-less'),
+    wrap = require('gulp-wrap'),
+    gulpif = require('gulp-if'),
+    babel = require('gulp-babel'),
+    uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),    
     addSrc = require('gulp-add-src'),
+    sequence = require('gulp-sequence'),
+    minifyCSS = require('gulp-minify-css'),
+
+    prompt = require('prompt'),
+    md5 = require('md5'),
     sourcemaps = require('gulp-sourcemaps'),
-    babel = require('gulp-babel');
+    path = require('path'),
+    deepExtend = require('extend').bind(null, true);
+
+var env = argv.env || process.env.NODE_ENV || 'development';
+process.env.NODE_ENV = env;
 
 //
 //   Paths and configurations
 //
 var paths = {
     js : [
-        'front/src/scripts/polyfills.js',
-        'front/src/scripts/app.js',
-        'front/src/scripts/services/*.js',
-        'front/src/scripts/providers/*.js',
-        'front/src/scripts/directives/*.js',
-        'front/src/scripts/controllers/*.js'
+        'front/src/app.js',
+
+        // base
+        'front/src/base/base-module.js',
+        'front/src/base/**/*.js',
+
+        // auth
+        'front/src/auth/auth-module.js',
+        'front/src/auth/**/*.js',
+
+        // common
+        'front/src/common/common-module.js',
+        'front/src/common/*.js',
+
+        // menu
+        'front/src/menu/menu-module.js',
+        'front/src/menu/**/*.js',
+
+        // disputes
+        'front/src/disputes/disputes-module.js',
+        'front/src/disputes/**/*.js'
+
     ],
     libs : [
         'front/vendor/jquery/dist/jquery.js',
         'front/vendor/angular/angular.js',
-        'front/vendor/angular-route/angular-route.js',
+        'front/vendor/angular-ui-router/release/angular-ui-router.js',
         'front/vendor/angular-cookies/angular-cookies.js',
-        'front/vendor/angular-bootstrap/index.js',
+        'front/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
         'front/vendor/angular-relative-date/angular-relative-date.js',
-        'front/vendor/angular-ui-switch/angular-ui-switch.js'
+        'front/vendor/angular-ui-switch/angular-ui-switch.js',
+        'front/vendor/angular-moment/angular-moment.js',
+        'front/vendor/angular-permission/dist/angular-permission.js',
+        'front/vendor/angular-animate/angular-animate.js'
     ]
 };
 
@@ -40,7 +76,7 @@ var paths = {
 //
 gulp.task('jade', function() {
     return gulp
-        .src('front/src/views/**/*.jade')
+        .src('front/src/**/*.jade')
         .pipe(jade({ pretty : true, locals : { v : (new Date()).getTime() }}))
         .pipe(gulp.dest('front/dist'))
 });
@@ -50,39 +86,19 @@ gulp.task('jade', function() {
 //
 gulp.task('less-app', function() {
     return gulp
-        .src(['front/src/styles/all.less'])
+        .src(['front/assets/styles/styles.less'])
         .pipe(less())
         .pipe(gulp.dest('front/dist/css'))
 });
 
-gulp.task('less-bootstrap-prepare', function(cb) {
-    if (!fs.existsSync('front/vendor/bootstrap/less/variables.original.less')) {
-        return gulp
-            .src('front/vendor/bootstrap/less/variables.less')
-            .pipe(rename('variables.original.less'))
-            .pipe(gulp.dest('front/vendor/bootstrap/less'));
-    } else {
-        cb();
-    }
-});
-
-gulp.task('less-bootstrap-concat', ['less-bootstrap-prepare'], function(){
-    return gulp
-        .src('front/vendor/bootstrap/less/variables.original.less')
-        .pipe(addSrc.append('front/src/styles/bootstrap.less'))
-        .pipe(concat('variables.less'))
-        .pipe(gulp.dest('front/vendor/bootstrap/less'))
-});
-
-gulp.task('less-bootstrap-compile', ['less-bootstrap-concat'], function(){
+gulp.task('less-bootstrap', function() {
     return gulp
         .src('front/vendor/bootstrap/less/bootstrap.less')
+        .pipe(sourcemaps.init())
         .pipe(less())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('front/dist/css'))
 });
-
-
-gulp.task('less-bootstrap', ['less-bootstrap-prepare', 'less-bootstrap-concat', 'less-bootstrap-compile']);
 
 gulp.task('less', ['less-app', 'less-bootstrap']);
 
@@ -92,11 +108,12 @@ gulp.task('less', ['less-app', 'less-bootstrap']);
 gulp.task('js-app', function() {
     return gulp
         .src(paths.js)
-        //.pipe(sourcemaps.init())
-        .pipe(babel())
+        .pipe(wrap('(function(){\n<%= contents %>\n})();'))
+        .pipe(babel({ modules : 'common' }))
         .pipe(concat('all.js'))
-        //.pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('front/dist/js'))
+        .pipe(gulpif(argv.minify, uglify()))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('front/dist/js/'))
 });
 
 gulp.task('js-libs', function() {
@@ -104,6 +121,7 @@ gulp.task('js-libs', function() {
         .src(paths.libs)
         .pipe(sourcemaps.init())
         .pipe(concat('vendor.js'))
+        .pipe(gulpif(argv.minify, uglify()))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('front/dist/js/'));
 });
@@ -115,8 +133,8 @@ gulp.task('js', ['js-app', 'js-libs']);
 //
 gulp.task('copy-img', function () {
     return gulp
-        .src('front/src/img/**/*.*')
-        .pipe(gulp.dest('front/dist/img/'));
+        .src('front/assets/images/**/*.*')
+        .pipe(gulp.dest('front/dist/images/'));
 });
 
 gulp.task('copy-fonts', function() {
@@ -129,16 +147,6 @@ gulp.task('copy-fonts', function() {
         .pipe(gulp.dest('front/dist/fonts/'))
 });
 
-//
-// Live compilation
-//
-gulp.task('watch', function() {
-    gulp.watch(['views/**/*.jade'], { cwd : "front/src" }, ['jade']);
-    gulp.watch(['styles/*.less'], { cwd : "front/src" }, ['less']);
-    gulp.watch(['scripts/**/*.js'], { cwd : "front/src" }, ['js-app']);
-    gulp.watch(['img/**/*.*'], { cwd : "front/src" }, ['copy-img']);
-});
-
 gulp.task('install', [
     'copy-img',
     'copy-fonts',
@@ -147,27 +155,50 @@ gulp.task('install', [
     'jade'
 ]);
 
+gulp.task('watch', function () {
+    gulp.watch(['front/src/**/*.jade'], ['jade']);
+    gulp.watch(['front/src/**/*.js'], ['js-app']);
+    gulp.watch(['front/assets/images/**/*.*'], ['copy-images']);
+    gulp.watch(['front/assets/styles/**/*.less'], ['less-app']);
+});
 
+//
+//      Configuration task
+//
+gulp.task('configure', function(cb) {
+    var schema = require('./config/.schema');
 
+    prompt.start();
+    prompt.get(schema, function(err, config) {
+        if (err) { return cb(err) }
 
+        config = expandConfig(config);
+        // TODO: Update md5 module
+        config.salt = config.salt == "auto" ? md5(Date.now()) : config.salt;
+        config.salt = env == 'test' ? '' : config.salt;
+        config.uploadDir = path.resolve(__dirname, `./${config.uploadDir}/`);
 
+        config = deepExtend({
+            mysql : { dialect : "mysql" }
+        }, config);
 
+        if (env == 'test') {
+            config.mysql.dialectOptions = { multipleStatements : true }
+        }
 
-var argv = require('yargs').argv,
-    path = require('path'),
-    mysql = require('mysql');
-
-var env = argv.env || process.env.NODE_ENV || 'development';
-
-process.env.NODE_ENV = env;
-
+        fs.writeFile(`./config/${env}.json`, JSON.stringify(config, null, '    '), cb);
+    });
+});
 
 //
 //      Database related tasks
 //
+gulp.task('database', sequence('database-create', 'database-sync'));
+
 gulp.task('database-create', function(cb) {
-    require('dotenv').load();
-    var config = require('./app/app.js').get('config').mysql;
+    var mysql = require('mysql');
+
+    var config = require(`./config/${env}.json`).mysql;
 
     var connection = mysql.createConnection({
         host : config.host,
@@ -185,10 +216,26 @@ gulp.task('database-create', function(cb) {
     });
 });
 
-gulp.task('database-sync', ['database-create'], function(cb) {
+gulp.task('database-sync', function(cb) {
     require('./app/app.js').get('models').sequelize
         .sync({ force : argv.force })
         .then(function(){ cb(); });
 });
 
-gulp.task('database', ['database-create', 'database-sync']);
+function expandConfig(config) {
+    function namespace(str, root, value) {
+        var chunks = str.split('.'),
+            current = root;
+        for(var i = 0; i < chunks.length-1; i++) {
+            if (!current.hasOwnProperty(chunks[i])){
+                current[chunks[i]] = {};
+            }
+            current = current[chunks[i]];
+        }
+        current[chunks.pop()] = value;
+    }
+
+    var opts = {};
+    for (var p in config) if (config.hasOwnProperty(p)) { namespace(p, opts, config[p]) }
+    return opts;
+}

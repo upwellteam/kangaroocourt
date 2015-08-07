@@ -1,0 +1,26 @@
+{
+    "mysql": {
+        "dialect": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "username": "root",
+        "password": "123456789",
+        "database": "kangaroocourt_development"
+    },
+    "port": 3000,
+    "salt": "be00a6bd2069bdb9be2196938886d1ee",
+    "uploadDir": "/home/andrew/work/node/kangaroocourt/uploads/development",
+    "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "lifetime": 3600
+    },
+    "facebook": {
+        "client_id": "1430810303881868",
+        "client_secret": "c79f7fbc210fa2bed9c35cbc79a2cc17",
+        "redirect_uri": "http://kangaroocourt.loc:3000/oauth/facebook"
+    },
+    "mandrill" : {
+        "key" : "daxfMPXHtEVroMgBF9LFpQ"
+    }
+}

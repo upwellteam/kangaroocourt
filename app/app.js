@@ -1,36 +1,38 @@
 var debug = require('debug')('kangaroo:api');
 
 var express = require('express'),
-    fs = require('fs'),
     path = require('path'),
+    argv = require('yargs').argv,
+    fs = require('fs'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    redis = require('then-redis'),
     mandrill = require('node-mandrill'),
     bluebird = require('bluebird'),
     multer = require('multer');
 
-
 var app = module.exports = express(),
-    config = require('./configure');
+    root = path.resolve(`${__dirname}/../`),
+    env = argv.env || process.env.NODE_ENV || 'development',
+    config = require(`${root}/config/${env}.json`),
+    utils = require('./utils');
 
-var redisCon = redis.createClient({
-    host: config.redis.host,
-    port: config.redis.port,
-    password: config.redis.password
-});
-
-app.set('root', path.resolve(__dirname, './../'));
+app.set('env', env);
+app.set('root', root);
 app.set('config', config);
 app.set('models', require('./models.js'));
-app.set('redis', redisCon);
+app.set('redis', require('./redis.js'));
 app.set('mandrill', bluebird.promisify(mandrill(config.mandrill.key)) );
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-app.use(multer({ dest: `${__dirname}/../uploads/`}));
+// TODO: think about uploads files
+//app.use(multer({ dest: `${__dirname}/../uploads/`}));
+
+utils.readdirRecursiveSync(`${root}/app/controllers`).forEach(function(name) {
+    app.use(require(`./controllers/${name}`));
+});
 
 if (app.get('env') == 'development') {
     app.use(function(req, res, next) {
@@ -38,14 +40,3 @@ if (app.get('env') == 'development') {
         next();
     })
 }
-
-fs
-.readdirSync(__dirname + '/controllers')
-.forEach(function(ctrl){
-    ctrl = require(__dirname + '/controllers/' + ctrl);
-    app.use(ctrl);
-});
-
-app.post('/echo', function (req, res) {
-    res.json(req.body);
-});

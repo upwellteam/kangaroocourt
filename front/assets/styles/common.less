@@ -1,0 +1,318 @@
+//
+// My styles
+//
+
+input.ng-dirty.ng-invalid {
+  border: 1px solid #822;
+  background-color: #fcc;
+}
+
+/* ==========================================================================
+   Header area
+   ========================================================================== */
+
+header img#avatar { width: 36px; height: 36px; border-radius: 50%; }
+
+#fb-login {
+  margin-top: 9px;
+  a i {
+    margin-right: 10px;
+    font-size: 15px;
+  }
+}
+
+.dropdown-menu {
+  border-radius: 0;
+  background-color: #2196F3;
+  border-top: none;
+  li {
+    width: 100%;
+    span {
+      margin: 2px 15px;
+    }
+    a {
+      color: #ffffff;
+      display: block;
+      font-size: 14px;
+      padding: 15px 17px 13px;
+      text-decoration: none;
+    }
+  }
+}
+
+.logo {
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+  }
+  .logo-img{
+    width: 68px;
+    height: 46px;
+    float: left;
+  }
+}
+
+.case a img {
+  height: 24px;
+  width: 24px;
+}
+
+#collapse-btn {
+   float: right;
+   background-color: #2196f3;
+   color: #ffffff;
+   font-size: 15px;
+   padding: 5px;
+   margin: 5px;
+   span {
+     margin: 4px;
+   }
+ }
+
+.ul-mainmenu li a.active{
+  color: #fff;
+  border-bottom: 4px solid #fff;
+}
+
+/* ==========================================================================
+   Modal Area
+   ========================================================================== */
+
+.modal-content {
+  #amount {
+    height: 120px;
+    background: #4caf50;
+    font-size: 18px;
+    text-align: center;
+    color: #98ee9d;
+    margin-top: -1px;
+    #bet {
+      height: 60px;
+      background: #4caf50;
+      font-size: 42px;
+      font-weight: bold;
+      border: none;
+      color: #ffffff;
+      padding: 2px;
+      margin: 0 16px;
+      box-shadow: none
+    }
+    .dollar-minus, .dollar-plus {
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      font-size: 20px;
+      height: 40px;
+      width: 40px;
+      overflow: hidden;
+      margin-top: 9px;
+      padding: 6px 4px 6px 6px;
+    }
+  }
+  .modal-body {
+    background-color: #ffffff;
+    .form-group {
+      textarea{
+        padding: 6px 12px;
+      }
+      .text-top {
+        height: 10px;
+      }
+    }
+  }
+  .modal-footer{
+    .modal-check {
+      float: left;
+      color: #a4a4a4;
+      font-size: 13px;
+      .text {
+        margin: 6px;
+        position: absolute;
+      }
+      .switch {
+        border-radius: 1px;
+        float: left;
+        small {
+          border-radius: 1px;
+        }
+      }
+    }
+    .modal-button {
+      float: right;
+      background-color: #FF5252;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+    }
+  }
+}
+
+#auth-btn-back {
+  background: #4caf50 none repeat scroll 0 0;
+  color: #fff;
+  font-size: 18px;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+  width: 85%;
+}
+
+.messages {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#invite-btn{
+  float: right;
+  width: 100px;
+  height: 35px;
+  margin-top: 15px;
+  border-radius: 1px;
+}
+
+/* ==========================================================================
+   Content Right Area
+   ========================================================================== */
+
+.top-right-content {
+  background: rgba(0, 0, 0, 0) url("../images/das.png") no-repeat scroll e("0 0 / 100% 100%");
+  height: auto;
+}
+.bottom-right-content {
+  background: rgba(0, 0, 0, 0) url("../images/shape-4.png") no-repeat scroll e("0 0 / 100% 100%");
+  height: auto;
+}
+
+.form-control {
+  border-radius: 1px;
+}
+
+.index3-tpcb li {
+  margin: 0 10px 7px 0;
+  a .tapo {
+    border-radius: 50%;
+  }
+}
+
+.juror {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+
+.private-dispute {
+  font-size: 12px;
+  color: #FF504D;
+  margin-left: 10px;
+  vertical-align: top;
+}
+
+#remove-btn {
+  float: right;
+  margin-top: 40px;
+  height: 40px;
+  .glyphicon {
+    margin-left: 2px;
+  }
+}
+
+.img-disputants {
+  height: 75px;
+  width: 75px;
+}
+
+.arg-add {
+  height: auto;
+  padding: 15px 15px;
+}
+
+textarea.form-control {
+  width: 100%;
+  float: right;
+  margin-bottom: 25px;
+  padding: 5px;
+  color: #000000;
+}
+
+#btn-remove-comment {
+  float: right;
+  color: #2196f3;
+  cursor: pointer;
+}
+
+.arg-vote {
+  border-top: 1px solid #e5e5e5;
+}
+
+.progress {
+  margin-bottom: 0;
+  margin-top: 3px;
+  border-radius: 10px;
+  height: 13px;
+}
+
+
+/* ==========================================================================
+   My responsive stuff
+   ========================================================================== */
+
+@media only screen and (max-width: 767px) and (min-width: 480px) {
+  .arg-heading {
+    height: 120px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .section-navigation {
+    margin-top: 231px;
+  }
+  .section-main-content, footer{
+    top: 0;
+  }
+
+  .ul-mainmenu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    li{
+      width: 100%;
+      a {
+        border-bottom: none;
+        color: #a8d3f6;
+        display: block;
+        font-size: 14px;
+        padding: 6px 6px 6px 10px;
+        text-decoration: none;
+        border-radius: 10px;
+        margin: 2px;
+        &:hover {
+          color: #fff;
+          border-bottom: none;
+          background-color: #2196f3;
+        }
+        &.active {
+          color: #fff;
+          border-bottom: none;
+          background-color: #2196f3;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .section-navigation {
+    margin-top: 217px;
+  }
+}
+
+.index4-cd1 {
+  height: 50px;
+  width: 50px;
+  margin-top: 7px;
+}
+.index4-cd2 {
+  height: 50px;
+  width: 50px;
+}

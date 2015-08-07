@@ -1,4 +1,6 @@
-var underscore = require('underscore');
+var fs = require('fs'),
+    path = require('path'),
+    underscore = require('underscore');
 
 module.exports.capitalize = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -33,3 +35,29 @@ NotAllowedError.prototype = Object.create(Error.prototype);
 NotAllowedError.prototype.constructor = NotAllowedError;
 
 module.exports.NotAllowedError = NotAllowedError;
+
+/**
+ *
+ */
+module.exports.readdirRecursiveSync = function(directory) {
+    var result = [];
+    readdir(directory);
+    return result;
+
+    function readdir(current) {
+        var files = fs.readdirSync(current);
+
+        files.forEach(function(file) {
+            var absViam = path.resolve(current, file),
+                stat = fs.statSync(absViam);
+
+            if (stat.isFile()) {
+                result.push(path.relative(directory, absViam));
+            }
+
+            if (stat.isDirectory()) {
+                readdir(absViam);
+            }
+        })
+    }
+};

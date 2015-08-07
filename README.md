@@ -7,10 +7,19 @@
 *  Bower
 *  Gulp
 
-### Console
+### Installation
+```bash
+git clone https://github.com/upwellteam/kangaroocourt.git
+cd ./kangaroocourt
+npm install 
+bower install
+gulp install
+gulp configure
+gulp database
 
 ```
 
 ### Run
-
+```bash
+DEBUG=kangaroo:* node ./server.js
 ```

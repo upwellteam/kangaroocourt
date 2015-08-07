@@ -8,6 +8,7 @@ var debug = require('debug')('kangaroo:auth'),
 
 router.get('/oauth/:provider', function (req, res){
     debug('GET /oauth');
+
     if (! ~ ['facebook', 'google'].indexOf(req.params.provider)) {
         return res.status(501).json({error : 'unknown provider'});
     }
@@ -16,24 +17,27 @@ router.get('/oauth/:provider', function (req, res){
         redis = app.get('redis'),
         models = app.get('models'),
         config = app.get('config'),
-        credentials = config.credentials[req.params.provider];
+        credentials = config[req.params.provider];
 
     var code = req.query.code,
         invitation = req.query.invitation,
         gToken, gProfileData, gUser;
-
+    console.log(code);
     request({
-        uri : 'https://graph.facebook.com/v2.3/oauth/access_token',
+        uri : 'https://graph.facebook.com/oauth/access_token',
         method : 'get',
         qs : {
             'code' : code,
             'client_id' : credentials.client_id,
             'client_secret' : credentials.client_secret,
-            'redirect_uri' : credentials.redirect_uri
+            'redirect_uri' : credentials.redirect_uri,
+            'json' : true
         }
     })
         .spread(function(response, body){
-            var accessToken = JSON.parse(body).access_token;
+            debug('BODY');
+            var accessToken = (body.split('=')[1]).split("&")[0];
+
 
             return request({
                 uri : 'https://graph.facebook.com/me',

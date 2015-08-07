@@ -1,0 +1,43 @@
+.modal-header
+    button.close(type='button', ng-click='modal.close()')
+        span(aria-hidden='true') &times;
+    p.modal-title File complaint
+.modal-body#amount
+    p Amount wagered
+    .col-md-4.col-sm-4.col-xs-4
+        .btn.btn-success.dollar-minus(
+        ng-click='modal.changeBet(-1)',
+        ng-mousedown='modal.startChange(-1)',
+        ng-mouseup='modal.endChange()')
+            span.glyphicon.glyphicon-minus
+    .col-md-4.col-sm-4.col-xs-4
+        #bet ${{modal.dispute.bet}}
+    .col-md-4.col-sm-4.col-xs-4
+        .btn.btn-success.dollar-plus(
+        ng-click='modal.changeBet(1)',
+        ng-mousedown='modal.startChange(1)',
+        ng-mouseup='modal.endChange()')
+            span.glyphicon.glyphicon-plus
+.modal-body
+    .form-group
+        p.text-top
+            span.text-top-left Name
+        input.form-control(type='text', placeholder="Dispute name", ng-model="modal.dispute.name")
+    .form-group
+        p.text-top
+            span.text-top-left Complain summary
+            span.text-top-right {{400 - modal.dispute.description.length}} of 400
+        textarea.form-control(type='text', placeholder="Dispute summary", ng-model="modal.dispute.description")
+    .form-group
+        p.text-top
+            span.text-top-left Defendant Email
+        input.form-control(type='email', placeholder='Email', ng-model="modal.dispute.defendant.email")
+    .form-group
+        p.text-top
+            span.text-top-left Dispute category
+        select.form-control(ng-model="modal.dispute.category", ng-options="category for category in modal.categories")
+.modal-footer
+    .modal-check
+        switch#private(name="private", ng-model="modal.dispute.isPrivate", class="green")
+        span.text Private?
+    button.modal-button(ng-click='modal.submit()') New complaint
