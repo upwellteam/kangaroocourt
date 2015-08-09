@@ -34,7 +34,7 @@ router.post('/disputes/', authMiddleware, function(req, res) {
                     defendantEmail: data.defendant.email,
                     category: data.category,
                     activeUntil : (new Date()).setDate((new Date()).getDate()+7),
-                    imgUrl : 'img/img-1.png',
+                    imgUrl : 'images/img-1.png',
                     PlaintiffId : user.id,
                     DefendantId : defendant ? defendant.id : null
                 })

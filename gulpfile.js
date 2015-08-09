@@ -81,7 +81,11 @@ var paths = {
 gulp.task('jade', function() {
     return gulp
         .src('front/src/**/*.jade')
-        .pipe(jade({ pretty : true, locals : { v : (new Date()).getTime() }}))
+        .pipe(jade({
+            doctype : 'html', 
+            pretty : true,
+            locals : { v : (new Date()).getTime() }
+        }))
         .pipe(gulp.dest('front/dist'))
 });
 

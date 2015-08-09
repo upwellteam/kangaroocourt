@@ -1,33 +1,28 @@
-section.section-main-content
-    .container
-        .row
-            .col-md-9.col-sm-9
-                div(ng-repeat="dispute in self.disputes")
-                    .single-content
-                        .row
-                            .col-md-2.col-sm-2(ng-show="!! dispute.imgUrl")
-                                img.img-circle.img-responsive(ng-src='{{dispute.imgUrl}}', alt='')
-                            div(ng-class="dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
+.row
+    .col-md-9.col-sm-9
+        .single-content.row(ng-repeat="dispute in self.disputes")
+            .col-md-2.col-sm-2(ng-show="!! dispute.imgUrl")
+                img.img-circle.img-responsive(ng-src='{{dispute.imgUrl}}', alt='')
 
-                                .only-content-text
-                                    h2: a(ui-sref='disputes.single({id:dispute.id})') {{ dispute.name }}
-                                    p {{ dispute.description }}
-                                    ul.ul-single
-                                        li: a {{ dispute.votes || 'no' }} votes
-                                        li /
-                                        li: a {{ dispute.createdAt }}
-                                        li /
-                                        li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
-                                        li /
-                                        li: a By {{ dispute.Plaintiff.name }}
+            div(ng-class="dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
+                .only-content-text
+                    h2: a(ui-sref='disputes.single({id:dispute.id})') {{ dispute.name }}
+                    p {{ dispute.description }}
+                    ul.ul-single
+                        li: a {{ dispute.votes || 'no' }} votes
+                        li /
+                        li: a {{ dispute.createdAt }}
+                        li /
+                        li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
+                        li /
+                        li: a By {{ dispute.Plaintiff.name }}
 
-            .col-md-3.col-sm-3
-                .right-content-area
-                    .top-right-content
-                        h3 What?
-                        p
-                            | You're right.  Probably.  So prove it.  Kangaroo Court let's you resolve small disputes in a fun way using your friends or the masses to judge who's right and award money to the victor.
-                    .bottom-right-content
-                        h3 Why?
-                        p
-                            | Don't let little things blow up with people that matter.  This is fun, fast resolution.  And be a Kangaroo Judge to help other people police their small disputes.
+    .col-md-3.col-sm-3.right-content-area
+        .top-right-content
+            h3 What?
+            p
+                | You're right.  Probably.  So prove it.  Kangaroo Court let's you resolve small disputes in a fun way using your friends or the masses to judge who's right and award money to the victor.
+        .bottom-right-content
+            h3 Why?
+            p
+                | Don't let little things blow up with people that matter.  This is fun, fast resolution.  And be a Kangaroo Judge to help other people police their small disputes.

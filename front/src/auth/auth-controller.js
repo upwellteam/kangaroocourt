@@ -16,7 +16,7 @@ function OAuthController($stateParams, $location, Authentication) {
         .oAuthExecute(provider, code, state.invitation || null)
         .then(function(result) {
             if (!result) { throw new Error('temp'); }
-            $location.url(state.returnto).replace();
+            $location.path(state.returnto).replace();
         })
         .catch(function(err) {
             console.log(err);

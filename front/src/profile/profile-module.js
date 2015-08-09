@@ -15,7 +15,7 @@ function configure($stateProvider) {
         })
         .state('profile.disputes', {
             url : '/disputes',
-            templateUrl : 'user/user-disputes-controller.html',
+            templateUrl : 'profile/user-disputes-controller.html',
             controller : 'UserDisputesController',
             controllerAs : 'self'
         })

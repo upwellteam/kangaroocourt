@@ -10,9 +10,17 @@ function MenuDirective() {
     }
 }
 
-MenuDirectiveController.$inject = ['DISPUTE_CATEGORIES', '$modal', '$state', 'Authentication', 'CommonService'];
+MenuDirectiveController.$inject = [
+    'DISPUTE_CATEGORIES',
+    '$timeout',
+    '$rootScope',
+    '$modal',
+    '$state',
+    'Authentication',
+    'CommonService'
+];
 
-function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, $state, Authentication, CommonService) {
+function MenuDirectiveController(DISPUTE_CATEGORIES, $timeout, $rootScope, $modal, $state, Authentication, CommonService) {
     var self = this;
 
     this.categories = DISPUTE_CATEGORIES;
@@ -47,11 +55,11 @@ function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, $state, Authenticat
                 $state.go('front')
             })
     };
-    //$timeout(()=>{
-    //    $rootScope.$watch('user', function(){
-    //        scope.user = Authentication.getUser();
-    //        scope.oauthLinks = Authentication.oAuthLinks();
-    //        scope.authenticated = Authentication.isAuthenticated();
-    //    });
-    //}, 1);
+    $timeout(()=>{
+        $rootScope.$watch('user', function(){
+            self.user = Authentication.getUser();
+            self.oauthLinks = Authentication.oAuthLinks();
+            self.authenticated = Authentication.isAuthenticated();
+        });
+    }, 1);
 }

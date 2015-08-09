@@ -22,9 +22,6 @@ class LocalStorage {
     }
 }
 
-LocalStorage.$inject = [];
-
-
 angular
-    .module('kangaroo.common')
+    .module('kangaroo.base')
     .service('Storage', LocalStorage);

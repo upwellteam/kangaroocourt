@@ -32,14 +32,14 @@ nav.navbar
 
     div(collapse="self.collapsedMenu")
         ul.ul-mainmenu.hidden-sm.hidden-md.hidden-lg
-            li: a(ui-sref="disputes.list({ category : 'All'})"
+            li: a(ui-sref="disputes.list({ category : ''})"
                   ui-sref-active='active') All
             li(ng-repeat='category in self.categories')
                 a(ui-sref="disputes.list({ category : category})"
                   ui-sref-active='active') {{ self.CommonService.capitalize(category) }}
 
     ul.ul-mainmenu.hidden-xs
-        li: a(ui-sref="disputes.list({ category : 'All'})"
+        li: a(ui-sref="disputes.list({ category : ''})"
               ui-sref-active='active') All
         li(ng-repeat='category in self.categories')
             a(ui-sref='disputes.list({ category : category })'

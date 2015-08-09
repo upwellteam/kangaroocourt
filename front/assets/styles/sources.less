@@ -2,25 +2,6 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
-html,
-button,
-input,
-select,
-textarea {
-  color: #222;
-}
-
-html {
-  font-size: 1em;
-  line-height: 1.4;
-}
-
-/*
- * Remove text-shadow in selection highlight: h5bp.com/i
- * These selection rule sets have to be separate.
- * Customize the background color to match your design.
- */
-
 ::-moz-selection {
   background: #b3d4fc;
   text-shadow: none;
@@ -31,10 +12,6 @@ html {
   text-shadow: none;
 }
 
-/*
- * A better looking default horizontal rule
- */
-
 hr {
   display: block;
   height: 1px;
@@ -44,11 +21,6 @@ hr {
   padding: 0;
 }
 
-/*
- * Remove the gap between images, videos, audio and canvas and the bottom of
- * their containers: h5bp.com/i/440
- */
-
 audio,
 canvas,
 img,
@@ -56,150 +28,15 @@ video {
   vertical-align: middle;
 }
 
-/*
- * Remove default fieldset styles.
- */
-
 fieldset {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
-
 textarea {
   resize: vertical;
 }
-
-/* ==========================================================================
-   Browse Happy prompt
-   ========================================================================== */
-
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-body{
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  font-weight: normal;
-}
-
-/* ==========================================================================
-   Main Content Area
-   ========================================================================== */
-
-.section-main-content {
-  padding: 40px 0 0;
-}
-.section-main-content h2 {
-  font-size: 23px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  margin-top: 5px;
-  color: #212121;
-}
-.section-main-content p{
-  color: #727272;
-}
-.single-content{
-  padding: 30px 0;
-  display: block;
-  padding-bottom: 0;
-}
-.ul-single{
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-.ul-single li {
-  float: left;
-  padding: 0 5px;
-  color: #aaaaaa;
-  font-size: 11px;
-}
-.ul-single li a{
-  text-decoration: none;
-  font-size: 12px !important;
-  color: #aaaaaa;
-}
-.ul-single li:first-child{
-  padding-left: 0;
-}
-.only-content-text {
-  border-bottom: 1px solid #f2f2f2;
-  display: block;
-  overflow: hidden;
-  padding-bottom: 30px;
-}
-.only-content-text.last-content{
-  border-bottom: 0px solid #ddd;
-}
-.section-main-content .container {
-  border-bottom: 1px solid #f2f2f2;
-  padding-bottom: 30px;
-}
-
-/* ==========================================================================
-   Footer Area
-   ========================================================================== */
-
-footer{
-  padding: 40px 0 30px;
-}
-footer p{
-  color: #727272;
-  font-size: 14px;
-}
-.ul-footer {
-  float: right;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-.ul-footer li{
-  float: left;
-}
-.ul-footer li a{
-  color: #727272;
-  font-size: 14px;
-  margin-right: 15px;
-}
-
-/* ==========================================================================
-   Content Right ARea
-   ========================================================================== */
-
-.top-right-content {
-  background: rgba(0, 0, 0, 0) url("../img/bg-1.png") no-repeat scroll 0 0 / 100% 100%;
-  height: 220px;
-  padding: 14px 25px;
-}
-.bottom-right-content {
-  background: rgba(0, 0, 0, 0) url("../images/shape-4.png") no-repeat scroll 0 0 / 100% 100%;
-  border-bottom: 1px solid #e6e6e6;
-  height: 200px;
-  padding: 18px 25px;
-}
-.right-content-area h3{
-  font-weight: bold;
-  font-size: 16px;
-}
-.right-content-area p{
-  font-weight: normal;
-  font-size: 12px;
-}
-
 
 /* ==========================================================================
    Modal Area
@@ -292,19 +129,7 @@ hr{
   font-weight: bold;
   margin: 0 35px;
 }
-/*.dolar-minus, .dolar-plus {
-  border: 1px solid #f2f2f2;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: normal;
-  height: 32px;
-  line-height: 32px;
-  overflow: hidden;
-  position: relative;
-  top: -2px;
-  width: 32px;
-}*/
+
 .dolar-minus, .dolar-plus {
   cursor: pointer;
   overflow: hidden;
@@ -394,13 +219,9 @@ hr{
   display: none !important;
 }
 
-
-
-
 /*============================================================================
     Index2 Style
 ============================================================================== */
-
 .single-content-part h1 {
   border-bottom: 1px solid #f2f2f2;
   color: #777777;
@@ -613,7 +434,6 @@ a.index3-invite {
 /* ==========================================================================
    Index4 Style
    ========================================================================== */
-
 .index4-add {
   background: none repeat scroll 0 0 #fafafa;
   border-bottom: 1px solid #e5e5e5;
@@ -882,18 +702,9 @@ textarea.form-control.two {
   text-align: left !important;
 }
 
-
-
-
-
 /* ==========================================================================
    Helper classes
    ========================================================================== */
-
-/*
- * Image replacement
- */
-
 .ir {
   background-color: transparent;
   border: 0;
@@ -907,15 +718,6 @@ textarea.form-control.two {
   display: block;
   width: 0;
   height: 150%;
-}
-
-/*
- * Hide from both screenreaders and browsers: h5bp.com/u
- */
-
-.hidden {
-  display: none !important;
-  visibility: hidden;
 }
 
 /*
@@ -946,45 +748,6 @@ textarea.form-control.two {
   overflow: visible;
   position: static;
   width: auto;
-}
-
-/*
- * Hide visually and from screenreaders, but maintain layout
- */
-
-.invisible {
-  visibility: hidden;
-}
-
-/*
- * Clearfix: contain floats
- *
- * For modern browsers
- * 1. The space content is one way to avoid an Opera bug when the
- *    `contenteditable` attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements
- *    that receive the `clearfix` class.
- * 2. The use of `table` rather than `block` is only necessary if using
- *    `:before` to contain the top-margins of child elements.
- */
-
-.clearfix:before,
-.clearfix:after {
-  content: " "; /* 1 */
-  display: table; /* 2 */
-}
-
-.clearfix:after {
-  clear: both;
-}
-
-/*
- * For IE 6/7 only
- * Include this rule to trigger hasLayout and contain floats.
- */
-
-.clearfix {
-  *zoom: 1;
 }
 
 /* ==========================================================================
