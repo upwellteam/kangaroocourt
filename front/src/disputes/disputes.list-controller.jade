@@ -6,14 +6,14 @@
 
             div(ng-class="dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
                 .only-content-text
-                    h2: a(ui-sref='disputes.single({id:dispute.id})') {{ dispute.name }}
+                    h2: a(ui-sref='disputes.single({ id : dispute.id })') {{ dispute.name }}
                     p {{ dispute.description }}
                     ul.ul-single
                         li: a {{ dispute.votes || 'no' }} votes
                         li /
                         li: a {{ dispute.createdAt }}
                         li /
-                        li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
+                        li: a(ui-sref='dispute.list({ category : dispute.category })') {{ dispute.category }}
                         li /
                         li: a By {{ dispute.Plaintiff.name }}
 

@@ -1,49 +1,38 @@
-section.section-main-content.index2
-    .container
-        .content-part
-            .row
-                .col-lg-6.col-md-6.col-sm-6.col-xs-12
-                    .single-content-part
+.row
+    .single-content-part.col-md-6.col-sm-6.col-xs-12
+        h1 My Cases
+        .single-content-column.row(ng-repeat="dispute in self.disputes.my")
+            .col-lg-3.col-md-3.col-sm-3(ng-if="dispute.imgUrl")
+                img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}')
+            .col-md-9.col-sm-9.col-sm-9
+                .only-content-text
+                    h2: a(ui-sref='disputes.single({ id : dispute.id })') {{ dispute.name }}
+                    p {{ dispute.description }}
+                    ul.ul-single
+                        li: a {{ dispute.votes || 'no' }} votes
+                        li /
+                        li: a {{ dispute.createdAt | relativeDate }}
+                        li /
+                        li: a(ui-sref='dispute.list({ category : dispute.category })') {{ dispute.category }}
+                        li /
+                        li: a(ng-if='dispute.isPrivate', style='color: #FF504D;') Private
 
-                        h1 My Cases
-
-                        .single-content-column(ng-repeat="dispute in disputesCtrl.disputes.myCases")
-                            .row
-                                .col-lg-3.col-md-3.col-sm-3(ng-show="!! dispute.imgUrl")
-                                    img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}')
-                                .col-md-9.col-sm-9.col-sm-9
-                                    .only-content-text.kid
-                                        h2: a(ng-href='disputes/{{dispute.id}}') {{ dispute.name }}
-                                        p {{ dispute.description }}
-                                        ul.ul-single
-                                            li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.votes || 'no' }} votes
-                                            li /
-                                            li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.createdAt | relativeDate }}
-                                            li /
-                                            li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
-                                            br
-                                            li: a(ng-show='dispute.isPrivate == 1', style='color: #FF504D;') Private
-
-                .col-lg-6.col-md-6.col-sm-6.col-xs-12
-                    .single-content-part
-
-                        h1 Judging
-
-                        .single-content-column(ng-repeat="dispute in disputesCtrl.disputes.judging")
-                            .row
-                                .col-lg-3.col-md-3.col-sm-3(ng-show="!! dispute.imgUrl")
-                                    img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}')
-                                .col-md-9.col-sm-9.col-sm-9
-                                    .only-content-text.kid
-                                        h2: a(ng-href='disputes/{{dispute.id}}') {{ dispute.name }}
-                                        p {{ dispute.description }}
-                                        ul.ul-single
-                                            li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.votes || 'no' }} votes
-                                            li /
-                                            li: a(ng-href='disputes/{{dispute.id}}') {{ dispute.createdAt | relativeDate }}
-                                            li /
-                                            li: a(ng-href='/category/{{dispute.category}}') {{ dispute.category }}
-                                            li /
-                                            li: a(ng-href='disputes/{{dispute.id}}') By {{ dispute.Plaintiff.name }}
-                                            br
-                                            li: a(ng-show='dispute.isPrivate == 1', style='color: #FF504D;') Private
+    .single-content-part.col-md-6.col-sm-6.col-xs-12
+        h1 Judging
+        .single-content-column.row(ng-repeat="dispute in self.disputes.judging")
+            .col-lg-3.col-md-3.col-sm-3(ng-if="dispute.imgUrl")
+                img.img-circle.img-responsive(ng-src='/{{dispute.imgUrl}}')
+            .col-md-9.col-sm-9.col-sm-9
+                .only-content-text
+                    h2: a(ui-sref='disputes.single({ id : dispute.id })') {{ dispute.name }}
+                    p {{ dispute.description }}
+                    ul.ul-single
+                        li: a {{ dispute.votes || 'no' }} votes
+                        li /
+                        li: a {{ dispute.createdAt | relativeDate }}
+                        li /
+                        li: a(ui-sref='dispute.list({ category : dispute.category })') {{ dispute.category }}
+                        li /
+                        li: a By {{ dispute.Plaintiff.name }}
+                        li /
+                        li: a(ng-show='dispute.isPrivate', style='color: #FF504D;') Private

@@ -160,7 +160,7 @@ router.get('/disputes/my', authMiddleware, function(req, res) {
                 })
         })
         .then(function(data) {
-            disputes.myCases = data;
+            disputes.my = data;
             res.json(disputes)
         })
         .catch(function(err){

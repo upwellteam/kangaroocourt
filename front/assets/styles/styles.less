@@ -1,16 +1,22 @@
+// Variables
 @root: "./../..";
 @vendor: "@{root}/vendor";
 
 // Fonts
 @import "@{vendor}/font-awesome/less/font-awesome.less";
+
+// Modules
 @import (less) '@{vendor}/angular-ui-switch/angular-ui-switch.css';
 
+// Sources
 @import 'sources.less';
+@import 'responsive-src.less';
 
-@import 'responsive.less';
+// Common
 @import 'common.less';
 
 // Modules
 @import 'modules/menu.less';
 @import 'modules/disputes.list.less';
 @import 'modules/disputes.single.less';
+@import 'modules/profile.less';

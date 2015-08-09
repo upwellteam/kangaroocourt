@@ -1,7 +1,7 @@
 nav.navbar
     .navbar-header(ui-sref='disputes.list')
         img.logo(src='/images/logo.png', alt='')
-        span.navbar-brand Kangaroocourt
+        span.navbar-brand.hidden-xs Kangaroocourt
     ul.nav.navbar-nav.navbar-right
         li.facebook(ng-show='!self.authenticated')
             a(ng-href='{{self.oauthLinks.facebook}}')
@@ -11,16 +11,15 @@ nav.navbar
             a.dropdown-toggle(dropdown-toggle='')
                 .avatar
                     img(ng-src='{{self.user.imgUrl}}')
-                span {{self.user.firstName}}
+                span {{self.user.name}}
             ul.dropdown-menu
                 li: a(ng-click='self.logout()')
                     span.glyphicon.glyphicon-log-out
                     | Logout
-
-        li.case(ng-show='self.authenticated')
-            a(ui-sref='profile.disputes')
-                i.fa.fa-briefcase
-                |  My Cases
+                li(ng-if='self.authenticated')
+                    a(ui-sref='profile.disputes')
+                        i.fa.fa-briefcase
+                        |  My Cases
         li.create(ng-click='self.createDispute()')
             a + New complaint
 

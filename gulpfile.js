@@ -82,7 +82,7 @@ gulp.task('jade', function() {
     return gulp
         .src('front/src/**/*.jade')
         .pipe(jade({
-            doctype : 'html', 
+            doctype : 'html',
             pretty : true,
             locals : { v : (new Date()).getTime() }
         }))

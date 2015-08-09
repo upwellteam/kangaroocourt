@@ -2,35 +2,17 @@ angular
     .module('kangaroo.profile')
     .controller('UserDisputesController', UserDisputesController);
 
-UserDisputesController.$inject = ['$http'];
+UserDisputesController.$inject = ['ProfileService'];
 
-function UserDisputesController($http) {
+function UserDisputesController(ProfileService) {
     var self = this;
 
     self.disputes = [];
-    $http
-        .get(`/api/disputes/my`)
-        .success(function(result) {
+    ProfileService
+        .loadDisputes()
+        .then((result) => {
             self.disputes = result;
-
-            self.disputes.judging.forEach(function(dispute){
-                dispute.votes = 0;
-                dispute.Juries.forEach(function(jury) {
-                    if (jury.vote != null) {
-                        dispute.votes++;
-                    }
-                })
-            });
-
-            self.disputes.myCases.forEach(function(dispute){
-                dispute.votes = 0;
-                dispute.Juries.forEach(function(jury) {
-                    if (jury.vote != null) {
-                        dispute.votes++;
-                    }
-                })
-            })
-
+            console.log(self.disputes);
         })
         .catch(function(){
             console.log('error');
