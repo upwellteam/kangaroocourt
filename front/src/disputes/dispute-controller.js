@@ -17,8 +17,9 @@ function DisputeController(dispute, $http, $modal, $location, DisputesService, A
 
     if ($location.search().invitation != null) {
         $modal.open({
-            templateUrl: 'partials/modalAuth.html',
-            controller: 'ModalAuth as modal',
+            templateUrl : 'disputes/modals/auth-controller.html',
+            controller : 'authModal',
+            controllerAs : 'modal',
             size: 'sm',
             backdrop : 'static'
         })

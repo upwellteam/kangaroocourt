@@ -17,9 +17,11 @@ router.post('/oauth/facebook', function(req, res, next) {
 
     var app = res.app,
         models = app.get('models'),
-        credentials = app.get('config').facebook,
-        code = req.query.code,
-        token = req.query.token;
+        credentials = app.get('config').facebook;
+
+    var code = req.query.code,
+        token = req.query.token,
+        invitation = req.query.invitation;
 
     var profileData, user;
 
@@ -61,7 +63,7 @@ router.post('/oauth/facebook', function(req, res, next) {
         .spread(function(response, body) {
             debug('user info received');
             profileData = JSON.parse(body);
-
+            console.log(profileData);
             if (!! body.error) { throw new Error(body.error.message) }
 
             return models.User.find({
@@ -81,6 +83,20 @@ router.post('/oauth/facebook', function(req, res, next) {
         })
         .then(function(result) {
             return user = result.user;
+        })
+        .then(function(){
+            if (invitation != null) {
+                return models.Invitation
+                    .find({ where : { code : invitation } })
+                    .then(function(invitation) {
+                        debug('handling invitation');
+
+                        return invitation
+                            ? invitation.handle(user)
+                            : new Promise(function(resolve){ resolve(); });
+                    })
+            }
+            return new Promise(function(resolve){ resolve(); })
         })
         .then(function() {
             // TODO: fix error with first login
@@ -108,7 +124,7 @@ router.post('/refresh-token', function(req, res, next) {
     var models = res.app.get('models');
 
     models.RefreshToken
-        .findOne({ where : { refresh : req.body.refresh_token } })
+        .find({ where : { refresh : req.body.refresh_token } })
         .then(function(token) {
             if (!token) {
                 throw utils.NotFoundError('invalid_refresh_token');

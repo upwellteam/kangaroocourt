@@ -32,6 +32,7 @@ module.exports = function(sequelize, DataTypes) {
                     user;
 
                 return self
+                    // TODO ??
                     .getUser()
                     .then(function(entity) {
                         user = entity;

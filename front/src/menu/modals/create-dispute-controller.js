@@ -21,13 +21,13 @@ class CreateDisputeController {
         this.user = Authentication.user;
 
         this.dispute = {
-            name : '',
+            name : 'Dispute name example',
             isPrivate : false,
-            description : '',
+            description : 'Dispute body example',
             bet : 15,
-            category : 'Miscellaneous',
+            category : 'love',
             defendant : {
-                email : ''
+                email : 'elizstiltzkin@gmail.com'
             }
         };
     }

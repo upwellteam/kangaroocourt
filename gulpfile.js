@@ -5,25 +5,23 @@ require('dotenv').load();
 
 //   Libraries
 var argv = require('yargs').argv,
-    gulp = require('gulp'),
     fs = require('fs'),
 
+    gulp = require('gulp'),
     jade = require('gulp-jade'),
     less = require('gulp-less'),
     wrap = require('gulp-wrap'),
     gulpif = require('gulp-if'),
     babel = require('gulp-babel'),
     uglify = require('gulp-uglify'),
-    rename = require('gulp-rename'),
-    concat = require('gulp-concat'),    
-    addSrc = require('gulp-add-src'),
+    concat = require('gulp-concat'),
     sequence = require('gulp-sequence'),
     minifyCSS = require('gulp-minify-css'),
 
-    prompt = require('prompt'),
     md5 = require('md5'),
-    sourcemaps = require('gulp-sourcemaps'),
     path = require('path'),
+    prompt = require('prompt'),
+    sourcemaps = require('gulp-sourcemaps'),
     deepExtend = require('extend').bind(null, true);
 
 var env = argv.env || process.env.NODE_ENV || 'development';

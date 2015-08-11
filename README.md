@@ -1,5 +1,3 @@
-# Installation Guide
-
 ### Requirements:
 
 *  io.js (1.6.*)
@@ -7,7 +5,7 @@
 *  Bower
 *  Gulp
 
-### Installation
+### Installation Guide
 ```bash
 git clone https://github.com/upwellteam/kangaroocourt.git
 cd ./kangaroocourt
@@ -38,7 +36,8 @@ js-app | Concat and minify all application scripts
 js-libs | Concat and minify 3rd parties scripts
 less | Compile LESS
 jade | Compile JADE
-copy-fonts | Copy fonts into `/public`
+copy-fonts | Copy fonts into `/dist/fonts`
+copy-images | Copy images into `/dist/images`
 install | Run all tasks above
 configure | Configuration
 database | Create Database and Sync

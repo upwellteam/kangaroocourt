@@ -51,7 +51,7 @@
                                         img.img-circle.img-responsive.img-disputants.two(ng-if='self.dispute.Defendant',
                                                                                          ng-src='{{ self.dispute.Defendant.imgUrl }}')
                                         img.img-circle.img-responsive.img-disputants.two(ng-if='!self.dispute.Defendant',
-                                                                                         src='/images/defendant.png')
+                                                                                         src='/images/no-avatar.png')
                                     .col-lg-9.col-md-9.col-sm-8
                                         h2 Defendant - Argument
 
@@ -131,5 +131,6 @@
 
             a.juror(ng-if="self.role == 'plaintiff' || self.role == 'defendant'", ng-click='self.inviteJuries(self.dispute, self.user)') Invite Jurors
 
-        button.btn.btn-danger#remove-btn(ng-click='self.deleteDispute()', ng-if='self.user.id == self.dispute.PlaintiffId')
+        button.btn.btn-danger(ng-click='self.deleteDispute()', ng-if='self.user.id == self.dispute.PlaintiffId')
+            i.fa.fa-trash
             | Remove case

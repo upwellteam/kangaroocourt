@@ -16,9 +16,9 @@ module.exports = function(sequelize, DataTypes) {
             allowNull : false
         },
         code: {
-            type: DataTypes.INTEGER(128),
+            type: DataTypes.STRING,
             allowNull : false,
-            defaultValue : function (){ return Date.now() }
+            defaultValue : function (){ return JSON.stringify(Date.now()) }
         }
     }, {
         setterMethods : {},

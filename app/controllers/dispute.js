@@ -1,4 +1,4 @@
-var debug = require('debug')('kangaroo:dispute');
+var debug = require('debug')('kangaroo:controller:dispute');
 
 var router = require('express').Router(),
     jade = require('jade'),
@@ -7,6 +7,7 @@ var router = require('express').Router(),
 var authenticate = require('../middleware/auth.js');
 
 var disputeTemplate = jade.compileFile(`${__dirname}/../templates/invitation.jade`);
+
 /**
  *
  */
@@ -56,6 +57,7 @@ router.post('/disputes/', authenticate(), function(req, res) {
             return new Promise(function(resolve){ resolve(); })
         })
         .then(function(invitation){
+            console.log(invitation);
             return mandrill('/messages/send', {
                 message: {
                     to: [{
@@ -80,6 +82,7 @@ router.post('/disputes/', authenticate(), function(req, res) {
             res.status(500).json({ error : 'internal err'});
         });
 });
+
 /**
  *
  */

@@ -1,10 +1,11 @@
 {
   "name": "kangaroo-court",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "author": "Andrew Lukichev <andrewlukichev@gmail.com>",
+  "main": "./app/app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./server.js",
     "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/gulp/bin/gulp.js install"
   },
   "repository": {
@@ -22,14 +23,12 @@
     "express": "*",
     "extend": "*",
     "gulp": "*",
-    "gulp-add-src": "*",
     "gulp-babel": "*",
     "gulp-concat": "*",
     "gulp-if": "*",
     "gulp-jade": "*",
     "gulp-less": "*",
     "gulp-minify-css": "^1.2.0",
-    "gulp-rename": "*",
     "gulp-sequence": "^0.4.0",
     "gulp-sourcemaps": "*",
     "gulp-uglify": "^1.2.0",
