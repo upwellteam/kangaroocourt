@@ -5,8 +5,8 @@ angular
 function AuthenticationProvider() {
     this.$get = $get;
 
-    $get.$inject = ['OAUTH_PROVIDERS', '$rootScope', '$location', '$q', '$timeout', '$http', 'Storage'];
-    function $get(OAUTH_PROVIDERS, $root, location, $q, $timeout, $http, Storage) {
+    $get.$inject = ['OAUTH_PROVIDERS', '$rootScope', '$state', '$location', '$q', '$timeout', '$http', 'Storage'];
+    function $get(OAUTH_PROVIDERS, $root, $state, location, $q, $timeout, $http, Storage) {
         class Authentication {
             constructor() {
                 this.OAUTH = OAUTH_PROVIDERS;
@@ -113,11 +113,11 @@ function AuthenticationProvider() {
                 };
             }
 
-            oAuthExecute(provider, code, invitation) {
+            oAuthExecute(code, invitation) {
                 var self = this, deferred = $q.defer();
 
                 $http
-                    .post(`/api/oauth/${provider}?code=${code}` + (invitation ? `&invitation=${invitation}` : ''))
+                    .post(`/api/oauth/facebook?code=${code}` + (invitation ? `&invitation=${invitation}` : ''))
                     .success((response)=> {
                         self.setUser(response.user);
                         self.setToken(response.token);

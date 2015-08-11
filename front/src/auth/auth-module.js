@@ -12,17 +12,22 @@ function configure($httpProvider, $stateProvider) {
 
     $stateProvider
         .state('oauth_callback', {
-            url: '/oauth/:provider?code&?invitation',
+            url: '/oauth/facebook?code&?invitation',
             template : 'Redirecting..',
             controller : ['$location', '$state', '$stateParams', 'Authentication',
                 function($location, $state, $stateParams, Authentication) {
+                    var state = {};
+                    $location
+                        .search().state
+                        .split(';')
+                        .forEach(function(param) {
+                            param = param.split(':');
+                            state[param[0]] = param[1];
+                        });
                     Authentication
-                        .oAuthExecute($stateParams.provider, $location.search().code, $location.search().invitation || null)
-                        .then(() => {
-                            // TODO: return to params
-                            $state.go('disputes.list');
-                        })
-                        .catch(function(error){
+                        .oAuthExecute($location.search().code, $location.search().invitation || null)
+                        .then(() => { $location.path(state.returnto); })
+                        .catch((error) => {
                             console.log(error);
                         })
                 }]

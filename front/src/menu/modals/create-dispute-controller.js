@@ -18,7 +18,7 @@ class CreateDisputeController {
 
         this.categories = DISPUTE_CATEGORIES;
         this.instance = $modalInstance;
-        this.user = Authentication.getUser();
+        this.user = Authentication.user;
 
         this.dispute = {
             name : '',

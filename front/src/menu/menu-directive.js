@@ -10,15 +10,7 @@ function MenuDirective() {
     }
 }
 
-MenuDirectiveController.$inject = [
-    'DISPUTE_CATEGORIES',
-    '$timeout',
-    '$rootScope',
-    '$modal',
-    '$state',
-    'Authentication',
-    'CommonService'
-];
+MenuDirectiveController.$inject = ['DISPUTE_CATEGORIES', '$modal', '$state', 'Authentication', 'CommonService'];
 
 function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, $state, Authentication, CommonService) {
     var self = this;

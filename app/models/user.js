@@ -47,7 +47,6 @@ module.exports = function(sequelize, DataTypes) {
                 return result;
             },
             generateToken : function() {
-                console.log('generating token');
                 var self = this,
                     models = app.get('models'),
                     redis = app.get('redis'),
@@ -59,7 +58,6 @@ module.exports = function(sequelize, DataTypes) {
                     };
 
                 return new Promise(function(resolve, reject) {
-                    console.log(self, token);
                     Promise
                         .all([
                             models.RefreshToken

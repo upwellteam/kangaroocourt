@@ -4,13 +4,13 @@ var router = require('express').Router(),
     jade = require('jade'),
     utils = require('../utils');
 
-var authMiddleware = require('../middleware/auth.js');
+var authenticate = require('../middleware/auth.js');
 
 var disputeTemplate = jade.compileFile(`${__dirname}/../templates/invitation.jade`);
 /**
  *
  */
-router.post('/disputes/', authMiddleware, function(req, res) {
+router.post('/disputes/', authenticate(), function(req, res) {
     debug('POST /disputes/');
 
     var models = res.app.get('models'),
@@ -112,7 +112,7 @@ router.get('/disputes/', function(req, res) {
 /**
  *
  */
-router.get('/disputes/my', authMiddleware, function(req, res) {
+router.get('/disputes/my', authenticate(), function(req, res) {
     debug('GET /disputes/my');
 
     var models = res.app.get('models'),

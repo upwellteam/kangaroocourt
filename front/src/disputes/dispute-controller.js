@@ -7,7 +7,8 @@ DisputeController.$inject = ['dispute', '$http', '$modal', '$location', 'Dispute
 function DisputeController(dispute, $http, $modal, $location, DisputesService, Authentication) {
     var self = this;
 
-    this.user = Authentication.getUser();
+    this.Authentication = Authentication;
+    this.user = Authentication.user;
     this.role = null;
     this.newComment = '';
     this.isVoted = false;

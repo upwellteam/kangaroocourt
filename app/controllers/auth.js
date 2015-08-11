@@ -80,7 +80,6 @@ router.post('/oauth/facebook', function(req, res, next) {
             })
         })
         .then(function(result) {
-            console.log(user);
             user = result.user;
             return user.generateToken();
         })
