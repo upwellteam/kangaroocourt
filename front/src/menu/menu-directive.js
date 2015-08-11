@@ -20,8 +20,12 @@ MenuDirectiveController.$inject = [
     'CommonService'
 ];
 
-function MenuDirectiveController(DISPUTE_CATEGORIES, $timeout, $rootScope, $modal, $state, Authentication, CommonService) {
+function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, $state, Authentication, CommonService) {
     var self = this;
+
+    this.Authentication = Authentication;
+    this.user           = Authentication.user;
+    this.oauthLinks     = Authentication.oAuthLinks();
 
     this.categories = DISPUTE_CATEGORIES;
     this.CommonService = CommonService;
@@ -34,10 +38,6 @@ function MenuDirectiveController(DISPUTE_CATEGORIES, $timeout, $rootScope, $moda
             size: 'md'
         })
     };
-
-    this.user = Authentication.getUser();
-    this.authenticated = Authentication.isAuthenticated();
-    this.oauthLinks = Authentication.oAuthLinks();
 
     this.collapsedMenu = true;
     this.toggleCollapsedMenu = () => {
@@ -55,11 +55,4 @@ function MenuDirectiveController(DISPUTE_CATEGORIES, $timeout, $rootScope, $moda
                 $state.go('front')
             })
     };
-    $timeout(()=>{
-        $rootScope.$watch('user', function(){
-            self.user = Authentication.getUser();
-            self.oauthLinks = Authentication.oAuthLinks();
-            self.authenticated = Authentication.isAuthenticated();
-        });
-    }, 1);
 }

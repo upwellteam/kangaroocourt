@@ -7,7 +7,7 @@ DisputesListController.$inject = ['$stateParams', 'Authentication', 'DisputesSer
 function DisputesListController($stateParams, Authentication, DisputesService) {
     var self = this;
 
-    self.user = Authentication.getUser();
+    self.user = Authentication.user;
     self.disputes = [];
 
     DisputesService

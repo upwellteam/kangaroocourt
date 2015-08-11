@@ -3,17 +3,17 @@ nav.navbar
         img.logo(src='/images/logo.png', alt='')
         span.navbar-brand.hidden-xs Kangaroocourt
     ul.nav.navbar-nav.navbar-right
-        li.facebook(ng-show='!self.authenticated')
+        li.facebook(ng-if='!self.Authentication.isAuthenticated()')
             a(ng-href='{{self.oauthLinks.facebook}}')
                 i.fa.fa-facebook-square
                 | Facebook Login
-        li.dropdown(ng-show='self.authenticated', dropdown, on-toggle='toggled(open)')
+        li.dropdown(ng-if='self.Authentication.isAuthenticated()', dropdown, on-toggle='toggled(open)')
             a.dropdown-toggle(dropdown-toggle='')
                 .avatar
                     img(ng-src='{{self.user.imgUrl}}')
                 span {{self.user.name}}
             ul.dropdown-menu
-                li(ng-if='self.authenticated'): a(ui-sref='profile.disputes')
+                li: a(ui-sref='profile.disputes')
                     i.fa.fa-briefcase
                     |  My Cases
                 li: a(ng-click='self.logout()')
@@ -21,7 +21,6 @@ nav.navbar
                     | Logout
         li.create(ng-click='self.createDispute()')
             a + New complaint
-
 
 .container.navigation
     button.btn.hidden-sm.hidden-md.hidden-lg(ng-click="self.toggleCollapsedMenu()")#collapse-btn

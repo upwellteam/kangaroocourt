@@ -11,7 +11,7 @@ module.exports.pick = function(object, properties) {
 };
 
 /**
- *
+ * Temporary. Delete every error
  */
 function NotFoundError(message) {
     this.name = 'NotFoundError';
