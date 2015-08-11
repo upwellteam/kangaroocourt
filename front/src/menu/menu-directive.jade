@@ -1,5 +1,5 @@
 nav.navbar
-    .navbar-header(ui-sref='disputes.list')
+    .navbar-header(ui-sref="disputes.list({ category : ''})")
         img.logo(src='/images/logo.png', alt='')
         span.navbar-brand.hidden-xs Kangaroocourt
     ul.nav.navbar-nav.navbar-right
@@ -13,13 +13,12 @@ nav.navbar
                     img(ng-src='{{self.user.imgUrl}}')
                 span {{self.user.name}}
             ul.dropdown-menu
+                li(ng-if='self.authenticated'): a(ui-sref='profile.disputes')
+                    i.fa.fa-briefcase
+                    |  My Cases
                 li: a(ng-click='self.logout()')
-                    span.glyphicon.glyphicon-log-out
+                    i.fa.fa-power-off
                     | Logout
-                li(ng-if='self.authenticated')
-                    a(ui-sref='profile.disputes')
-                        i.fa.fa-briefcase
-                        |  My Cases
         li.create(ng-click='self.createDispute()')
             a + New complaint
 
