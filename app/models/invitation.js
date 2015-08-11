@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull : false
         },
         code: {
-            type: DataTypes.STRING(128),
+            type: DataTypes.INTEGER(128),
             allowNull : false,
             defaultValue : function (){ return Date.now() }
         }

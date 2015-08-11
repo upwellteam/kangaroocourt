@@ -1,4 +1,4 @@
-var debug = require('debug')('kangaroo:auth');
+var debug = require('debug')('kangaroo:controller:auth');
 
 var router = require('express').Router(),
     Promise = require('bluebird'),
@@ -6,7 +6,7 @@ var router = require('express').Router(),
     request = Promise.promisify(require('request'));
 
 var authenticate = require('../middleware/auth.js'),
-    errors = require('../errors');
+    errors = require('../errors'),
     utils = require('../utils');
 
 /**
@@ -80,7 +80,10 @@ router.post('/oauth/facebook', function(req, res, next) {
             })
         })
         .then(function(result) {
-            user = result.user;
+            return user = result.user;
+        })
+        .then(function() {
+            // TODO: fix error with first login
             return user.generateToken();
         })
         .then(function(token){

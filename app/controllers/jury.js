@@ -1,17 +1,19 @@
 const MAX_INVITE_PER_SIDE = 5;
 
-var debug = require('debug')('kangaroo:jury');
+var debug = require('debug')('kangaroo:controller:jury');
 
 var router = require('express').Router(),
-    jade = require('jade'),
-    utils = require('../utils');
+    jade = require('jade');
 
-var authMiddleware = require('../middleware/auth.js');
-var disputeTemplate = jade.compileFile(`${__dirname}/../templates/juryInvitation.jade`);
+var authenticate = require('../middleware/auth.js'),
+    errors = require('../errors'),
+    utils = require('../utils'),
+    disputeTemplate = jade.compileFile(`${__dirname}/../templates/juryInvitation.jade`);
+
 /**
  *
  */
-router.post('/jury/invite', authMiddleware, function(req, res) {
+router.post('/jury/invite', authenticate(), function(req, res) {
     debug('POST /jury/invite');
 
     var models = res.app.get('models'),
@@ -38,10 +40,10 @@ router.post('/jury/invite', authMiddleware, function(req, res) {
             gDispute = dispute;
 
             if (!dispute) {
-                throw new utils.NotFoundError('no such dispute');
+                throw new errors.NotFoundError('no such dispute');
             }
             if (user.id != dispute.PlaintiffId && user.id != dispute.DefendantId) {
-                throw new utils.NotAllowedError('not allowed to invite');
+                throw new errors.NotAllowedError('not allowed to invite');
             }
 
             (user.id == dispute.PlaintiffId) && (side = 'plaintiff');
@@ -51,7 +53,7 @@ router.post('/jury/invite', authMiddleware, function(req, res) {
             var invitedCount = dispute.Juries.filter(function(jury) { return jury.side == side }).length;
 
             if (invitedCount >= MAX_INVITE_PER_SIDE) {
-                throw new utils.NotAllowedError('your jury bench is full already');
+                throw new errors.NotAllowedError('your jury bench is full already');
             }
 
             return models.User.find({ where : { email : data.email } })
@@ -99,10 +101,10 @@ router.post('/jury/invite', authMiddleware, function(req, res) {
         .then(function(){
             debug('email sent');
         })
-        .catch(utils.NotFoundError, function(err){
+        .catch(errors.NotFoundError, function(err){
             res.status(404).json({ error : err.message });
         })
-        .catch(utils.NotAllowedError, function(err){
+        .catch(errors.NotAllowedError, function(err){
             res.status(403).json({ error : err.message });
         })
         .catch(function(err){
@@ -110,10 +112,11 @@ router.post('/jury/invite', authMiddleware, function(req, res) {
             res.status(500).json({ error : 'internal err'});
         });
 });
+
 /**
  *
  */
-router.post('/jury/vote', authMiddleware, function(req, res) {
+router.post('/jury/vote', authenticate(), function(req, res) {
     debug('POST jury/vote');
 
     var models = res.app.get('models'),
@@ -136,10 +139,11 @@ router.post('/jury/vote', authMiddleware, function(req, res) {
             res.status(500).json({ error : 'internal'})
         })
 });
+
 /**
  *
  */
-router.get('/votes/:disputeId', authMiddleware, function(req, res) {
+router.get('/votes/:disputeId', authenticate(), function(req, res) {
     debug('GET /votes/:disputeId');
 
     var models = res.app.get('models');
@@ -157,7 +161,5 @@ router.get('/votes/:disputeId', authMiddleware, function(req, res) {
             res.status(500).json({ error : 'internal'})
         })
 });
-/**
- *
- */
+
 module.exports = router;

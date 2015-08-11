@@ -139,7 +139,7 @@ gulp.task('js', ['js-app', 'js-libs']);
 //
 //   Common tasks
 //
-gulp.task('copy-img', function () {
+gulp.task('copy-images', function () {
     return gulp
         .src('front/assets/images/**/*.*')
         .pipe(gulp.dest('front/dist/images/'));
@@ -156,7 +156,7 @@ gulp.task('copy-fonts', function() {
 });
 
 gulp.task('install', [
-    'copy-img',
+    'copy-images',
     'copy-fonts',
     'js',
     'less',

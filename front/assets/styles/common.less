@@ -134,28 +134,74 @@ body{
 /* ==========================================================================
    Content Right Area
    ========================================================================== */
-.top-right-content {
-  background: rgba(0, 0, 0, 0) url("../images/das.png") no-repeat scroll e("0 0 / 100% 100%");
-  height: auto;
-}
-.bottom-right-content {
-  background: rgba(0, 0, 0, 0) url("../images/shape-4.png") no-repeat scroll e("0 0 / 100% 100%");
-  height: auto;
-}
-
-.form-control {
-  border-radius: 1px;
-}
-
-.index3-tpcb li {
-  margin: 0 10px 7px 0;
-  a .tapo {
-    border-radius: 50%;
+.right-content-area {
+  .top-right-content {
+    background: rgba(0, 0, 0, 0) url("../images/das.png") no-repeat scroll e("0 0 / 100% 100%");
+    height: auto;
+    padding: 14px 25px;
   }
-}
+  .bottom-right-content {
+    background: rgba(0, 0, 0, 0) url("../images/shape.png") no-repeat scroll e("0 0 / 100% 100%");
+    height: auto;
+    padding: 18px 25px;
+    border-bottom: 1px solid #e6e6e6;
+    .no-img {
+      border-radius: 50%;
+      float: left;
+      height: 28px; width: 28px;
+      margin-right: 5px;
+      background-color: #D2D2D2;
+    }
+    .juror {
+      cursor: pointer;
+      border-top: 1px solid #d9d9d9;
+      color: #1194f6;
+      display: block;
+      font-size: 14px;
+      letter-spacing: 0.8px;
+      margin-top: 0;
+      outline: medium none;
+      padding-top: 12px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: capitalize;
+      &:hover {
+        text-decoration: none;
+        color: #1194f6;
+      }
+    }
 
-.juror {
-  cursor: pointer;
+    ul {
+      list-style: outside none none;
+      margin: 0 0 12px;
+      overflow: hidden;
+      padding: 0;
+      li {
+        margin: 2px;
+        float: left;
+        &:last-child { margin-right: 0; }
+      }
+    }
+  }
+
+  h3 {
+    color: #727272 !important;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    text-transform: uppercase;
+    display: block;
+  }
+  span {
+    color: #727272;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 8px 0 18px;
+    width: 100%;
+    &.line-height { line-height: 28px; }
+  }
 }
 
 /* ==========================================================================

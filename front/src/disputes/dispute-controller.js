@@ -136,8 +136,9 @@ function DisputeController(dispute, $http, $modal, $location, DisputesService, A
 
     self.inviteJuries = (dispute, user) => {
         $modal.open({
-            templateUrl: 'partials/modalInvite.html',
-            controller: 'InviteJuriesController as invite',
+            templateUrl: 'disputes/modals/invite-juries.html',
+            controller: 'InviteJuriesController',
+            controllerAs : 'modal',
             size: 'sm',
             resolve : {
                 dispute: function(){

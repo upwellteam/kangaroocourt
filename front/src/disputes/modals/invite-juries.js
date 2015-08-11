@@ -8,19 +8,19 @@ function InviteJuriesController ($modalInstance, $http, dispute, user) {
     self.dispute = dispute;
     self.user = user;
 
-    self.cancel = function () {
+    self.dismiss = function () {
         $modalInstance.dismiss('cancel');
     };
 
     self.sendInvite = function(email){
-        $modalInstance.dismiss('cancel');
-
         $http
             .post('/api/jury/invite', { email : email, dispute : dispute.id})
-            .success(() => {
+            .success((response) => {
+                console.log(response);
                 console.log('success');
+                self.dismiss();
             })
-            .error(() => {
+            .error((err) => {
                 console.log(err, status);
             });
     }

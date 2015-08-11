@@ -112,25 +112,24 @@
                     .form-group(ng-if='self.user')
                         button.btn.btn-default(type='submit', ng-click='self.addComment(ctrl.newComment)') Submit Comment
 
-    .col-md-3.col-sm-3
-        .right-content-area.index3-right
-            .top-right-content.index3-tpct
-                span.clase Case closes on
-                h2 {{ self.dispute.activeUntil | date : 'MMM d - h:mma' }}
+    .col-md-3.col-sm-3.right-content-area
+        .top-right-content
+            h3 Case closes on
+            span {{ self.dispute.activeUntil | date : 'MMM d - h:mma' }}
 
-            .bottom-right-content.index3-tpcb
-                h3 Jury
-                span.list(ng-show='self.dispute.Juries.length == 0')
-                    img.img-circle.img-responsive(src='images/list.png', alt='', ng-show='!self.dispute.juries')
-                    | No Jurors Yet
+        .bottom-right-content
+            h3 Jury
+            span.line-height(ng-if='self.dispute.Juries.length == 0')
+                .no-img(ng-show='!self.dispute.juries')
+                | No Jurors Yet
 
-                ul(ng-show='self.dispute.Juries != 0')
-                    li(ng-repeat='jury in self.dispute.Juries', ng-if='self.dispute.Juries != 0')
-                        a(ng-href='#', title='{{jury.User.name}}')
-                            img.img-responsive.tapo(ng-show='jury.User', ng-src='{{jury.User.imgUrl}}', alt='')
-                            img.img-responsive.tapo(ng-show='!jury.User', src='images/list.png', alt='')
+            ul(ng-if='self.dispute.Juries != 0')
+                li(ng-repeat='jury in self.dispute.Juries')
+                    a(title='{{jury.User.name}}')
+                        img.img(ng-if='jury.User', ng-src='{{jury.User.imgUrl}}', alt='')
+                        .no-img(ng-if='!jury.User')
 
-                a.juror(ng-show="self.role == 'plaintiff' || self.role == 'defendant'", ng-click='self.inviteJuries(self.dispute, self.user)') Invite Jurors
+            a.juror(ng-if="self.role == 'plaintiff' || self.role == 'defendant'", ng-click='self.inviteJuries(self.dispute, self.user)') Invite Jurors
 
-            button.btn.btn-danger#remove-btn(ng-click='self.deleteDispute()', ng-if='self.user.id == self.dispute.PlaintiffId')
-                | Remove case
+        button.btn.btn-danger#remove-btn(ng-click='self.deleteDispute()', ng-if='self.user.id == self.dispute.PlaintiffId')
+            | Remove case

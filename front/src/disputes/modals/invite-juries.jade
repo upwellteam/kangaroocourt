@@ -1,17 +1,18 @@
 .modal-header
-    button.close(type='button', ng-click='invite.cancel()')
+    button.close(type='button', ng-click='modal.dismiss()')
         span(aria-hidden='true') &times;
     p.modal-title Invite juries
-.modal-body(ng-show='invite.jury.length !=0')
-    li(ng-repeat='jury in invite.jury')
+.modal-body(ng-show='modal.dispute.jury.length !=0')
+    li(ng-repeat='jury in modal.dispute.jury')
         span {{ jury.User.email }}
 .modal-footer
     form.form-group
         input.form-control(type='email', ng-model='email', size='30', placeholder='email')
-        div.messages
-            div.alert.alert-danger(ng-show='email == invite.dispute.Plaintiff.email')
+        .messages
+            .alert.alert-danger(ng-show='email == modal.dispute.Plaintiff.email')
                 span Plaintiff can't be a jury
-            div.alert.alert-danger(ng-show='email == invite.dispute.defendantEmail')
+            .alert.alert-danger(ng-show='email == modal.dispute.defendantEmail')
                 span Defendant can't be a jury
-        input.btn.btn-success#invite-btn(ng-click='invite.sendInvite(email)', value='Invite',
-        ng-disabled='email == invite.dispute.Plaintiff.email || email == invite.dispute.defendantEmail')
+
+        btn.btn.btn-success#invite-btn(ng-click='modal.sendInvite(email)', value='Invite',
+        ng-disabled='email == modal.dispute.Plaintiff.email || email == modal.dispute.defendantEmail')
