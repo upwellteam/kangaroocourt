@@ -63,7 +63,7 @@ router.post('/oauth/facebook', function(req, res, next) {
         .spread(function(response, body) {
             debug('user info received');
             profileData = JSON.parse(body);
-            console.log(profileData);
+
             if (!! body.error) { throw new Error(body.error.message) }
 
             return models.User.find({
@@ -74,7 +74,7 @@ router.post('/oauth/facebook', function(req, res, next) {
             if (entity) {
                 return Promise.resolve({ user : entity });
             }
-            return models.User.create({
+            return models.User.register({
                 name : profileData.name,
                 email : profileData.email,
                 firstName : profileData.first_name,
@@ -99,7 +99,6 @@ router.post('/oauth/facebook', function(req, res, next) {
             return new Promise(function(resolve){ resolve(); })
         })
         .then(function() {
-            // TODO: fix error with first login
             return user.generateToken();
         })
         .then(function(token){

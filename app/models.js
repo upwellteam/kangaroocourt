@@ -1,15 +1,11 @@
-// Debug
 var debug = require('debug')('kangaroo:models');
 
-// Libs
-var fs        = require("fs"),
-    path      = require("path"),
-    extend    = require('extend'),
+var extend    = require('extend'),
     Sequelize = require("sequelize");
 
-var app = require('./app.js');
-
-var root = app.get('root'),
+var app = require('./app.js'),
+    utils = require('./utils'),
+    root = app.get('root'),
     config = app.get('config').mysql;
 
 var sequelize = new Sequelize(
@@ -22,11 +18,7 @@ var sequelize = new Sequelize(
 );
 
 var models = {};
-
-fs.readdirSync(`${root}/app/models`)
-    .filter(function(file) {
-        return (file.indexOf(".") !== 0);
-    })
+utils.readdirRecursiveSync(`${root}/app/models`)
     .forEach(function(file) {
         var model = sequelize.import(`${root}/app/models/${file}`);
         models[model.name] = model;

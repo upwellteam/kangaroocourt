@@ -5,14 +5,13 @@ var uuid = require('uuid'),
 
 var app = require('../app'),
     config = app.get('config'),
-    errors = require('../errors'),
     utils = require('../utils');
 
 /**
  *
  */
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('User', {
+    var User = sequelize.define('User', {
         name: {
             type: DataTypes.STRING(128),
             allowNull : false,
@@ -34,15 +33,28 @@ module.exports = function(sequelize, DataTypes) {
             unique: true
         }
     }, {
+        paranoid : true,
         setterMethods : {},
         classMethods : {
-            associate : function(models) {}
+            associate : function(models) {},
+            register : function (input) {
+                var models = app.get('models');
+
+                return new Promise(function(resolve, reject) {
+                    models.User
+                        .create(input)
+                        .then(function(result){
+                            resolve({ user : result })
+                        })
+                        .catch(reject);
+                });
+            }
         },
         instanceMethods: {
             toJSON : function () {
                 var result;
 
-                result = utils.pick(this, 'id name email role gender createdAt updatedAt');
+                result = utils.pick(this, 'id name email createdAt updatedAt');
 
                 return result;
             },
@@ -78,5 +90,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     });
+
+    return User;
 };
 

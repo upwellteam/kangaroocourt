@@ -20,6 +20,7 @@ class CreateDisputeController {
         this.instance = $modalInstance;
         this.user = Authentication.user;
 
+        // TEMP
         this.dispute = {
             name : 'Dispute name example',
             isPrivate : false,
@@ -30,6 +31,17 @@ class CreateDisputeController {
                 email : 'elizstiltzkin@gmail.com'
             }
         };
+        // END TEMP
+        //this.dispute = {
+        //    name : '',
+        //    isPrivate : false,
+        //    description : '',
+        //    bet : 15,
+        //    category : 'love',
+        //    defendant : {
+        //        email : ''
+        //    }
+        //};
     }
 
     submit() {

@@ -32,9 +32,9 @@ module.exports = function(sequelize, DataTypes) {
                     user;
 
                 return self
-                    // TODO ??
                     .getUser()
                     .then(function(entity) {
+                        console.log('was here');
                         user = entity;
 
                         return redis.del(self.access);
