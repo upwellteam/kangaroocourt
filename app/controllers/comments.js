@@ -1,13 +1,14 @@
-var debug = require('debug')('kangaroo:comments'),
+var debug = require('debug')('kangaroo:controller:comments');
 
-    router = require('express').Router(),
+var router = require('express').Router(),
     utils = require('../utils');
 
-var authMiddleware = require('../middleware/auth.js');
+var authenticate = require('../middleware/auth.js');
+
 /**
  *
  */
-router.post('/comments', authMiddleware, function(req, res) {
+router.post('/comments', authenticate(), function(req, res) {
     debug('POST /comments');
 
     var models = res.app.get('models'),
@@ -28,6 +29,7 @@ router.post('/comments', authMiddleware, function(req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
+
 /**
  *  @example: /comments?dispute=:disputeId
  */
@@ -53,6 +55,7 @@ router.get('/comments', function (req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
+
 /**
  *
  */
@@ -77,6 +80,7 @@ router.delete('/comments/:id', function(req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
+
 /**
  *
  */

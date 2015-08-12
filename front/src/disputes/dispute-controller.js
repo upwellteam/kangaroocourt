@@ -2,9 +2,9 @@ angular
     .module('kangaroo.disputes')
     .controller('DisputeController', DisputeController);
 
-DisputeController.$inject = ['dispute', '$http', '$modal', '$location', 'DisputesService', 'Authentication'];
+DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location', 'DisputesService', 'Authentication'];
 
-function DisputeController(dispute, $http, $modal, $location, DisputesService, Authentication) {
+function DisputeController(dispute, $http, $modal, $state, $location, DisputesService, Authentication) {
     var self = this;
 
     this.Authentication = Authentication;
@@ -62,7 +62,7 @@ function DisputeController(dispute, $http, $modal, $location, DisputesService, A
     self.deleteDispute = () => {
         DisputesService
             .del(self.dispute)
-            .then(() => { $location.path(`/user/${self.user.id}`).replace(); })
+            .then(() => { $state.go("dispute.list({ category : ''})") })
     };
 
     self.saveArgument = (argument) => {
@@ -105,18 +105,16 @@ function DisputeController(dispute, $http, $modal, $location, DisputesService, A
             })
     };
 
-    self.addComment = (text) => {
-        var user = self.user;
-
+    self.addComment = (comment) => {
         $http
             .post('/api/comments', {
                 dispute : self.dispute.id,
-                text : text
+                text : comment
             })
             .success((result) => {
-                result.User = user;
+                result.User = self.user;
                 self.dispute.Comments.push(result);
-                self.newComment = '';
+                self.comment = '';
             })
             .error(() => {
                 console.log(err, status);

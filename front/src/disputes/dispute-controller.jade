@@ -1,116 +1,109 @@
 .row
-    .col-md-9.col-sm-9
-        .content-folio
-            header.folio-headline
-                span.cat Claim
-                    span.private-dispute(ng-if='self.dispute.isPrivate') Private case
-                h2 {{ self.dispute.name }}
-                p {{ self.dispute.description }}
-            article.folio-body
-                .row
-                    .col-md-6.col-sm-6
-                        .argument
-                            header.arg-heading
-                                .row
-                                    .col-lg-3.col-md-3.col-sm-4
-                                        img.img-circle.img-responsive.img-disputants.one(ng-src='{{ self.dispute.Plaintiff.imgUrl }}', alt='')
-                                    .col-lg-9.col-md-9.col-sm-8
-                                        h2 Plaintiff - Argument
+    .col-md-9.col-sm-9.content-folio
+        .folio-headline
+            span CLAIM
+                span.private(ng-if='self.dispute.isPrivate') PRIVATE
+            h2 {{ self.dispute.name }}
+            p {{ self.dispute.description }}
+        .folio-body.row
 
-                            .arg-body(ng-if='self.dispute.Arguments.plaintiff')
-                                p {{ self.dispute.Arguments.plaintiff.argument }}
+            // Plaintiff
+            .col-md-6.col-sm-6
+                .argument
+                    .arg-heading
+                        .row
+                            .col-lg-3.col-md-3.col-sm-4
+                                img.img-disputants.img-responsive.one(ng-src='{{ self.dispute.Plaintiff.imgUrl }}')
+                            .col-lg-9.col-md-9.col-sm-8
+                                h2 Plaintiff - Argument
 
-                            div(ng-if="self.role == 'plaintiff'")
-                                .arg-add(ng-if='!self.dispute.Arguments.plaintiff')
-                                    textarea.form-control(type="text", ng-model="Plaintiff.argument", placeholder='Type your argument here...')
-                                    span.add
-                                        i.fa.fa-plus
-                                        a(ng-click='self.saveArgument(Plaintiff.argument)')  Add Argument
-                                .arg-add
-                                    span.add
-                                        i.fa.fa-plus
-                                        a(href='#')  Add Evidence
+                    .arg-body(ng-if='self.dispute.Arguments.plaintiff')
+                        p {{ self.dispute.Arguments.plaintiff.argument }}
 
-                            div(ng-if="self.role =='jury' && self.isVoted == false")
-                                .arg-vote
-                                    button.btn.btn-defaultt.puff.plaintiff(type="submit", ng-click ="self.saveVote('plaintiff')") Vote for Plaintiff
+                    div(ng-if="self.role == 'plaintiff'")
+                        .arg-add(ng-if='!self.dispute.Arguments.plaintiff')
+                            textarea.form-control(type="text", ng-model="Plaintiff.argument", placeholder='Type your argument here...')
+                            span.add
+                                i.fa.fa-plus
+                                a(ng-click='self.saveArgument(Plaintiff.argument)')  Add Argument
+                        .arg-add
+                            span.add
+                                i.fa.fa-plus
+                                a(href='#')  Add Evidence
 
-                            div(ng-show="self.role =='jury' && self.isVoted == true")
-                                .arg-vote
-                                    span {{self.plaintiffValue}}%
-                                    progressbar(value='self.plaintiffValue')
+                    div(ng-if="self.role =='jury' && self.isVoted == false")
+                        .arg-vote
+                            button.btn.btn-defaultt.puff.plaintiff(type="submit", ng-click ="self.saveVote('plaintiff')") Vote for Plaintiff
 
+                    div(ng-show="self.role =='jury' && self.isVoted == true")
+                        .arg-vote
+                            span {{self.plaintiffValue}}%
+                            progressbar(value='self.plaintiffValue')
 
-                    // Defendant
+            // Defendant
+            .col-md-6.col-sm-6
+                .argument
+                    .arg-heading
+                        .row
+                            .col-lg-3.col-md-3.col-sm-4
+                                img.img-disputants.img-responsive.two(ng-src="{{self.dispute.Defendant ? self.dispute.Defendant.imgUrl : '/images/no-avatar.png'}}")
+                            .col-lg-9.col-md-9.col-sm-8
+                                h2 Defendant - Argument
 
-                    .col-md-6.col-sm-6
-                        .argument
-                            header.arg-heading
-                                .row
-                                    .col-lg-3.col-md-3.col-sm-4
-                                        img.img-circle.img-responsive.img-disputants.two(ng-if='self.dispute.Defendant',
-                                                                                         ng-src='{{ self.dispute.Defendant.imgUrl }}')
-                                        img.img-circle.img-responsive.img-disputants.two(ng-if='!self.dispute.Defendant',
-                                                                                         src='/images/no-avatar.png')
-                                    .col-lg-9.col-md-9.col-sm-8
-                                        h2 Defendant - Argument
+                    .arg-body(ng-if='self.dispute.Arguments.defendant')
+                        p {{ self.dispute.Arguments.defendant.argument }}
 
-                            .arg-body(ng-if='self.dispute.Arguments.defendant')
-                                p {{ self.dispute.Arguments.defendant.argument }}
+                    div(ng-if="self.role == 'defendant'")
+                        .arg-add(ng-show='!self.dispute.Arguments.defendant')
+                            textarea.form-control(type="text", ng-model="Defendant.argument", placeholder='Type your argument here...')
+                            span.add
+                                i.fa.fa-plus
+                                a(ng-click='self.saveArgument(Defendant.argument)')  Add Argument
+                        .arg-add
+                            span.add
+                                i.fa.fa-plus
+                                a(href='#')  Add Evidence
 
-                            div(ng-if="self.role == 'defendant'")
-                                .arg-add(ng-show='!self.dispute.Arguments.defendant')
-                                    textarea.form-control(type="text", ng-model="Defendant.argument", placeholder='Type your argument here...')
-                                    span.add
-                                        i.fa.fa-plus
-                                        a(ng-click='self.saveArgument(Defendant.argument)')  Add Argument
-                                .arg-add
-                                    span.add
-                                        i.fa.fa-plus
-                                        a(href='#')  Add Evidence
+                    div(ng-if="self.role =='jury' && self.isVoted == false")
+                        .arg-vote
+                            button.btn.btn-defaultt.puff.defendant(type="submit", ng-click ="self.saveVote('defendant')") Vote for Defendant
 
-                            div(ng-if="self.role =='jury' && self.isVoted == false")
-                                .arg-vote
-                                    button.btn.btn-defaultt.puff.defendant(type="submit", ng-click ="self.saveVote('defendant')") Vote for Defendant
+                    div(ng-if="self.role =='jury' && self.isVoted == true")
+                        .arg-vote
+                            span {{self.defendantValue}}%
+                            progressbar(value='self.defendantValue', type='success')
 
-                            div(ng-if="self.role =='jury' && self.isVoted == true")
-                                .arg-vote
-                                    span {{self.defendantValue}}%
-                                    progressbar(value='self.defendantValue', type='success')
-
-            // Comments
-
-            article.folio-comment
-                form.form-horizontal
-                    .form-group.index4-cmnt(ng-repeat='comment in self.dispute.Comments')
-                        ul
-                            li
-                                .left-group1
-                                    img.img-circle.img-responsive.index4-cd1(ng-src='{{ comment.User.imgUrl }}', alt='')
-                                .left-group2
-                                    img.img-circle.img-responsive.index4-cd2(ng-src='{{ comment.User.imgUrl }}', alt='')
-                                .right-group1
-                                    header.tafo-cmnt1
-                                        h2 {{ comment.User.name }}
-                                        span.ago {{ comment.createdAt }}
-                                        p {{ comment.text }}
-                                        span.glyphicon.glyphicon-trash#btn-remove-comment(ng-click='self.removeComment(comment.id)',
-                                                                                          ng-show='comment.User.id == self.user.id',
-                                                                                          title='Remove comment')
-                                .right-group2
-                                    header.tafo-cmnt2
-                                        .title
-                                            h2 {{ comment.User.name }}
-                                            span.ago {{ comment.createdAt }}
-                                        p {{ comment.text }}
-                                        span.glyphicon.glyphicon-trash#btn-remove-comment(ng-click='self.removeComment(comment.id)',
-                                                                                          ng-show='comment.User.id == self.user.id',
-                                                                                          title='Remove comment')
-                    .form-group(ng-if='self.user')
-                        textarea.form-control.one(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="ctrl.newComment")
-                        textarea.form-control.two(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="ctrl.newComment")
-                    .form-group(ng-if='self.user')
-                        button.btn.btn-default(type='submit', ng-click='self.addComment(ctrl.newComment)') Submit Comment
+        // Comments
+        .folio-comment
+            form.form-horizontal
+                .form-group.index4-cmnt(ng-repeat='comment in self.dispute.Comments')
+                    ul: li
+                        .left-group1
+                            img.img-circle.img-responsive.index4-cd1(ng-src='{{ comment.User.imgUrl }}')
+                        .left-group2
+                            img.img-circle.img-responsive.index4-cd2(ng-src='{{ comment.User.imgUrl }}')
+                        .right-group1
+                            header.tafo-cmnt1
+                                h2 {{ comment.User.name }}
+                                span.ago {{ comment.createdAt }}
+                                p {{ comment.text }}
+                                span.glyphicon.glyphicon-trash#btn-remove-comment(ng-click='self.removeComment(comment.id)',
+                                                                                  ng-show='comment.User.id == self.user.id',
+                                                                                  title='Remove comment')
+                        .right-group2
+                            header.tafo-cmnt2
+                                .title
+                                    h2 {{ comment.User.name }}
+                                    span.ago {{ comment.createdAt }}
+                                p {{ comment.text }}
+                                span.glyphicon.glyphicon-trash#btn-remove-comment(ng-click='self.removeComment(comment.id)',
+                                                                                  ng-show='comment.User.id == self.user.id',
+                                                                                  title='Remove comment')
+                .form-group(ng-if='self.user')
+                    textarea.form-control.one(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="self.comment")
+                    textarea.form-control.two(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="self.comment")
+                .form-group(ng-if='self.user')
+                    button.btn.btn-default(type='submit', ng-click='self.addComment(self.comment)') Submit Comment
 
     .col-md-3.col-sm-3.right-content-area
         .top-right-content

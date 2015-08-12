@@ -1,3 +1,85 @@
 body.disputes-single {
+  .folio-headline {
+    margin-bottom: 45px;
+    span {
+      color: #aaaaaa;
+      font-size: 18px;
+      font-weight: 600;
+      &.private {
+        font-size: 12px;
+        color: #FF504D;
+        margin-left: 10px;
+        vertical-align: top;
+      }
+    }
+    h2 {
+      color: #212121;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      margin-top: 8px;
+    }
+    p {
+      color: #727272;
+      font-size: 16px;
+    }
+  }
+  .folio-body {
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 36px;
+    .argument {
+      border: 1px solid #e3e3e3;
+      position: relative;
+      box-shadow: 0 1px 2px #f7f7f7;
+      .arg-heading, .arg-body {
+        margin: 0 24px;
+      }
+      .arg-heading {
+        border-bottom: 1px solid #e5e5e5;
+        height: 83px;
+        padding-top: 10px;
+        h2 {
+          color: #444444;
+          font-size: 20px;
+          font-weight: bold;
+          margin: 0 5px;
+          text-align: center;
+          @media only screen and (max-width: 767px) {
+            margin-left: 71px;
+          }
+        }
+        img {
+          padding: 1px;
+          position: absolute;
+          top: -18px;
+          &.one{ border: 4px solid #1194f6; }
+          &.two{ border: 4px solid #47B04B; }
+        }
+        .img-disputants {
+          height: 75px;
+          width: 75px;
+          border-radius: 50%;
+        }
+      }
+      .arg-body {
+        height: 130px !important;
+        margin-bottom: 19px;
+        padding-top: 12px;
+      }
 
+    }
+  }
+  .folio-comment {
+    margin: 0;
+    .form-group {
+      .glyphicon-trash {
+        float: right;
+        color: #2196f3;
+        cursor: pointer;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1336px) {
+  margin-left: 71px;
 }

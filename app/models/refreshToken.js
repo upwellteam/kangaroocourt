@@ -34,9 +34,7 @@ module.exports = function(sequelize, DataTypes) {
                 return self
                     .getUser()
                     .then(function(entity) {
-                        console.log('was here');
                         user = entity;
-
                         return redis.del(self.access);
                     })
                     .then(function() {
