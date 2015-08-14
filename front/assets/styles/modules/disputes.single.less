@@ -1,4 +1,7 @@
 body.disputes-single {
+  /* ==========================================================================
+   Head area
+   ========================================================================== */
   .folio-headline {
     margin-bottom: 45px;
     span {
@@ -24,6 +27,10 @@ body.disputes-single {
       font-size: 16px;
     }
   }
+
+  /* ==========================================================================
+   Body area
+   ========================================================================== */
   .folio-body {
     border-bottom: 1px solid #f2f2f2;
     padding-bottom: 36px;
@@ -31,10 +38,8 @@ body.disputes-single {
       border: 1px solid #e3e3e3;
       position: relative;
       box-shadow: 0 1px 2px #f7f7f7;
-      .arg-heading, .arg-body {
-        margin: 0 24px;
-      }
       .arg-heading {
+        margin: 0 24px;
         border-bottom: 1px solid #e5e5e5;
         height: 83px;
         padding-top: 10px;
@@ -62,16 +67,100 @@ body.disputes-single {
         }
       }
       .arg-body {
+        margin: 0 24px;
         height: 130px !important;
-        margin-bottom: 19px;
         padding-top: 12px;
+      }
+      .arg-add {
+        background: none repeat scroll 0 0 #fafafa;
+        border-top: 1px solid #e5e5e5;
+        text-align: center;
+        height: auto;
+        padding: 15px 15px;
+        p {
+          font-size: 16px;
+          text-align: left;
+        }
+        a {
+          color: #1194f6;
+          font-size: 14px;
+          outline: medium none;
+          text-decoration: none;
+          text-transform: capitalize;
+        }
+        .fa.fa-plus {
+          background: none repeat scroll 0 0 #c6c6c6;
+          border-radius: 50%;
+          height: 28px; width: 28px;
+          color: #fafafa;
+          font-size: 14px;
+          font-weight: lighter;
+          line-height: 29px;
+          text-align: center;
+          margin-right: 5px;
+        }
+        textarea.form-control {
+          width: 100%;
+          float: right;
+          margin-bottom: 25px;
+          padding: 5px;
+          color: #000000;
+        }
+      }
+      .arg-vote {
+        height: 68px;
+        padding: 12px 24px;
+        text-align: center;
+        .btn {
+          border: none;
+          border-radius: 0;
+          box-shadow: 0 1px 1px 0 #e5e5e5;
+          display: block;
+          font-size: 15px;
+          height: 44px;
+          width: 178px;
+          margin: 0 auto;
+        }
       }
 
     }
   }
+
+  /* ==========================================================================
+   Comments Area
+   ========================================================================== */
   .folio-comment {
     margin: 0;
+    .form-horizontal {
+      margin: 0 15px;
+    }
     .form-group {
+      .form-control {
+        border-radius: 0;
+        color: #ababab;
+        float: right;
+        font-size: 15px;
+        height: 97px;
+        padding: 20px 23px;
+        width: 80%;
+        display: block;
+        @media only screen and (max-width: 767px) {
+          width: 100%;
+        }
+      }
+      .btn {
+        background: none repeat scroll 0 0 #888888;
+        border: medium none;
+        border-radius: 0;
+        box-shadow: 0 1px 1px 0 #e5e5e5;
+        color: #ffffff;
+        float: right;
+        font-size: 15px;
+        height: 44px;
+        outline: medium none;
+        width: 178px;
+        display: block;
+      }
       .glyphicon-trash {
         float: right;
         color: #2196f3;
@@ -79,7 +168,44 @@ body.disputes-single {
       }
     }
   }
-}
-@media only screen and (max-width: 1336px) {
-  margin-left: 71px;
+
+  /* ==========================================================================
+   Right Content Area
+   ========================================================================== */
+  .right-content-area {
+    .juror-avatar {
+      border-radius: 50%;
+      float: left;
+      height: 28px; width: 28px;
+      margin-right: 5px;
+      background-color: #D2D2D2;
+    }
+    .juror {
+      cursor: pointer;
+      border-top: 1px solid #d9d9d9;
+      color: #1194f6;
+      display: block;
+      font-size: 14px;
+      letter-spacing: 0.8px;
+      padding-top: 12px;
+      text-align: center;
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+        color: #1194f6;
+      }
+    }
+
+    ul {
+      list-style: outside none none;
+      margin: 0 0 12px;
+      overflow: hidden;
+      padding: 0;
+      li {
+        margin: 2px;
+        float: left;
+        &:last-child { margin-right: 0; }
+      }
+    }
+  }
 }

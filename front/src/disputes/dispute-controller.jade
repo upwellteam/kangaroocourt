@@ -31,14 +31,13 @@
                                 i.fa.fa-plus
                                 a(href='#')  Add Evidence
 
-                    div(ng-if="self.role =='jury' && self.isVoted == false")
-                        .arg-vote
-                            button.btn.btn-defaultt.puff.plaintiff(type="submit", ng-click ="self.saveVote('plaintiff')") Vote for Plaintiff
-
-                    div(ng-show="self.role =='jury' && self.isVoted == true")
-                        .arg-vote
+                    div(ng-if="self.role == 'jury'")
+                        .arg-vote(ng-if="self.isVoted == false")
+                            button.btn.btn-success(ng-click="self.vote('plaintiff')")
+                                | Vote for Plaintiff
+                        .arg-vote(ng-if="self.isVoted == true")
                             span {{self.plaintiffValue}}%
-                            progressbar(value='self.plaintiffValue')
+                            progressbar(value='self.plaintiffValue', type='success')
 
             // Defendant
             .col-md-6.col-sm-6
@@ -64,14 +63,13 @@
                                 i.fa.fa-plus
                                 a(href='#')  Add Evidence
 
-                    div(ng-if="self.role =='jury' && self.isVoted == false")
-                        .arg-vote
-                            button.btn.btn-defaultt.puff.defendant(type="submit", ng-click ="self.saveVote('defendant')") Vote for Defendant
-
-                    div(ng-if="self.role =='jury' && self.isVoted == true")
-                        .arg-vote
+                    div(ng-if="self.role == 'jury'")
+                        .arg-vote(ng-if="self.isVoted == false")
+                            button.btn.btn-info(ng-click="self.vote('defendant')")
+                                | Vote for Defendant
+                        .arg-vote(ng-if="self.isVoted == true")
                             span {{self.defendantValue}}%
-                            progressbar(value='self.defendantValue', type='success')
+                            progressbar(value='self.defendantValue', type='info')
 
         // Comments
         .folio-comment
@@ -100,8 +98,7 @@
                                                                                   ng-show='comment.User.id == self.user.id',
                                                                                   title='Remove comment')
                 .form-group(ng-if='self.user')
-                    textarea.form-control.one(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="self.comment")
-                    textarea.form-control.two(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="self.comment")
+                    textarea.form-control(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="self.comment")
                 .form-group(ng-if='self.user')
                     button.btn.btn-default(type='submit', ng-click='self.addComment(self.comment)') Submit Comment
 
@@ -113,16 +110,16 @@
         .bottom-right-content
             h3 Jury
             span.line-height(ng-if='self.dispute.Juries.length == 0')
-                .no-img(ng-show='!self.dispute.juries')
+                .juror-avatar(ng-show='!self.dispute.juries')
                 | No Jurors Yet
 
             ul(ng-if='self.dispute.Juries != 0')
                 li(ng-repeat='jury in self.dispute.Juries')
-                    a(title='{{jury.User.name}}')
-                        img.img(ng-if='jury.User', ng-src='{{jury.User.imgUrl}}', alt='')
-                        .no-img(ng-if='!jury.User')
+                    img.juror-avatar(ng-src="{{jury.User ? jury.User.imgUrl : '/images/no-avatar.png'}}",
+                                     title="{{jury.User ? jury.User.name : 'Waiting for user registration'}}")
 
-            a.juror(ng-if="self.role == 'plaintiff' || self.role == 'defendant'", ng-click='self.inviteJuries(self.dispute, self.user)') Invite Jurors
+            a.juror(ng-if="self.role == 'plaintiff' || self.role == 'defendant'", ng-click='self.inviteJuries(self.dispute, self.user)')
+                | Invite Jurors
 
         button.btn.btn-danger(ng-click='self.deleteDispute()', ng-if='self.user.id == self.dispute.PlaintiffId')
             i.fa.fa-trash

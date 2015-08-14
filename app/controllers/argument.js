@@ -1,15 +1,15 @@
-var debug = require('debug')('kangaroo:argument');
+var debug = require('debug')('kangaroo:controller:argument');
 
-var extend = require('extend'),
-    router = require('express').Router(),
+var router = require('express').Router(),
     utils = require('../utils');
 
-var authMiddleware = require('../middleware/auth.js');
+var authenticate = require('../middleware/auth.js'),
+    errors = require('../errors');
 
 /**
  *
  */
-router.post('/argument', authMiddleware, function(req, res) {
+router.post('/argument', authenticate(), function(req, res) {
     debug('POST /argument');
     var models = res.app.get('models');
 
@@ -17,10 +17,10 @@ router.post('/argument', authMiddleware, function(req, res) {
         user = res.locals.user;
 
     models.Dispute
-        .find({ where : { id : data.DisputeId } })
+        .find({ where : { id : data.disputeId } })
         .then(function(dispute){
             if (!dispute) {
-                throw new utils.NotFoundError(`no dispute with id = ${data.DisputeId}`)
+                throw new errors.NotFoundError(`no dispute with id = ${data.disputeId}`)
             }
 
             switch (user.id) {
@@ -31,13 +31,13 @@ router.post('/argument', authMiddleware, function(req, res) {
                     data.role = 'plaintiff';
                     break;
                 default :
-                    throw new utils.NotAllowedError(`not allowed`)
+                    throw new errors.NotAllowedError(`not allowed`)
             }
             // TODO: Check argument for existance for current participant
             return models.Argument.create({
                     argument : data.argument,
                     role : data.role,
-                    DisputeId : data.DisputeId,
+                    DisputeId : data.disputeId,
                     UserId : user.id
                 })
         })
@@ -49,6 +49,7 @@ router.post('/argument', authMiddleware, function(req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
+
 /**
  *
  */
@@ -64,7 +65,7 @@ router.get('/argument/:id', function(req, res) {
         .then(function(vote) {
             res.json(vote);
         })
-        .catch(utils.NotFoundError, function(err){
+        .catch(errors.NotFoundError, function(err){
             res.status(404).json({ error : err.message });
         })
         .catch(function(err){
@@ -72,7 +73,5 @@ router.get('/argument/:id', function(req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
-/**
- *
- */
+
 module.exports = router;

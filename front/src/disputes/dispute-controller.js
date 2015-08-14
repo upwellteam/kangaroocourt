@@ -6,25 +6,19 @@ DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location'
 
 function DisputeController(dispute, $http, $modal, $state, $location, DisputesService, Authentication) {
     var self = this;
-
     this.Authentication = Authentication;
     this.user = Authentication.user;
-    this.role = null;
-    this.newComment = '';
-    this.isVoted = false;
 
     this.dispute = dispute;
 
-    if ($location.search().invitation != null) {
-        $modal.open({
-            templateUrl : 'disputes/modals/auth-controller.html',
-            controller : 'authModal',
-            controllerAs : 'modal',
-            size: 'sm',
-            backdrop : 'static'
-        })
+    this.role = null;
+    if (self.user && self.dispute.DefendantId == self.user.id) {
+        self.role = 'defendant';
     }
-
+    if (self.user && self.dispute.PlaintiffId == self.user.id) {
+        self.role = 'plaintiff';
+    }
+    
     self.dispute.Arguments.forEach((el) => {
         if(el.role == 'defendant') {
             self.dispute.Arguments.defendant = el;
@@ -33,13 +27,8 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
             self.dispute.Arguments.plaintiff = el;
         }
     });
-
-    if (self.user && self.dispute.DefendantId == self.user.id) {
-        self.role = 'defendant';
-    }
-    if (self.user && self.dispute.PlaintiffId == self.user.id) {
-        self.role = 'plaintiff';
-    }
+    
+    this.isVoted = false;
 
     var plaintiffValue = 0, defendantValue = 0;
     self.dispute.Juries.forEach(function(jury){
@@ -49,26 +38,20 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
         if (jury.vote == 'defendant') {
             defendantValue++;
         }
-        if (self.user.id == jury.UserId) {
+        if (self.user && self.user.id == jury.UserId) {
             self.role = 'jury';
             if (jury.vote != null) {
                 self.isVoted = true;
             }
         }
     });
-    self.plaintiffValue = plaintiffValue / (plaintiffValue + defendantValue) * 100;
-    self.defendantValue = defendantValue / (plaintiffValue + defendantValue) * 100;
-
-    self.deleteDispute = () => {
-        DisputesService
-            .del(self.dispute)
-            .then(() => { $state.go("dispute.list({ category : ''})") })
-    };
+    self.plaintiffValue = Math.round(plaintiffValue / (plaintiffValue + defendantValue) * 100);
+    self.defendantValue = Math.round(defendantValue / (plaintiffValue + defendantValue) * 100);
 
     self.saveArgument = (argument) => {
         $http
             .post('/api/argument', {
-                dispute : self.dispute.id,
+                disputeId : self.dispute.id,
                 argument : argument
             })
             .success(function(result) {
@@ -79,26 +62,19 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
             });
     };
 
-    self.saveVote = (vote) => {
-        self.isVoted = true;
-
-        if (vote == 'plaintiff') {
-            plaintiffValue++;
-        }
-        if (vote == 'defendant') {
-            defendantValue++;
-        }
-
-        self.plaintiffValue = plaintiffValue / (plaintiffValue + defendantValue) * 100;
-        self.defendantValue = defendantValue / (plaintiffValue + defendantValue) * 100;
-
+    self.vote = (vote) => {
         $http
             .post('api/jury/vote', {
                 dispute : self.dispute.id,
                 vote : vote
             })
-            .success(function() {
-                console.log('success')
+            .success(() => {
+                self.isVoted = true;
+
+                vote == 'plaintiff' ? plaintiffValue++ : '';
+                vote == 'defendant' ? defendantValue++ : '';
+                self.plaintiffValue = Math.round(plaintiffValue / (plaintiffValue + defendantValue) * 100);
+                self.defendantValue = Math.round(defendantValue / (plaintiffValue + defendantValue) * 100);
             })
             .catch((err, status) => {
                 console.log(err, status);
@@ -147,6 +123,22 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
                     return user
                 }
             }
+        })
+    };
+
+    self.deleteDispute = () => {
+        DisputesService
+            .del(self.dispute)
+            .then(() => { $state.go("disputes.list") })
+    };
+
+    if ($location.search().invitation != null) {
+        $modal.open({
+            templateUrl : 'disputes/modals/auth-controller.html',
+            controller : 'authModal',
+            controllerAs : 'modal',
+            size: 'sm',
+            backdrop : 'static'
         })
     }
 }

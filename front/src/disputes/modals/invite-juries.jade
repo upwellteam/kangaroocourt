@@ -2,17 +2,19 @@
     button.close(type='button', ng-click='modal.dismiss()')
         span(aria-hidden='true') &times;
     p.modal-title Invite juries
-.modal-body(ng-show='modal.dispute.jury.length !=0')
-    li(ng-repeat='jury in modal.dispute.jury')
+.modal-body(ng-if='modal.dispute.Juries.length !=0')
+    li(ng-repeat='jury in modal.dispute.Juries')
         span {{ jury.User.email }}
-.modal-footer
+.modal-body
     form.form-group
-        input.form-control(type='email', ng-model='email', size='30', placeholder='email')
+        input.form-control(type='email', ng-model='email', size='30', placeholder='Email')
         .messages
             .alert.alert-danger(ng-show='email == modal.dispute.Plaintiff.email')
                 span Plaintiff can't be a jury
             .alert.alert-danger(ng-show='email == modal.dispute.defendantEmail')
                 span Defendant can't be a jury
 
-        btn.btn.btn-success#invite-btn(ng-click='modal.sendInvite(email)', value='Invite',
-        ng-disabled='email == modal.dispute.Plaintiff.email || email == modal.dispute.defendantEmail')
+.modal-footer
+        btn.btn.btn-success(ng-click='modal.sendInvite(email)',
+                            ng-disabled='email == modal.dispute.Plaintiff.email || email == modal.dispute.defendantEmail')
+            | Invite

@@ -9,6 +9,7 @@ angular
         'kangaroo.profile',
 
         'ui.bootstrap',
+        'relativeDate',
         'ngAnimate'
     ])
     .constant('OAUTH_PROVIDERS', {

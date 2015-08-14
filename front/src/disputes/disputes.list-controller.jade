@@ -11,7 +11,7 @@
                     ul.ul-single
                         li: a {{ dispute.votes || 'no' }} votes
                         li /
-                        li: a {{ dispute.createdAt }}
+                        li: a {{ dispute.createdAt | relativeDate }}
                         li /
                         li: a(ui-sref='dispute.list({ category : dispute.category })') {{ dispute.category }}
                         li /

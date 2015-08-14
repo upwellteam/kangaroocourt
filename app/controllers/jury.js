@@ -117,16 +117,15 @@ router.post('/jury/invite', authenticate(), function(req, res) {
  *
  */
 router.post('/jury/vote', authenticate(), function(req, res) {
+    // TODO: authenticate() doesnt work
     debug('POST jury/vote');
 
     var models = res.app.get('models'),
         user = res.locals.user,
         data = req.body;
 
-    // TODO: isvoted
-
     models.Jury
-        .find({ where : { disputeId : data.dispute, userId : user.id } })
+        .find({ where : { DisputeId : data.dispute, UserId : user.id } })
         .then(function(jury){
             jury.setDataValue('vote', data.vote);
             return jury.save();

@@ -3,7 +3,8 @@ var debug = require('debug')('kangaroo:controller:comments');
 var router = require('express').Router(),
     utils = require('../utils');
 
-var authenticate = require('../middleware/auth.js');
+var authenticate = require('../middleware/auth.js'),
+    errors = require('../errors');
 
 /**
  *
@@ -47,7 +48,7 @@ router.get('/comments', function (req, res) {
         .then(function(Comment) {
             res.json(Comment);
         })
-        .catch(utils.NotFoundError, function(err){
+        .catch(errors.NotFoundError, function(err){
             res.status(404).json({ error : err.message });
         })
         .catch(function(err){
@@ -72,7 +73,7 @@ router.delete('/comments/:id', function(req, res) {
         .then(function(){
             res.status(200).send('comment successfully deleted')
         })
-        .catch(utils.NotFoundError, function(err){
+        .catch(errors.NotFoundError, function(err){
             res.status(404).json({ error : err.message });
         })
         .catch(function(err){

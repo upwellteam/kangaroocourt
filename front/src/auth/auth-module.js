@@ -25,7 +25,7 @@ function configure($httpProvider, $stateProvider) {
                             state[param[0]] = param[1];
                         });
                     Authentication
-                        .oAuthExecute($location.search().code, $location.search().invitation || null)
+                        .oAuthExecute($location.search().code, state.invitation || null)
                         .then(() => { $location.path(state.returnto); })
                         .catch((error) => {
                             console.log(error);
