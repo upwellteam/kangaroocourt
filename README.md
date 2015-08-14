@@ -44,13 +44,25 @@ database | Create Database and Sync
 
 ### .env example
 ```
-ENV     =   development
-PORT    =   3000
-DOMAIN     =   http://kangaroo.loc:3000/
+ENV                     = development
+PORT                    = 3000
+DOMAIN                  = http://kangaroocourt.loc:3000/
 
-FACEBOOK_CLIENT_ID =
-FACEBOOK_REDIRECT_URI =
-FACEBOOK_CLIENT_SECRET =
+REDISTOGO_URL           = redis://localhost:6379/
+REDIS_TOKEN_LIFETIME    = 3600
 
-MANDRILL_API_KEY =
+MYSQL_USERNAME          = root
+MYSQL_PASSWORD          = 123456789
+MYSQL_HOST              = localhost
+MYSQL_DATABASE          = kangaroocourt
+MYSQL_PORT              = 3306
+
+SALT                    =
+UPLOAD_DIR              = kangaroocourt/uploads/
+
+FACEBOOK_ID             =
+FACEBOOK_SECRET         =
+FACEBOOK_URI            =
+
+MANDRILL_API_KEY        =
 ```

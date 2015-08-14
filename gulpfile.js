@@ -2,7 +2,6 @@
 
 require('dotenv').load();
 
-
 //   Libraries
 var argv = require('yargs').argv,
     fs = require('fs'),
@@ -17,12 +16,7 @@ var argv = require('yargs').argv,
     concat = require('gulp-concat'),
     sequence = require('gulp-sequence'),
     minifyCSS = require('gulp-minify-css'),
-
-    md5 = require('md5'),
-    path = require('path'),
-    prompt = require('prompt'),
-    sourcemaps = require('gulp-sourcemaps'),
-    deepExtend = require('extend').bind(null, true);
+    sourcemaps = require('gulp-sourcemaps');
 
 var env = argv.env || process.env.NODE_ENV || 'development';
 process.env.NODE_ENV = env;
@@ -169,34 +163,6 @@ gulp.task('watch', function () {
 });
 
 //
-//      Configuration task
-//
-gulp.task('configure', function(cb) {
-    var schema = require('./config/.schema');
-
-    prompt.start();
-    prompt.get(schema, function(err, config) {
-        if (err) { return cb(err) }
-
-        config = expandConfig(config);
-        // TODO: Update md5 module
-        config.salt = config.salt == "auto" ? md5(Date.now()) : config.salt;
-        config.salt = env == 'test' ? '' : config.salt;
-        config.uploadDir = path.resolve(__dirname, `./${config.uploadDir}/`);
-
-        config = deepExtend({
-            mysql : { dialect : "mysql" }
-        }, config);
-
-        if (env == 'test') {
-            config.mysql.dialectOptions = { multipleStatements : true }
-        }
-
-        fs.writeFile(`./config/${env}.json`, JSON.stringify(config, null, '    '), cb);
-    });
-});
-
-//
 //      Database related tasks
 //
 gulp.task('database', sequence('database-create', 'database-sync'));
@@ -204,7 +170,7 @@ gulp.task('database', sequence('database-create', 'database-sync'));
 gulp.task('database-create', function(cb) {
     var mysql = require('mysql');
 
-    var config = require(`./config/${env}.json`).mysql;
+    var config = require('./app/app.js').get('config').mysql;
 
     var connection = mysql.createConnection({
         host : config.host,

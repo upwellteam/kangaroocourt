@@ -13,7 +13,7 @@ var express = require('express'),
 var app = module.exports = express(),
     root = path.resolve(`${__dirname}/../`),
     env = argv.env || process.env.NODE_ENV || 'development',
-    config = require(`${root}/config/${env}.json`),
+    config = require('./config');
     utils = require('./utils');
 
 app.set('env', env);
