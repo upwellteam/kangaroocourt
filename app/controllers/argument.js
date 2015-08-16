@@ -10,7 +10,7 @@ var authenticate = require('../middleware/auth.js'),
  *
  */
 router.post('/argument', authenticate(), function(req, res) {
-    debug('POST /argument');
+    debug('[POST] /argument');
     var models = res.app.get('models');
 
     var data = req.body,
@@ -54,6 +54,7 @@ router.post('/argument', authenticate(), function(req, res) {
  *
  */
 router.get('/argument/:id', function(req, res) {
+    debug('[GET] /argument/:id');
     var models = res.app.get('models');
     var id = req.params.id;
 

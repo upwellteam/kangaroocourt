@@ -10,19 +10,19 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "jquery": "*",
     "angular": "1.4.*",
-    "angular-ui-router": "*",
-    "angular-cookies": "~1.4.3",
+    "angular-animate": "~1.4.3",
     "angular-bootstrap": "*",
+    "angular-cookies": "~1.4.3",
+    "angular-file-upload": "~2.1.1",
+    "angular-moment": "*",
     "angular-permission": "~0.3.1",
     "angular-relative-date": "~1.0.0",
-    "angular-moment": "*",
+    "angular-ui-router": "*",
     "angular-ui-switch": "~0.1.0",
-    "angular-animate": "~1.4.3",
     "bootstrap": "*",
-    "moment": "*",
     "font-awesome": "~4.4.0",
-    "angular-file-upload": "~2.1.1"
+    "jquery": "*",
+    "moment": "*"
   }
 }

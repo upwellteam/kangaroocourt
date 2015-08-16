@@ -102,6 +102,7 @@ router.post('/oauth/facebook', function(req, res, next) {
             return user.generateToken();
         })
         .then(function(token){
+            console.log(user);
             res.json({
                 token : token,
                 user : {
@@ -109,7 +110,7 @@ router.post('/oauth/facebook', function(req, res, next) {
                     name : user.name,
                     email : user.email,
                     firstName : user.firstName,
-                    imgUrl : 'https://graph.facebook.com/'+user.id+'/picture?type=large'
+                    imgUrl : user.imgUrl
                 }
             });
         })
