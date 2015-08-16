@@ -29,7 +29,52 @@
                         .arg-add
                             span.add
                                 i.fa.fa-plus
-                                a(href='#')  Add Evidence
+                                a Add Evidence
+
+                            input(type="file",
+                                nv-file-select,
+                                uploader="self.uploader",
+                                filters="images")
+                            table.table
+                                thead
+                                    tr
+                                        th(width='50%') Name
+                                        th Size
+                                        th Status
+                                        th Actions
+                                tbody
+                                    tr(ng-repeat="item in self.uploader.queue")
+                                        td
+                                            strong {{ item.file.name }}
+                                            div(ng-thumb='{ file: item._file, height: 100 }')
+                                        td(nowrap='') {{ item.file.size/1024/1024|number:2 }} MB
+                                        td
+                                            .progress(style='margin-bottom: 0;')
+                                                .progress-bar(role='progressbar', ng-style="{ 'width': item.progress + '%' }")
+                                        td.text-center
+                                            span(ng-show='item.isSuccess')
+                                                i.glyphicon.glyphicon-ok
+                                            span(ng-show='item.isError')
+                                                i.glyphicon.glyphicon-remove
+                                        td(nowrap='')
+                                            button.btn.btn-success.btn-xs(type='button', ng-click='item.upload()', ng-disabled='item.isReady || item.isUploading || item.isSuccess')
+                                                span.glyphicon.glyphicon-upload
+                                                |  Upload
+                                            button.btn.btn-danger.btn-xs(type='button', ng-click='item.remove()')
+                                                span.glyphicon.glyphicon-trash
+                                                |  Remove
+                            div
+                                div
+                                    | Queue progress:
+                                    .progress(style='')
+                                        .progress-bar(role='progressbar', ng-style="{ 'width': uploader.progress + '%' }", style='width: 0%;')
+                                button.btn.btn-success.btn-s(type='button', ng-click='self.uploader.uploadAll()', ng-disabled='!self.uploader.getNotUploadedItems().length')
+                                    span.glyphicon.glyphicon-upload
+                                    |  Upload all
+                                button.btn.btn-danger.btn-s(type='button', ng-click='self.uploader.clearQueue()', ng-disabled='!self.uploader.queue.length')
+                                    span.glyphicon.glyphicon-trash
+                                    |  Remove all
+
 
                     div(ng-if="self.role == 'jury'")
                         .arg-vote(ng-if="self.isVoted == false")

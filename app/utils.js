@@ -1,6 +1,9 @@
 var fs = require('fs'),
     path = require('path'),
+    extend = require('extend'),
     underscore = require('underscore');
+
+module.exports.extend = extend;
 
 module.exports.capitalize = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

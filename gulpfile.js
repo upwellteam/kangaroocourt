@@ -63,7 +63,8 @@ var paths = {
         'front/vendor/angular-moment/angular-moment.js',
         'front/vendor/angular-permission/dist/angular-permission.js',
         'front/vendor/angular-animate/angular-animate.js',
-        'front/vendor/angular-relative-date/angular-relative-date.js'
+        'front/vendor/angular-relative-date/angular-relative-date.js',
+        'front/vendor/angular-file-upload/dist/angular-file-upload.min.js'
     ]
 };
 

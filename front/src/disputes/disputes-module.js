@@ -1,6 +1,7 @@
 angular
     .module('kangaroo.disputes', [
-        'kangaroo.base'
+        'kangaroo.base',
+        'angularFileUpload'
     ])
     .config(configure);
 

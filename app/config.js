@@ -4,7 +4,7 @@ var rtg = url.parse(process.env.REDISTOGO_URL);
 
 var config = {
     salt : process.env.SALT,
-    upload_dir : process.env.UPLOAD_DIR,
+    uploadDir : process.env.UPLOAD_DIR,
     mysql : {
         username : process.env.MYSQL_USERNAME,
         password : process.env.MYSQL_PASSWORD,

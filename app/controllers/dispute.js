@@ -1,12 +1,12 @@
 var debug = require('debug')('kangaroo:controller:dispute');
 
 var router = require('express').Router(),
-    jade = require('jade'),
-    utils = require('../utils');
+    jade = require('jade');
 
-var authenticate = require('../middleware/auth.js');
-
-var disputeTemplate = jade.compileFile(`${__dirname}/../templates/invitation.jade`);
+var authenticate = require('../middleware/auth.js'),
+    errors = require('../errors'),
+    utils = require('../utils'),
+    disputeTemplate = jade.compileFile(`${__dirname}/../templates/invitation.jade`);
 
 /**
  *

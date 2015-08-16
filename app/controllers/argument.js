@@ -1,10 +1,10 @@
 var debug = require('debug')('kangaroo:controller:argument');
 
-var router = require('express').Router(),
-    utils = require('../utils');
+var router = require('express').Router();
 
 var authenticate = require('../middleware/auth.js'),
-    errors = require('../errors');
+    errors = require('../errors'),
+    utils = require('../utils');
 
 /**
  *

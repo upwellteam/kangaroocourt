@@ -2,9 +2,9 @@ angular
     .module('kangaroo.disputes')
     .controller('DisputeController', DisputeController);
 
-DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location', 'DisputesService', 'Authentication'];
+DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location', 'DisputesService', 'Authentication', 'FileUploader', 'MAX_EVIDENCE'];
 
-function DisputeController(dispute, $http, $modal, $state, $location, DisputesService, Authentication) {
+function DisputeController(dispute, $http, $modal, $state, $location, DisputesService, Authentication, FileUploader, MAX_EVIDENCE) {
     var self = this;
     this.Authentication = Authentication;
     this.user = Authentication.user;
@@ -47,6 +47,21 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
     });
     self.plaintiffValue = Math.round(plaintiffValue / (plaintiffValue + defendantValue) * 100);
     self.defendantValue = Math.round(defendantValue / (plaintiffValue + defendantValue) * 100);
+
+    var uploader = this.uploader = new FileUploader({
+        url : '/api/dispute/evidence',
+        method : 'POST',
+        alias : 'photo',
+        formData : [{ disputeId : self.dispute.id }]
+    });
+
+    uploader.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    });
 
     self.saveArgument = (argument) => {
         $http

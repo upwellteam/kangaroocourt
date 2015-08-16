@@ -27,9 +27,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-// TODO: think about uploads files
-//app.use(multer({ dest: `${__dirname}/../uploads/`}));
-
 utils.readdirRecursiveSync(`${root}/app/controllers`).forEach(function(name) {
     app.use(require(`./controllers/${name}`));
 });

@@ -4,7 +4,7 @@ var debug = require('debug')('kangaroo:models:dispute');
  *
  */
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Dispute', {
+    var Dispute = sequelize.define('Dispute', {
         name: {
             type: DataTypes.STRING(128),
             allowNull : false
@@ -47,5 +47,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         instanceMethods: {}
     });
+
+    return Dispute;
 };
 

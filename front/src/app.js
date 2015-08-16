@@ -13,6 +13,7 @@ angular
         'ngAnimate'
     ])
     .constant('CONFIG', CONFIG)
+    .constant('MAX_EVIDENCE', 3)
     .constant('DISPUTE_CATEGORIES', [
         'love', 'animals', 'kids', 'money', 'work', 'health', 'intimacy', 'miscellaneous'
     ]);

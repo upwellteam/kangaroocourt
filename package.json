@@ -21,7 +21,7 @@
     "debug": "*",
     "dotenv": "*",
     "express": "*",
-    "extend": "*",
+    "extend": "^3.0.0",
     "gulp": "*",
     "gulp-babel": "*",
     "gulp-concat": "*",
