@@ -58,7 +58,7 @@ MYSQL_DATABASE          = kangaroocourt
 MYSQL_PORT              = 3306
 
 SALT                    =
-UPLOAD_DIR              = kangaroocourt/uploads/
+UPLOAD_DIR              = /uploads/
 
 FACEBOOK_ID             =
 FACEBOOK_SECRET         =

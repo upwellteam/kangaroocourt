@@ -76,7 +76,12 @@ gulp.task('jade', function() {
         .pipe(jade({
             doctype : 'html',
             pretty : true,
-            locals : { v : (new Date()).getTime() }
+            locals : {
+                config : {
+                    facebook_id : process.env.FACEBOOK_ID,
+                    facebook_uri       : process.env.FACEBOOK_URI
+                }
+            }
         }))
         .pipe(gulp.dest('front/dist'))
 });

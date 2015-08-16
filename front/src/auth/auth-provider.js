@@ -5,11 +5,11 @@ angular
 function AuthenticationProvider() {
     this.$get = $get;
 
-    $get.$inject = ['OAUTH_PROVIDERS', '$rootScope', '$location', '$q', '$timeout', '$http', 'Storage'];
-    function $get(OAUTH_PROVIDERS, $root, location, $q, $timeout, $http, Storage) {
+    $get.$inject = ['CONFIG', '$rootScope', '$location', '$q', '$timeout', '$http', 'Storage'];
+    function $get(CONFIG, $root, location, $q, $timeout, $http, Storage) {
         class Authentication {
             constructor() {
-                this.OAUTH = OAUTH_PROVIDERS;
+                this.CONFIG = CONFIG;
                 $root.Authentication = this;
 
                 this.user = null;
@@ -104,8 +104,8 @@ function AuthenticationProvider() {
                 var invitation = location.search().invitation;
                 return {
                     facebook: `https://www.facebook.com/dialog/oauth?` +
-                    `client_id=${this.OAUTH.facebook.client_id}` +
-                    `&redirect_uri=${this.OAUTH.facebook.redirect_uri}` +
+                    `client_id=${this.CONFIG.facebook_id}` +
+                    `&redirect_uri=${this.CONFIG.facebook_uri}` +
                     `&scope=email` +
                     `&state=returnto:${location.path()}`
                     + (invitation ? `;invitation:${location.search().invitation}` : '')

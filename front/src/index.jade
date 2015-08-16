@@ -26,5 +26,7 @@ html(ng-app="kangaroocourt", ng-scrict-di)
                             li: a(href='#') Contact
                             li: a(href='#') Follow us on Twitter
 
+        script(type="text/javascript").
+            var CONFIG = !{ JSON.stringify(config) };
         script(type='text/javascript', src='/js/vendor.js')
         script(type='text/javascript', src='/js/all.js')

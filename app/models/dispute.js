@@ -1,4 +1,4 @@
-var debug = require('debug')(require('../../package').name + ':models:dispute');
+var debug = require('debug')('kangaroo:models:dispute');
 
 /**
  *

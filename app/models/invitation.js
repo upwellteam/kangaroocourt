@@ -1,4 +1,4 @@
-var debug = require('debug')('kangaroo:models:Invitation');
+var debug = require('debug')('kangaroo:models:invitation');
 
 var Promise = require('bluebird');
 
