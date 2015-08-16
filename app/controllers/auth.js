@@ -104,7 +104,13 @@ router.post('/oauth/facebook', function(req, res, next) {
         .then(function(token){
             res.json({
                 token : token,
-                user : user.toJSON()
+                user : {
+                    id : user.id,
+                    name : user.name,
+                    email : user.email,
+                    firstName : user.firstName,
+                    imgUrl : 'https://graph.facebook.com/'+user.id+'/picture?type=large'
+                }
             });
         })
         .catch(function(err){
@@ -135,7 +141,7 @@ router.post('/refresh-token', function(req, res, next) {
             return token.regenerate();
         })
         .then(function(token) {
-            res.json({ token : token });
+            res.json(token);
         })
         .catch(next)
 });

@@ -5,8 +5,8 @@ angular
 function AuthenticationProvider() {
     this.$get = $get;
 
-    $get.$inject = ['OAUTH_PROVIDERS', '$rootScope', '$state', '$location', '$q', '$timeout', '$http', 'Storage'];
-    function $get(OAUTH_PROVIDERS, $root, $state, location, $q, $timeout, $http, Storage) {
+    $get.$inject = ['OAUTH_PROVIDERS', '$rootScope', '$location', '$q', '$timeout', '$http', 'Storage'];
+    function $get(OAUTH_PROVIDERS, $root, location, $q, $timeout, $http, Storage) {
         class Authentication {
             constructor() {
                 this.OAUTH = OAUTH_PROVIDERS;
@@ -41,7 +41,7 @@ function AuthenticationProvider() {
                 } else {
                     this.user = angular.extend(this.user, user);
                 }
-                this.version = Date.now();
+                this.user.version = Date.now();
                 Storage.set('user', this.user);
             }
 
@@ -74,8 +74,7 @@ function AuthenticationProvider() {
             }
 
             refreshToken() {
-                var self = this,
-                    deferred = $q.defer();
+                var deferred = $q.defer();
 
                 if (this.tokenRefreshing) {
                     var unsubscribe = $root.$on('auth:token-refreshed', function(){
@@ -87,7 +86,7 @@ function AuthenticationProvider() {
                 this.tokenRefreshing = true;
 
                 $http
-                    .post('/api/refresh-token', { refresh_token : self.token.refresh_token})
+                    .post('/api/refresh-token', { refresh_token : this.token.refresh_token})
                     .success((response) => {
                         this.setToken(response);
                         this.tokenRefreshing  = false;
