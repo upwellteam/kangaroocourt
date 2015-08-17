@@ -56,6 +56,15 @@ class DisputesService {
         })
     }
 
+    deleteEvidence(id) {
+        return $q(function(resolve, reject){
+            $http
+                .delete(`/api/dispute/evidence/${id}`)
+                .success(() => { resolve() })
+                .error(() => { reject(); })
+        })
+    }
+
 }
 
 DisputesService.$inject = ['$http', '$location', '$q'];

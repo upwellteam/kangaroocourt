@@ -17,7 +17,6 @@ function InviteJuriesController ($modalInstance, $http, dispute, user) {
             .post('/api/jury/invite', { email : email, dispute : dispute.id})
             .success((response) => {
                 console.log(response);
-                console.log('success');
                 self.dismiss();
             })
             .error((err) => {

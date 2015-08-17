@@ -2,9 +2,11 @@ angular
     .module('kangaroo.disputes')
     .controller('DisputeController', DisputeController);
 
-DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location', 'DisputesService', 'Authentication', 'FileUploader', 'MAX_EVIDENCE'];
+DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location',
+                             'DisputesService', 'Authentication', 'FileUploader', 'MAX_EVIDENCE', 'CommonService'];
 
-function DisputeController(dispute, $http, $modal, $state, $location, DisputesService, Authentication, FileUploader, MAX_EVIDENCE) {
+function DisputeController(dispute, $http, $modal, $state, $location,
+                           DisputesService, Authentication, FileUploader, MAX_EVIDENCE, CommonService) {
     var self = this;
     this.Authentication = Authentication;
     this.user = Authentication.user;
@@ -44,9 +46,6 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
             self.dispute.Evidences.Defendant.push(el);
         }
     });
-    if (self.dispute.Evidences.Plaintiff.length < 3) {
-        console.log('show');
-    }
     this.isVoted = false;
 
     var plaintiffValue = 0, defendantValue = 0;
@@ -71,7 +70,9 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
         url : '/api/dispute/evidence',
         method : 'POST',
         alias : 'photo',
-        formData : [{ disputeId : self.dispute.id }]
+        headers : { Authentication : Authentication.token.access_token },
+        formData : [{ disputeId : self.dispute.id }],
+        removeAfterUpload : true
     });
 
     uploader.filters.push({
@@ -81,6 +82,9 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
             return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
         }
     });
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        self.dispute.Evidences[CommonService.capitalize(self.role)].push(response)
+    };
 
     self.saveArgument = (argument) => {
         $http
@@ -98,7 +102,7 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
 
     self.vote = (vote) => {
         $http
-            .post('api/jury/vote', {
+            .post('/api/jury/vote', {
                 dispute : self.dispute.id,
                 vote : vote
             })
@@ -172,9 +176,13 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
             controller : 'EvidenceModalController',
             controllerAs : 'modal',
             size: 'md',
+            windowClass : 'evidence-preview',
             resolve : {
                 image: function () {
                     return image;
+                },
+                dispute : function () {
+                    return self.dispute;
                 }
             }
         })

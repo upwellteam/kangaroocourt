@@ -25,10 +25,6 @@ function httpInterceptorsFactory($injector, $q) {
                 Authentication = $injector.get('Authentication'),
                 deferred = $q.defer();
 
-            if (! Authentication.isAuthenticated()) {
-                return $state.go('auth.login');
-            }
-
             Authentication
                 .refreshToken()
                 .then(() => {

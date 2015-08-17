@@ -2,8 +2,7 @@ var debug = require('debug')('kangaroo:models:evidence');
 
 var path = require('path'),
     Promise = require('bluebird'),
-    async = require('async'),
-    fs = Promise.promisifyAll(require('fs'));
+    async = require('async');
 
 var utils = require('../../utils');
 
@@ -25,6 +24,10 @@ module.exports = function(sequelize, DataTypes) {
             get : function() {
                 return `/uploads/${this.filename}`
             }
+        },
+        absolutePath : {
+            type: DataTypes.STRING(128),
+            allowNull: false
         }
     }, {
         classMethods : {
