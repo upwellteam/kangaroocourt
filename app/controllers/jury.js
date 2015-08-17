@@ -118,7 +118,7 @@ router.post('/jury/invite', authenticate(), function(req, res) {
  */
 router.post('/jury/vote', authenticate(), function(req, res) {
     // TODO: authenticate() doesnt work
-    debug('POST jury/vote');
+    debug('[POST] jury/vote');
 
     var models = res.app.get('models'),
         user = res.locals.user,

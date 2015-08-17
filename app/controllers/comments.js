@@ -10,7 +10,7 @@ var authenticate = require('../middleware/auth.js'),
  *
  */
 router.post('/comments', authenticate(), function(req, res) {
-    debug('POST /comments');
+    debug('[POST] /comments');
 
     var models = res.app.get('models'),
         data = req.body,

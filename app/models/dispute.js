@@ -43,6 +43,7 @@ module.exports = function(sequelize, DataTypes) {
                 models.Dispute.hasMany(models.Argument);
                 models.Dispute.hasMany(models.Jury);
                 models.Dispute.hasMany(models.Comment);
+                models.Dispute.hasMany(models.Evidence);
             }
         },
         instanceMethods: {}

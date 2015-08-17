@@ -21,8 +21,9 @@ mkdirp.sync(uploadDir);
 /**
  *
  */
-router.post('/dispute/evidence', upload.array('photo', 12), function(req, res, next) {
+router.post('/dispute/evidence', authenticate(), upload.array('photo', 12), function(req, res, next) {
     debug('[POST] /dispute/evidence');
+    // TODO: authentication doesnt work
 
     var models = res.app.get('models'),
         data = req.body,
@@ -36,11 +37,11 @@ router.post('/dispute/evidence', upload.array('photo', 12), function(req, res, n
 
     models.User
         .find({
-            where : { id : 1 }
+            where : { id : user.id }
         })
         .then(function(result) {
             user = result;
-            return models.DisputesEvidence.countEvidence(user);
+            return models.Evidence.countEvidence(user);
         })
         .then(function(evidenceCount) {
             if (evidenceCount >= MAX_EVIDENCE_COUNT) {
@@ -48,12 +49,12 @@ router.post('/dispute/evidence', upload.array('photo', 12), function(req, res, n
             }
 
             return files.forEach(function(file){
-                models.DisputesEvidence
+                models.Evidence
                     .create({
                         basename : file.originalname,
-                        absolutePath : file.path,
+                        filename : file.filename,
                         DisputeId : data.disputeId,
-                        UploaderId : 1
+                        UploaderId : user.id
                     });
             })
         })

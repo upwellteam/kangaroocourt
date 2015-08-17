@@ -188,6 +188,7 @@ router.get('/disputes/:id', function(req, res) {
                 { model: models.User, as : 'Plaintiff' },
                 { model: models.Comment, include : [{ model: models.User }] },
                 { model: models.Jury, include : [{ model: models.User }] },
+                { model: models.Evidence, as : 'Evidence' },
                 models.Argument
             ]
         })

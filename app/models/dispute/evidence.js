@@ -11,46 +11,32 @@ var utils = require('../../utils');
  *
  */
 module.exports = function(sequelize, DataTypes) {
-    var DisputesEvidence = sequelize.define('DisputesEvidence', {
+    var Evidence = sequelize.define('Evidence', {
         basename: {
-            type: DataTypes.STRING(36),
+            type: DataTypes.STRING(128),
             allowNull: false
         },
-        width : {
-            type : DataTypes.INTEGER.UNSIGNED,
-            allowNull : true,
-            defaultValue : null
-        },
-        height : {
-            type : DataTypes.INTEGER.UNSIGNED,
-            allowNull : true,
-            defaultValue : null
+        filename: {
+            type: DataTypes.STRING(128),
+            allowNull: false
         },
         path : {
             type : DataTypes.VIRTUAL,
             get : function() {
-                return `/${this.basename}${this.extension}`
-            }
-        },
-        absolutePath : {
-            type: DataTypes.VIRTUAL,
-            set : function(viam) {
-                this.extension = path.extname(viam);
-                this.basename = path.basename(viam, this.extension)
+                return `/uploads/${this.filename}`
             }
         }
     }, {
         classMethods : {
             associate : function(models) {
-                DisputesEvidence.belongsTo(models.Dispute);
-
-                DisputesEvidence.belongsTo(models.User, {
+                models.Evidence.belongsTo(models.Dispute);
+                models.Evidence.belongsTo(models.User, {
                     as : 'Uploader'
                 });
             },
             countEvidence : function(user) {
-                var query = `SELECT count(*) AS total FROM DisputesEvidences
-                             WHERE DisputesEvidences.UploaderId = :userId`;
+                var query = `SELECT count(*) AS total FROM Evidence
+                             WHERE Evidence.UploaderId = :userId`;
 
                 return new Promise(function(resolve, reject) {
                     sequelize
@@ -68,5 +54,5 @@ module.exports = function(sequelize, DataTypes) {
         instanceMethods : {}
     });
 
-    return DisputesEvidence;
+    return Evidence;
 };

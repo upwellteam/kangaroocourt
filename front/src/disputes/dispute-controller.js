@@ -11,6 +11,10 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
 
     this.dispute = dispute;
 
+    this.collapse = {
+        uploader : false
+    };
+
     this.role = null;
     if (self.user && self.dispute.DefendantId == self.user.id) {
         self.role = 'defendant';
@@ -27,7 +31,23 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
             self.dispute.Arguments.plaintiff = el;
         }
     });
-    
+
+    self.dispute.Evidences = {
+        Plaintiff : [],
+        Defendant : []
+    };
+    self.dispute.Evidence.forEach((el, i) => {
+        if(el.UploaderId == self.dispute.PlaintiffId) {
+            self.dispute.Evidences.Plaintiff.push(el);
+        }
+        if(el.UploaderId == self.dispute.DefendantId) {
+            self.dispute.Evidences.Defendant.push(el);
+        }
+    });
+    if (self.dispute.Evidences.Plaintiff.length < 3) {
+        console.log('show');
+    }
+    console.log(self.dispute.Evidences.Plaintiff.length);
     this.isVoted = false;
 
     var plaintiffValue = 0, defendantValue = 0;

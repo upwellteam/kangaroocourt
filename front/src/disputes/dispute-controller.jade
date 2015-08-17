@@ -23,14 +23,20 @@
                     div(ng-if="self.role == 'plaintiff'")
                         .arg-add(ng-if='!self.dispute.Arguments.plaintiff')
                             textarea.form-control(type="text", ng-model="Plaintiff.argument", placeholder='Type your argument here...')
-                            span.add
+                            span.add(ng-click='self.saveArgument(Plaintiff.argument)')
                                 i.fa.fa-plus
-                                a(ng-click='self.saveArgument(Plaintiff.argument)')  Add Argument
-                        .arg-add
-                            span.add
-                                i.fa.fa-plus
-                                a Add Evidence
+                                span Add Argument
+                    .arg-add.clearfix.row(ng-if='self.dispute.Evidences.Plaintiff.length != 0'): ul
+                        li.col-md-4(ng-repeat ="image in self.dispute.Evidences.Plaintiff"): a(href='#')
+                            img.img-responsive.add-img(ng-src='{{image.path}}')
 
+                    .arg-add(ng-click="self.collapse.uploader = !self.collapse.uploader"
+                             ng-if="self.dispute.Evidences.Plaintiff.length < 3")
+                            span.add
+                                i.fa.fa-plus
+                                | Add Evidence
+                        .uploader(collapse='self.collapse.uploader', ng-if="self.dispute.Evidences.Plaintiff.length < 3")
+                            // TODO: move gallery to directive
                             input(type="file",
                                 nv-file-select,
                                 uploader="self.uploader",
@@ -39,39 +45,35 @@
                                 thead
                                     tr
                                         th(width='50%') Name
-                                        th Size
-                                        th Status
+                                        th
                                         th Actions
                                 tbody
                                     tr(ng-repeat="item in self.uploader.queue")
                                         td
                                             strong {{ item.file.name }}
-                                            div(ng-thumb='{ file: item._file, height: 100 }')
-                                        td(nowrap='') {{ item.file.size/1024/1024|number:2 }} MB
-                                        td
-                                            .progress(style='margin-bottom: 0;')
-                                                .progress-bar(role='progressbar', ng-style="{ 'width': item.progress + '%' }")
-                                        td.text-center
+                                            div(ng-thumb='{ file: item._file, height: 100, width: 100 }')
+                                        td:.progress(style='margin-bottom: 0;')
+                                            .progress-bar(role='progressbar', ng-style="{ 'width': item.progress + '%' }")
+                                        td.text-center(nowrap='')
                                             span(ng-show='item.isSuccess')
                                                 i.glyphicon.glyphicon-ok
                                             span(ng-show='item.isError')
                                                 i.glyphicon.glyphicon-remove
-                                        td(nowrap='')
-                                            button.btn.btn-success.btn-xs(type='button', ng-click='item.upload()', ng-disabled='item.isReady || item.isUploading || item.isSuccess')
+                                        td
+                                            button.btn.btn-success.btn-xs(ng-click='item.upload()', ng-disabled='item.isReady || item.isUploading || item.isSuccess')
                                                 span.glyphicon.glyphicon-upload
                                                 |  Upload
-                                            button.btn.btn-danger.btn-xs(type='button', ng-click='item.remove()')
+                                            button.btn.btn-danger.btn-xs(ng-click='item.remove()')
                                                 span.glyphicon.glyphicon-trash
                                                 |  Remove
                             div
-                                div
-                                    | Queue progress:
-                                    .progress(style='')
-                                        .progress-bar(role='progressbar', ng-style="{ 'width': uploader.progress + '%' }", style='width: 0%;')
-                                button.btn.btn-success.btn-s(type='button', ng-click='self.uploader.uploadAll()', ng-disabled='!self.uploader.getNotUploadedItems().length')
+                                | Queue progress:
+                                .progress(style='')
+                                    .progress-bar(role='progressbar', ng-style="{ 'width': uploader.progress + '%' }", style='width: 0%;')
+                                button.btn.btn-success.btn-s(ng-click='self.uploader.uploadAll()', ng-disabled='!self.uploader.getNotUploadedItems().length')
                                     span.glyphicon.glyphicon-upload
                                     |  Upload all
-                                button.btn.btn-danger.btn-s(type='button', ng-click='self.uploader.clearQueue()', ng-disabled='!self.uploader.queue.length')
+                                button.btn.btn-danger.btn-s(ng-click='self.uploader.clearQueue()', ng-disabled='!self.uploader.queue.length')
                                     span.glyphicon.glyphicon-trash
                                     |  Remove all
 
