@@ -79,8 +79,9 @@ gulp.task('jade', function() {
             pretty : true,
             locals : {
                 config : {
-                    facebook_id : process.env.FACEBOOK_ID,
-                    facebook_uri       : process.env.FACEBOOK_URI
+                    facebook_id  : process.env.FACEBOOK_ID,
+                    facebook_uri : process.env.FACEBOOK_URI,
+                    max_evidence : process.env.MAX_EVIDENCE
                 }
             }
         }))

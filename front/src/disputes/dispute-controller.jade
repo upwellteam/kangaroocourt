@@ -31,13 +31,13 @@
                         li.col-md-4(ng-repeat ="image in self.dispute.Evidences.Plaintiff")
                             img.img-responsive.add-img(ng-src='{{image.path}}',
                                                        ng-click='self.viewEvidence(image)')
-                    .arg-add(ng-if="self.dispute.Evidences.Plaintiff.length < 3")
+                    .arg-add(ng-if="self.dispute.Evidences.Plaintiff.length < self.MAX_EVIDENCE")
                         input.add(type="file",
                                   nv-file-select,
                                   uploader="self.uploader",
                                   filters="images",
-                                  ng-hide='self.uploader.queue.length >= 3')
-                        span.add(ng-hide='self.uploader.queue.length >= 3')
+                                  ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
+                        span.add(ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
                             i.fa.fa-plus
                             | Add Evidence
 

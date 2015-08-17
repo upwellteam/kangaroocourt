@@ -3,14 +3,14 @@ angular
     .controller('DisputeController', DisputeController);
 
 DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location',
-                             'DisputesService', 'Authentication', 'FileUploader', 'MAX_EVIDENCE', 'CommonService'];
+                             'DisputesService', 'Authentication', 'FileUploader', 'CONFIG', 'CommonService'];
 
 function DisputeController(dispute, $http, $modal, $state, $location,
-                           DisputesService, Authentication, FileUploader, MAX_EVIDENCE, CommonService) {
+                           DisputesService, Authentication, FileUploader, CONFIG, CommonService) {
     var self = this;
     this.Authentication = Authentication;
     this.user = Authentication.user;
-
+    this.MAX_EVIDENCE = CONFIG.max_evidence;
     this.dispute = dispute;
 
     this.collapse = {
@@ -69,7 +69,7 @@ function DisputeController(dispute, $http, $modal, $state, $location,
     var uploader = this.uploader = new FileUploader({
         url : '/api/dispute/evidence',
         method : 'POST',
-        alias : 'photo',
+        alias : 'evidence',
         headers : { Authentication : Authentication.token.access_token },
         formData : [{ disputeId : self.dispute.id }],
         removeAfterUpload : true

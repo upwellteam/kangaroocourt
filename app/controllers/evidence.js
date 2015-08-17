@@ -1,5 +1,3 @@
-const MAX_EVIDENCE_COUNT = 3;
-
 var debug = require('debug')('kangaroo:controllers:evidence');
 
 var router = require('express').Router(),
@@ -9,6 +7,7 @@ var router = require('express').Router(),
     fs = Promise.promisifyAll(require('fs'));;
 
 var app = require('../app.js'),
+    config = app.get('config'),
     authenticate = require('../middleware/auth.js'),
     errors = require('../errors'),
     utils = require('../utils');
@@ -23,7 +22,7 @@ mkdirp.sync(uploadDir);
 /**
  *
  */
-router.post('/dispute/evidence', authenticate(), upload.array('photo', 12), function(req, res, next) {
+router.post('/dispute/evidence', authenticate(), upload.array('evidence', config.MAX_EVIDENCE), function(req, res, next) {
     debug('[POST] /dispute/evidence');
 
     var models = res.app.get('models'),
@@ -45,7 +44,7 @@ router.post('/dispute/evidence', authenticate(), upload.array('photo', 12), func
             return models.Evidence.countEvidence(user);
         })
         .then(function(evidenceCount) {
-            if (evidenceCount >= MAX_EVIDENCE_COUNT) {
+            if (evidenceCount >= config.MAX_EVIDENCE) {
                 throw new errors.NotAllowedError('max_evidence_limit');
             }
 
