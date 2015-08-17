@@ -24,7 +24,7 @@ function DisputeController(dispute, $http, $modal, $state, $location,
     if (self.user && self.dispute.PlaintiffId == self.user.id) {
         self.role = 'plaintiff';
     }
-    
+
     self.dispute.Arguments.forEach((el) => {
         if(el.role == 'defendant') {
             self.dispute.Arguments.defendant = el;

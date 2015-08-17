@@ -1,3 +1,3 @@
 img(ng-src='{{modal.image.path}}')
-btn.btn.btn-danger(ng-click='modal.deleteEvidence()')
+btn.btn.btn-danger(ng-click='modal.deleteEvidence()', ng-if="modal.user == 'modal.image.UploaderId'")
     i.fa.fa-trash
