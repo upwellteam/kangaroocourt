@@ -47,7 +47,6 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
     if (self.dispute.Evidences.Plaintiff.length < 3) {
         console.log('show');
     }
-    console.log(self.dispute.Evidences.Plaintiff.length);
     this.isVoted = false;
 
     var plaintiffValue = 0, defendantValue = 0;
@@ -165,6 +164,20 @@ function DisputeController(dispute, $http, $modal, $state, $location, DisputesSe
         DisputesService
             .del(self.dispute)
             .then(() => { $state.go("disputes.list") })
+    };
+
+    self.viewEvidence = (image) => {
+        $modal.open({
+            templateUrl : 'disputes/modals/evidence-view.html',
+            controller : 'EvidenceModalController',
+            controllerAs : 'modal',
+            size: 'md',
+            resolve : {
+                image: function () {
+                    return image;
+                }
+            }
+        })
     };
 
     if ($location.search().invitation != null) {

@@ -71,22 +71,6 @@ body.disputes-single {
         height: 130px !important;
         padding-top: 12px;
       }
-      //.arg-add {
-      //  .image {
-      //    position: relative;
-      //    overflow: hidden;
-      //    z-index: 1;
-      //    width: 36px;
-      //    height: 36px;
-      //    img {
-      //      position: absolute;
-      //      top: 50%;
-      //      left: 50%;
-      //      transform: translate(-50%, -50%);
-      //      height: 36px;
-      //    }
-      //  }
-      //}
       .arg-add {
         background: none repeat scroll 0 0 #fafafa;
         border-top: 1px solid #e5e5e5;
@@ -126,17 +110,16 @@ body.disputes-single {
           padding: 0;
           li {
             float: left;
+            display: block;
             padding: 5px;
-            a {
+            img {
+              padding: 4px;
               display: block;
-              img {
-                background: none repeat scroll 0 0 #fff;
-                border: 1px solid #dcdcdc;
-                padding: 4px;
-                @media only screen and (max-width: 991px) {
-                  height: auto !important;
-                  width: 100% !important;
-                }
+              border: 1px solid #dcdcdc;
+              background: none repeat scroll 0 0 #fff;
+              @media only screen and (max-width: 991px) {
+                height: auto !important;
+                width: 100% !important;
               }
             }
           }

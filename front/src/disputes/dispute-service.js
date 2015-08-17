@@ -26,7 +26,6 @@ class DisputesService {
             $http
                 .get(`/api/disputes/${id}`)
                 .success(function(result) {
-                    console.log(result);
                     resolve(result);
                 })
                 .error((error, status) => { reject(error, status); })

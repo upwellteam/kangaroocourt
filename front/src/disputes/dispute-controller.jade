@@ -27,8 +27,9 @@
                                 i.fa.fa-plus
                                 span Add Argument
                     .arg-add.clearfix.row(ng-if='self.dispute.Evidences.Plaintiff.length != 0'): ul
-                        li.col-md-4(ng-repeat ="image in self.dispute.Evidences.Plaintiff"): a(href='#')
-                            img.img-responsive.add-img(ng-src='{{image.path}}')
+                        li.col-md-4(ng-repeat ="image in self.dispute.Evidences.Plaintiff")
+                            img.img-responsive.add-img(ng-src='{{image.path}}',
+                                                       ng-click='self.viewEvidence(image)')
 
                     .arg-add(ng-click="self.collapse.uploader = !self.collapse.uploader"
                              ng-if="self.dispute.Evidences.Plaintiff.length < 3")
