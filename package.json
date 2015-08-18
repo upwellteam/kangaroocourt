@@ -35,6 +35,7 @@
     "gulp-wrap": "*",
     "jade": "*",
     "md5": "*",
+    "mkdirp": "^0.5.1",
     "multer": "*",
     "mysql": "*",
     "node-mandrill": "*",
