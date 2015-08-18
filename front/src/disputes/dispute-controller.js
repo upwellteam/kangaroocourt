@@ -70,9 +70,10 @@ function DisputeController(dispute, $http, $modal, $state, $location,
         url : '/api/dispute/evidence',
         method : 'POST',
         alias : 'evidence',
-        headers : { Authentication : Authentication.token.access_token },
+        headers : Authentication.token ? { Authentication : Authentication.token.access_token } : { },
         formData : [{ disputeId : self.dispute.id }],
-        removeAfterUpload : true
+        removeAfterUpload : true,
+        queueLimit : CONFIG.max_evidence
     });
 
     uploader.filters.push({
@@ -197,4 +198,7 @@ function DisputeController(dispute, $http, $modal, $state, $location,
             backdrop : 'static'
         })
     }
+
+    // DEV
+    self.log = () => { console.log(self.dispute) }
 }

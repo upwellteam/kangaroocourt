@@ -49,7 +49,6 @@ router.post('/jury/invite', authenticate(), function(req, res) {
             (user.id == dispute.PlaintiffId) && (side = 'plaintiff');
             (user.id == dispute.DefendantId) && (side = 'defendant');
 
-            // TODO: Check this
             var invitedCount = dispute.Juries.filter(function(jury) { return jury.side == side }).length;
 
             if (invitedCount >= MAX_INVITE_PER_SIDE) {

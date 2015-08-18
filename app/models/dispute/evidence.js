@@ -1,4 +1,4 @@
-var debug = require('debug')('kangaroo:models:evidence');
+var debug = require('debug')('kangaroo:models:dispute:evidence');
 
 var path = require('path'),
     Promise = require('bluebird'),

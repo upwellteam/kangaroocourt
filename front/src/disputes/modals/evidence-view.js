@@ -9,11 +9,16 @@ function EvidenceModalController ($modalInstance, image, dispute, DisputesServic
     modal.dispute = dispute;
     modal.image = image;
 
+    modal.dismiss = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
     modal.deleteEvidence = () => {
         DisputesService
             .deleteEvidence(modal.image.id)
             .then(() => {
-                console.log('success');
+                // TODO: removing image after clicking button
+                modal.dismiss();
             })
     };
 }

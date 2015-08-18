@@ -57,7 +57,6 @@ router.post('/disputes/', authenticate(), function(req, res) {
             return new Promise(function(resolve){ resolve(); })
         })
         .then(function(invitation){
-            console.log(invitation);
             return mandrill('/messages/send', {
                 message: {
                     to: [{
@@ -96,9 +95,11 @@ router.get('/disputes/', function(req, res) {
             where : req.query.category ? {
                 category : req.query.category,
                 isPrivate : 0} : { isPrivate : 0},
+            // TODO: include dispute photo
             include : [
                 { model: models.User, as : 'Defendant' },
                 { model: models.User, as : 'Plaintiff' },
+                models.DisputesPhoto,
                 models.Argument,
                 models.Jury
             ],
@@ -112,6 +113,7 @@ router.get('/disputes/', function(req, res) {
             res.status(500).json({ error : 'internal'})
         })
 });
+
 /**
  *
  */
@@ -139,7 +141,8 @@ router.get('/disputes/my', authenticate(), function(req, res) {
                     include : [
                         { model: models.User, as : 'Defendant' },
                         { model: models.User, as : 'Plaintiff' },
-                        models.Jury
+                        models.Jury,
+                        models.DisputesPhoto
                     ],
                     order : 'createdAt DESC'
                 })
@@ -171,6 +174,7 @@ router.get('/disputes/my', authenticate(), function(req, res) {
             res.status(500).json({ error : 'internal'})
         })
 });
+
 /**
  *      // TODO: check for privacy
  */
@@ -189,7 +193,8 @@ router.get('/disputes/:id', function(req, res) {
                 { model: models.Comment, include : [{ model: models.User }] },
                 { model: models.Jury, include : [{ model: models.User }] },
                 { model: models.Evidence, as : 'Evidence' },
-                models.Argument
+                models.Argument,
+                models.DisputesPhoto
             ]
         })
         .then(function(dispute) {
@@ -206,6 +211,7 @@ router.get('/disputes/:id', function(req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
+
 /**
  *
  */
@@ -230,10 +236,12 @@ router.delete('/disputes/:id', function(req, res) {
             res.status(500).json({ error : 'internal'});
         })
 });
+
 /**
  *
  */
 // TODO: router.put();
+
 /**
  *
  */

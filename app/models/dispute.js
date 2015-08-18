@@ -40,6 +40,7 @@ module.exports = function(sequelize, DataTypes) {
             associate : function(models) {
                 models.Dispute.belongsTo(models.User, {as: 'Defendant'});
                 models.Dispute.belongsTo(models.User, {as: 'Plaintiff'});
+                models.Dispute.hasMany(models.DisputesPhoto);
                 models.Dispute.hasMany(models.Argument);
                 models.Dispute.hasMany(models.Jury);
                 models.Dispute.hasMany(models.Comment);

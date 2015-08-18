@@ -1,7 +1,6 @@
 function authModal (Authentication) {
     var modal = this;
     this.Authentication = Authentication;
-    console.log(modal.Authentication);
 }
 
 angular

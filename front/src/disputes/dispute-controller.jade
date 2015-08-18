@@ -1,10 +1,13 @@
 .row
     .col-md-9.col-sm-9.content-folio
-        .folio-headline
-            span CLAIM
-                span.private(ng-if='self.dispute.isPrivate') PRIVATE
-            h2 {{ self.dispute.name }}
-            p {{ self.dispute.description }}
+        .folio-headline.row
+            .col-md-2.col-sm-2()
+                img(ng-src="{{self.dispute.DisputesPhotos[0].path}}")
+            .col-md-10.col-sm-10
+                span(ng-click='self.log()') CLAIM
+                    span.private(ng-if='self.dispute.isPrivate') PRIVATE
+                h2 {{ self.dispute.name }}
+                p {{ self.dispute.description }}
         .folio-body.row
 
             // Plaintiff
@@ -35,7 +38,7 @@
                         input.add(type="file",
                                   nv-file-select,
                                   uploader="self.uploader",
-                                  filters="images",
+                                  filters="images, queueLimit",
                                   ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
                         span.add(ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
                             i.fa.fa-plus
@@ -72,11 +75,11 @@
 
                     div(ng-if="self.role == 'jury'")
                         .arg-vote(ng-if="self.isVoted == false")
-                            button.btn.btn-success(ng-click="self.vote('plaintiff')")
+                            button.btn.btn-info(ng-click="self.vote('plaintiff')")
                                 | Vote for Plaintiff
                         .arg-vote(ng-if="self.isVoted == true")
                             span {{self.plaintiffValue}}%
-                            progressbar(value='self.plaintiffValue', type='success')
+                            progressbar(value='self.plaintiffValue', type='info')
 
             // Defendant
             .col-md-6.col-sm-6
@@ -107,7 +110,7 @@
                         input.add(type="file",
                                   nv-file-select,
                                   uploader="self.uploader",
-                                  filters="images",
+                                  filters="images, queueLimit",
                                   ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
                         span.add(ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
                             i.fa.fa-plus
@@ -144,11 +147,11 @@
 
                     div(ng-if="self.role == 'jury'")
                         .arg-vote(ng-if="self.isVoted == false")
-                            button.btn.btn-info(ng-click="self.vote('defendant')")
+                            button.btn.btn-success(ng-click="self.vote('defendant')")
                                 | Vote for Defendant
                         .arg-vote(ng-if="self.isVoted == true")
                             span {{self.defendantValue}}%
-                            progressbar(value='self.defendantValue', type='info')
+                            progressbar(value='self.defendantValue', type='success')
 
         // Comments
         .folio-comment

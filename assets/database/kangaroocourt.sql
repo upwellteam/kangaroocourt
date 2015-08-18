@@ -38,6 +38,28 @@ CREATE TABLE IF NOT EXISTS `Disputes` (
   `PlaintiffId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `DisputesPhotos` (
+  `id` int(11) NOT NULL,
+  `basename` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `filename` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `path` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `absolutePath` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `DisputeId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `Evidence` (
+  `id` int(11) NOT NULL,
+  `basename` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `filename` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `absolutePath` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `DisputeId` int(11) DEFAULT NULL,
+  `UploaderId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `Invitations` (
   `id` int(11) NOT NULL,
   `type` enum('jury','defendant') COLLATE utf8_unicode_ci NOT NULL,
@@ -94,6 +116,15 @@ ALTER TABLE `Disputes`
   ADD KEY `DefendantId` (`DefendantId`),
   ADD KEY `PlaintiffId` (`PlaintiffId`);
 
+ALTER TABLE `DisputesPhotos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `DisputeId` (`DisputeId`);
+
+ALTER TABLE `Evidence`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `DisputeId` (`DisputeId`),
+  ADD KEY `UploaderId` (`UploaderId`);
+
 ALTER TABLE `Invitations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `DisputeId` (`DisputeId`);
@@ -120,6 +151,10 @@ ALTER TABLE `Comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Disputes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `DisputesPhotos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Evidence`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Invitations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Juries`
@@ -140,6 +175,13 @@ ALTER TABLE `Comments`
 ALTER TABLE `Disputes`
   ADD CONSTRAINT `Disputes_ibfk_1` FOREIGN KEY (`DefendantId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Disputes_ibfk_2` FOREIGN KEY (`PlaintiffId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE `DisputesPhotos`
+  ADD CONSTRAINT `DisputesPhotos_ibfk_1` FOREIGN KEY (`DisputeId`) REFERENCES `Disputes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE `Evidence`
+  ADD CONSTRAINT `Evidence_ibfk_1` FOREIGN KEY (`DisputeId`) REFERENCES `Disputes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `Evidence_ibfk_2` FOREIGN KEY (`UploaderId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 ALTER TABLE `Invitations`
   ADD CONSTRAINT `Invitations_ibfk_1` FOREIGN KEY (`DisputeId`) REFERENCES `Disputes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;

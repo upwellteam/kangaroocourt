@@ -11,6 +11,13 @@ body.disputes-list {
     p {
       color: #727272;
     }
+    img {
+      display: block;
+      border-radius: 78px;
+      height: 100px;
+      width: 100px;
+
+    }
     .only-content-text {
       border-bottom: 1px solid #f2f2f2;
       display: block;
@@ -48,11 +55,16 @@ body.disputes-list {
   @media only screen and (max-width: 767px) {
     .single-content img {
       margin: 0 auto;
-      padding: 10px 0;
-      display: block;
+      padding: 0;
     }
     .only-content-text {
       text-align: center;
+    }
+  }
+  @media only screen and (max-width: 992px) {
+    .single-content img {
+      width: 80px;
+      height: 80px;
     }
   }
 }

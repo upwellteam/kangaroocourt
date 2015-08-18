@@ -110,4 +110,33 @@ router.delete('/dispute/evidence/:id', authenticate(), function(req, res) {
         });
 });
 
+/**
+ *
+ */
+router.post('/dispute/photo', authenticate(), upload.array('photo', 1), function(req, res, next) {
+    debug('[POST] /disputes/photo');
+
+    var models = res.app.get('models'),
+        data = req.body,
+        user = res.locals.user;
+
+    var file = req.files[0];
+    if (!file) {
+        throw errors.InvalidInputError('photo_required');
+    }
+    console.log(uploadDir+file.path);
+    models.DisputesPhoto
+        .create({
+            basename : file.originalname,
+            filename : file.filename,
+            absolutePath : file.path,
+            path : '/uploads/' + file.filename,
+            DisputeId : data.disputeId
+        })
+        .then(function(result) {
+            res.status(201).send(result);
+        })
+        .catch(next);
+});
+
 module.exports = router;

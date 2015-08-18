@@ -129,9 +129,6 @@ router.post('/refresh-token', function(req, res, next) {
 
     var models = res.app.get('models');
 
-    console.log(req.body);
-    // TODO: req.body doesnt contain refresh_token
-
     models.RefreshToken
         .find({ where : { refresh : req.body.refresh_token } })
         .then(function(token) {
