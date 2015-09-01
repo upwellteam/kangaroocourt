@@ -25,7 +25,7 @@ To automatically run app with debug you should do this:
 open ~/.bashrc
 and put this at the very end
 ```
-export DEBUG=jindy : *
+export DEBUG=kangaroo : *
 ```
 then relogin and use following command to run app
 ```bash
