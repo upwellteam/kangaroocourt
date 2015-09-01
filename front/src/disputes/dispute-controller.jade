@@ -26,7 +26,7 @@
                     div(ng-if="self.role == 'plaintiff'")
                         .arg-add(ng-if='!self.dispute.Arguments.plaintiff')
                             textarea.form-control(type="text", ng-model="Plaintiff.argument", placeholder='Type your argument here...')
-                            span.add(ng-click='self.saveArgument(Plaintiff.argument)')
+                            btn.btn.btn-primary.add(ng-click='self.saveArgument(Plaintiff.argument)')
                                 i.fa.fa-plus
                                 span Add Argument
 
@@ -40,7 +40,7 @@
                                   uploader="self.uploader",
                                   filters="images, queueLimit",
                                   ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
-                        span.add(ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
+                        btn.btn.btn-primary.add(ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
                             i.fa.fa-plus
                             | Add Evidence
 
@@ -97,7 +97,7 @@
                     div(ng-if="self.role == 'defendant'")
                         .arg-add(ng-show='!self.dispute.Arguments.defendant')
                             textarea.form-control(type="text", ng-model="Defendant.argument", placeholder='Type your argument here...')
-                            span.add(ng-click='self.saveArgument(Defendant.argument)')
+                            btn.btn.btn-success.add(ng-click='self.saveArgument(Defendant.argument)')
                                 i.fa.fa-plus
                                 span Add Argument
 
@@ -112,7 +112,7 @@
                                   uploader="self.uploader",
                                   filters="images, queueLimit",
                                   ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
-                        span.add(ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
+                        btn.btn.btn-success.add(ng-hide='self.uploader.queue.length >= self.MAX_EVIDENCE')
                             i.fa.fa-plus
                             | Add Evidence
 
