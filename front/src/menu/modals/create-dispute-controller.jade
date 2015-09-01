@@ -21,34 +21,6 @@
 .modal-body
     .form-group
         p.text-top
-            span.text-top-left Name
-        input.form-control(type='text', placeholder="Dispute name", ng-model="modal.dispute.name")
-    .form-group
-        p.text-top
-            span.text-top-left Photo
-        input(type="file",
-              nv-file-select,
-              uploader="modal.uploader",
-              filters="images, queueLimit",
-              ng-show="modal.uploader.queue.length < 1")
-        table.table(ng-if="modal.uploader.queue.length != 0"): tbody
-            tr(ng-repeat="item in modal.uploader.queue")
-                td
-                    strong {{ item.file.name }}
-                    div(ng-thumb='{ file: item._file, height: 100, width: 100 }')
-                td:.progress
-                    .progress-bar(role='progressbar', ng-style="{ 'width': item.progress + '%' }")
-                td.text-center(nowrap='')
-                    span(ng-show='item.isSuccess', title='success')
-                        i.fa.fa-check-circle
-                    span(ng-show='item.isError', title='failed')
-                        i.fa.fa-times-circle
-                td
-                    button.btn.btn-danger.btn-xs(ng-click='item.remove()')
-                        i.fa.fa-trash
-                        |  Remove
-    .form-group
-        p.text-top
             span.text-top-left Complain summary
             span.text-top-right {{400 - modal.dispute.description.length}} of 400
         textarea.form-control(type='text', placeholder="Dispute summary", ng-model="modal.dispute.description")

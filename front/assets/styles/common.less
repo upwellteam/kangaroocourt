@@ -6,6 +6,8 @@ html, button, input, select, textarea { color: #222; }
 html {
   font-size: 1em;
   line-height: 1.4;
+  position: relative;
+  min-height: 100%;
 }
 
 input.ng-dirty.ng-invalid {
@@ -14,6 +16,7 @@ input.ng-dirty.ng-invalid {
 }
 main {
   margin-top: 25px;
+  padding-bottom: 100px;
 }
 
 body{
@@ -101,6 +104,9 @@ body{
    ========================================================================== */
 footer{
   padding: 40px 0 30px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
   p {
     color: #727272;
     font-size: 14px;

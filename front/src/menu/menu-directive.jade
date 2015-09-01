@@ -33,11 +33,11 @@ nav.navbar
                   ui-sref-active='active') All
             li(ng-repeat='category in self.categories')
                 a(ui-sref="disputes.list({ category : category})"
-                  ui-sref-active='active') {{ self.CommonService.capitalize(category) }}
+                  ui-sref-active='active') {{ category }}
 
     ul.ul-mainmenu.hidden-xs
         li: a(ui-sref="disputes.list({ category : ''})"
               ui-sref-active='active') All
         li(ng-repeat='category in self.categories')
             a(ui-sref='disputes.list({ category : category })'
-              ui-sref-active='active') {{ self.CommonService.capitalize(category) }}
+              ui-sref-active='active') {{ category }}

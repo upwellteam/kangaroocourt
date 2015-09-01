@@ -10,17 +10,15 @@ function MenuDirective() {
     }
 }
 
-MenuDirectiveController.$inject = ['DISPUTE_CATEGORIES', '$modal', '$state', 'Authentication', 'CommonService'];
+MenuDirectiveController.$inject = ['DISPUTE_CATEGORIES', '$modal', '$state', 'Authentication'];
 
-function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, $state, Authentication, CommonService) {
+function MenuDirectiveController(DISPUTE_CATEGORIES, $modal, $state, Authentication) {
     var self = this;
 
     this.Authentication = Authentication;
     this.user           = Authentication.user;
     this.oauthLinks     = Authentication.oAuthLinks();
-
-    this.categories = DISPUTE_CATEGORIES;
-    this.CommonService = CommonService;
+    this.categories = DISPUTE_CATEGORIES.sort();
 
     this.createDispute = () => {
         $modal.open({

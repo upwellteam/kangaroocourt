@@ -1,4 +1,4 @@
-var Interval, Timeout, location, state, FileUploader;
+var Interval, Timeout, location, state;
 
 var DisputesService;
 
@@ -8,7 +8,6 @@ class CreateDisputeController {
                 $modalInstance,
                 $interval,
                 $timeout,
-                $FileUploader,
                 Authentication,
                 $DisputesService
     ) {
@@ -16,60 +15,32 @@ class CreateDisputeController {
         Timeout = $timeout;
         state = $state;
         DisputesService = $DisputesService;
-        FileUploader = $FileUploader;
 
         this.categories = DISPUTE_CATEGORIES;
         this.instance = $modalInstance;
         this.user = Authentication.user;
 
         this.dispute = {
-            name : 'Name',
             isPrivate : false,
-            description : 'Description',
+            description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+                'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ' +
+                'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
             bet : 15,
             category : 'love',
             defendant : {
                 email : 'elizstiltzkin@gmail.com'
             }
         };
-
-        var dispute = this.dispute;
-
-        var uploader = this.uploader = new FileUploader({
-            url : '/api/dispute/photo',
-            method : 'POST',
-            alias : 'photo',
-            headers : { Authentication : Authentication.token.access_token },
-            formData : [],
-            removeAfterUpload : true,
-            queueLimit : 1
-        });
-        this.uploader.filters.push({
-            name: 'imageFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-            }
-        });
     }
 
     submit() {
-        var self = this,
-            disputeId;
+        var self = this;
 
+        self.dispute.name = self.dispute.description.slice(0, 30)+'...';
         DisputesService
             .create(self.dispute)
             .then(function(result){
-                disputeId = result.id;
-
-                self.uploader.onBeforeUploadItem = function(item) {
-                    item.formData.push({ disputeId : result.id });
-                };
-
-                return self.uploader.uploadAll();
-            })
-            .then(function(){
-                state.go('disputes.single', { id : disputeId });
+                state.go('disputes.single', { id : result.id });
                 self.instance.close()
             })
             .catch(() => {
@@ -108,7 +79,6 @@ CreateDisputeController.$inject = [
     '$modalInstance',
     '$interval',
     '$timeout',
-    'FileUploader',
     'Authentication',
     'DisputesService'
 ];

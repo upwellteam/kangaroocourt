@@ -6,6 +6,8 @@
     li(ng-repeat='jury in modal.dispute.Juries')
         span {{ jury.User.email }}
 .modal-body
+    span You can Invite friends to help decide your case!
+.modal-body
     form.form-group
         input.form-control(type='email', ng-model='email', size='30', placeholder='Email')
         .messages
