@@ -3,10 +3,12 @@ angular
     .controller('DisputeController', DisputeController);
 
 DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location',
-                             'DisputesService', 'Authentication', 'FileUploader', 'CONFIG', 'CommonService'];
+                             'DisputesService', 'Authentication', 'FileUploader',
+                             'CONFIG', 'CommonService', '$scope', '$timeout'];
 
 function DisputeController(dispute, $http, $modal, $state, $location,
-                           DisputesService, Authentication, FileUploader, CONFIG, CommonService) {
+                           DisputesService, Authentication, FileUploader,
+                           CONFIG, CommonService, $scope, $timeout) {
     var self = this;
     this.Authentication = Authentication;
     this.user = Authentication.user;
@@ -198,6 +200,66 @@ function DisputeController(dispute, $http, $modal, $state, $location,
             backdrop : 'static'
         })
     }
+
+    $scope.CompletedEvent = function () {
+        console.log("Completed Event called");
+    };
+
+    $scope.ExitEvent = function () {
+        console.log("Exit Event called");
+    };
+
+    $scope.ChangeEvent = function (targetElement) {
+        console.log("Change Event called");
+        console.log(targetElement);
+    };
+
+    $scope.BeforeChangeEvent = function (targetElement) {
+        console.log("Before Change Event called");
+        console.log(targetElement);
+    };
+
+    $scope.AfterChangeEvent = function (targetElement) {
+        console.log("After Change Event called");
+        console.log(targetElement);
+    };
+    $scope.IntroOptions = {
+        steps:[
+            {
+                element: '#step1',
+                intro: "This is you.",
+                position: 'top'
+            },
+            {
+                element: '#step2',
+                intro: "You can add you point of view here, so other people can judge.",
+                position: 'right'
+            },
+            {
+                element: '#step3',
+                intro: 'Also, you can add some evidence photo here if you want.',
+                position: 'right'
+            },
+            {
+                element: '#step4',
+                intro: "Invite friend to judge! You can invite only 5 friends to this case!",
+                position: 'bottom'
+            }
+        ],
+        showStepNumbers: false,
+        showBullets: false,
+        exitOnOverlayClick: true,
+        exitOnEsc:true,
+        nextLabel: '<strong>NEXT</strong>',
+        prevLabel: '<strong style="color:green">PREVIOUS</strong>',
+        skipLabel: 'Exit',
+        doneLabel: 'Thanks'
+    };
+
+    $timeout(function(){
+        console.log(document.querySelector('#step1'));
+        $scope.CallMe();
+    }, 1000);
 
     // DEV
     self.log = () => { console.log(self.dispute) }

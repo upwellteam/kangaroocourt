@@ -1,4 +1,6 @@
-.row
+.row(ng-intro-options='IntroOptions', ng-intro-method='CallMe',
+     ng-intro-oncomplete='CompletedEvent', ng-intro-onexit='ExitEvent', ng-intro-onchange='ChangeEvent',
+     ng-intro-onbeforechange='BeforeChangeEvent', ng-intro-autostart='false')
     .col-md-9.col-sm-9.content-folio
         .folio-headline.row
             .col-md-2.col-sm-2
@@ -11,7 +13,7 @@
         .folio-body.row
 
             // Plaintiff
-            .col-md-6.col-sm-6
+            .col-md-6.col-sm-6#step1
                 .argument
                     .arg-heading
                         .row
@@ -24,7 +26,7 @@
                         p {{ self.dispute.Arguments.plaintiff.argument }}
 
                     div(ng-if="self.role == 'plaintiff'")
-                        .arg-add(ng-if='!self.dispute.Arguments.plaintiff')
+                        .arg-add#step2(ng-if='!self.dispute.Arguments.plaintiff')
                             textarea.form-control(type="text", ng-model="Plaintiff.argument", placeholder='Type your argument here...')
                             btn.btn.btn-primary.add(ng-click='self.saveArgument(Plaintiff.argument)')
                                 i.fa.fa-plus
@@ -34,7 +36,7 @@
                         li.col-md-4(ng-repeat ="image in self.dispute.Evidences.Plaintiff")
                             img.img-responsive.add-img(ng-src='{{image.path}}',
                                                        ng-click='self.viewEvidence(image)')
-                    .arg-add(ng-if="self.role == 'plaintiff' && self.dispute.Evidences.Plaintiff.length < self.MAX_EVIDENCE")
+                    .arg-add#step3(ng-if="self.role == 'plaintiff' && self.dispute.Evidences.Plaintiff.length < self.MAX_EVIDENCE")
                         input.add(type="file",
                                   nv-file-select,
                                   uploader="self.uploader",
@@ -189,7 +191,7 @@
             h3 Case closes on
             span {{ self.dispute.activeUntil | date : 'MMM d - h:mma' }}
 
-        .bottom-right-content
+        .bottom-right-content#step4
             h3 Jury
             span.line-height(ng-if='self.dispute.Juries.length == 0')
                 .juror-avatar(ng-show='!self.dispute.juries')

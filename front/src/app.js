@@ -10,7 +10,8 @@ angular
 
         'ui.bootstrap',
         'relativeDate',
-        'ngAnimate'
+        'ngAnimate',
+        'angular-intro'
     ])
     .constant('CONFIG', CONFIG)
     .constant('MAX_EVIDENCE', 3)
