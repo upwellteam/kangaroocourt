@@ -210,21 +210,23 @@ function DisputeController(CONFIG, dispute, FileUploader,
         showBullets: false,
         exitOnOverlayClick: false,
         exitOnEsc:true,
-        nextLabel: '<strong>NEXT</strong>',
-        prevLabel: '<strong>PREVIOUS</strong>',
-        skipLabel: 'Exit',
-        doneLabel: 'Thanks'
+        nextLabel: '<span>NEXT</span>',
+        prevLabel: '<span>PREVIOUS</span>',
+        skipLabel: '<span>SKIP</span>',
+        doneLabel: '<span>CLOSE</span>'
     };
     $scope.CompletedEvent = function () { DisputesService.saveIntroState() };
 
     $timeout(function(){
-        DisputesService
-            .getIntroStatus()
-            .then((result) => {
-                if (result == null) {
-                    $scope.CallMe();
-                }
-            })
+        if (self.user != null) {
+            DisputesService
+                .getIntroStatus()
+                .then((result) => {
+                    if (result == null) {
+                        $scope.CallMe();
+                    }
+                })
+        }
     }, 1000);
 
     // DEV
