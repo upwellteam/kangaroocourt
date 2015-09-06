@@ -88,14 +88,21 @@ function AuthenticationProvider() {
                 $http
                     .post('/api/refresh-token', { refresh_token : this.token.refresh_token})
                     .success((response) => {
-                        this.setToken(response);
-                        this.tokenRefreshing  = false;
+                        self.setToken(response.token);
+                        self.tokenRefreshing  = false;
 
                         $root.$emit('auth:token-refreshed');
 
                         deferred.resolve();
                     })
-                    .error(console.error);
+                    .error((err) => {
+                        console.warn(err);
+
+                        self.clearUser();
+                        self.clearToken();
+
+                        deferred.reject(err);
+                    });
 
                 return deferred.promise;
             }
@@ -137,10 +144,12 @@ function AuthenticationProvider() {
             logout() {
                 var self = this, deferred = $q.defer();
 
-                $http
-                    .get('/api/logout')
-                    .success(()=> {
-
+                $http({
+                    method : 'GET',
+                    url : '/api/logout',
+                    ignoreInterceptors : true
+                })
+                    .then(()=>{
                         self.clearUser();
                         self.clearToken();
 
@@ -148,13 +157,13 @@ function AuthenticationProvider() {
 
                         deferred.resolve();
                     })
-                    .error(()=> {
+                    .catch((err)=>{
                         $root.$emit('auth:logout-error');
 
                         self.clearUser();
                         self.clearToken();
 
-                        deferred.reject();
+                        deferred.reject(err);
                     });
 
                 return deferred.promise;
