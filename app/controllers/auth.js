@@ -165,4 +165,54 @@ router.get('/logout', authenticate(), function(req, res, next) {
         .catch(next)
 });
 
+/**
+ *
+ */
+router.post('/intro', authenticate(), function(req, res, next) {
+    debug('[POST] /intro');
+
+    var models = res.app.get('models'),
+        state = req.body.state,
+        user = res.locals.user;
+
+    models.Intro
+        .create({
+            state : state,
+            UserId : user.id
+        })
+        .then(function(Intro){
+            res.status(201).json(Intro);
+        })
+        .catch(function(err){
+            debug(err);
+            res.status(500).json({ error : 'internal'});
+        })
+});
+
+/**
+ *
+ */
+router.get('/intro', authenticate(), function(req, res, next) {
+    debug('[GET] /intro');
+
+    var models = res.app.get('models'),
+        user = res.locals.user;
+
+    models.Intro
+        .findOne({
+            where : { UserId : user.id},
+            order : 'createdAt DESC'
+        })
+        .then(function(Intro) {
+            res.json(Intro);
+        })
+        .catch(errors.NotFoundError, function(err){
+            res.status(404).json({ error : err.message });
+        })
+        .catch(function(err){
+            debug(err);
+            res.status(500).json({ error : 'internal'});
+        })
+});
+
 module.exports = router;

@@ -201,28 +201,6 @@ function DisputeController(dispute, $http, $modal, $state, $location,
         })
     }
 
-    $scope.CompletedEvent = function () {
-        console.log("Completed Event called");
-    };
-
-    $scope.ExitEvent = function () {
-        console.log("Exit Event called");
-    };
-
-    $scope.ChangeEvent = function (targetElement) {
-        console.log("Change Event called");
-        console.log(targetElement);
-    };
-
-    $scope.BeforeChangeEvent = function (targetElement) {
-        console.log("Before Change Event called");
-        console.log(targetElement);
-    };
-
-    $scope.AfterChangeEvent = function (targetElement) {
-        console.log("After Change Event called");
-        console.log(targetElement);
-    };
     $scope.IntroOptions = {
         steps:[
             {
@@ -248,17 +226,32 @@ function DisputeController(dispute, $http, $modal, $state, $location,
         ],
         showStepNumbers: false,
         showBullets: false,
-        exitOnOverlayClick: true,
+        exitOnOverlayClick: false,
         exitOnEsc:true,
         nextLabel: '<strong>NEXT</strong>',
-        prevLabel: '<strong style="color:green">PREVIOUS</strong>',
+        prevLabel: '<strong>PREVIOUS</strong>',
         skipLabel: 'Exit',
         doneLabel: 'Thanks'
     };
 
+    $scope.CompletedEvent = function () {
+        $http
+            .post('/api/intro', { state : true})
+            .success(() => {})
+            .error(() => {
+                console.log('failed');
+            });
+    };
+
     $timeout(function(){
-        console.log(document.querySelector('#step1'));
-        $scope.CallMe();
+        $http
+            .get('/api/intro')
+            .success(function(result) {
+                if (result == null) {
+                    $scope.CallMe();
+                }
+            })
+            .error((error, status) => { reject(error, status); });
     }, 1000);
 
     // DEV
