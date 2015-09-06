@@ -2,13 +2,13 @@ angular
     .module('kangaroo.disputes')
     .controller('DisputeController', DisputeController);
 
-DisputeController.$inject = ['dispute', '$http', '$modal', '$state', '$location',
-                             'DisputesService', 'Authentication', 'FileUploader',
-                             'CONFIG', 'CommonService', '$scope', '$timeout'];
+DisputeController.$inject = ['CONFIG', 'dispute', 'FileUploader',
+                             '$modal', '$state', '$location', '$scope', '$timeout',
+                             'Authentication', 'DisputesService', 'CommonService'];
 
-function DisputeController(dispute, $http, $modal, $state, $location,
-                           DisputesService, Authentication, FileUploader,
-                           CONFIG, CommonService, $scope, $timeout) {
+function DisputeController(CONFIG, dispute, FileUploader,
+                           $modal, $state, $location, $scope, $timeout,
+                           Authentication, DisputesService, CommonService) {
     var self = this;
     this.Authentication = Authentication;
     this.user = Authentication.user;
@@ -89,27 +89,10 @@ function DisputeController(dispute, $http, $modal, $state, $location,
         self.dispute.Evidences[CommonService.capitalize(self.role)].push(response)
     };
 
-    self.saveArgument = (argument) => {
-        $http
-            .post('/api/argument', {
-                disputeId : self.dispute.id,
-                argument : argument
-            })
-            .success(function(result) {
-                self.dispute.Arguments[self.role] = result;
-            })
-            .catch((err, status) => {
-                console.log(err, status);
-            });
-    };
-
     self.vote = (vote) => {
-        $http
-            .post('/api/jury/vote', {
-                dispute : self.dispute.id,
-                vote : vote
-            })
-            .success(() => {
+        DisputesService
+            .vote(vote, self.dispute.id)
+            .then(() => {
                 self.isVoted = true;
 
                 vote == 'plaintiff' ? plaintiffValue++ : '';
@@ -117,36 +100,35 @@ function DisputeController(dispute, $http, $modal, $state, $location,
                 self.plaintiffValue = Math.round(plaintiffValue / (plaintiffValue + defendantValue) * 100);
                 self.defendantValue = Math.round(defendantValue / (plaintiffValue + defendantValue) * 100);
             })
-            .catch((err, status) => {
-                console.log(err, status);
-            })
+            .catch((err) => { console.log(err, status) })
     };
 
-    self.addComment = (comment) => {
-        $http
-            .post('/api/comments', {
-                dispute : self.dispute.id,
-                text : comment
+    self.saveArgument = (argument) => {
+        DisputesService
+            .saveArgument(argument, self.dispute.id)
+            .then((result) => {
+                self.dispute.Arguments[self.role] = result;
             })
-            .success((result) => {
+            .catch((err) => {console.log(err, status)})
+    };
+
+    self.saveComment = (comment) => {
+        DisputesService
+            .saveComment(comment, self.dispute.id)
+            .then((result) => {
                 result.User = self.user;
                 self.dispute.Comments.push(result);
                 self.comment = '';
             })
-            .error(() => {
-                console.log(err, status);
-            })
+            .catch((err) => { console.log(err, status) })
     };
 
     self.removeComment = (id) => {
-        $http
-            .delete('/api/comments/'+id)
-            .success(() => {
+        DisputesService
+            .removeComment(id)
+            .then(() => {
                 var i = self.dispute.Comments.findIndex((el) => el.id == id);
                 self.dispute.Comments.splice(i, 1);
-            })
-            .error(() => {
-                console.log(err, status);
             })
     };
 
@@ -167,12 +149,6 @@ function DisputeController(dispute, $http, $modal, $state, $location,
         })
     };
 
-    self.deleteDispute = () => {
-        DisputesService
-            .del(self.dispute)
-            .then(() => { $state.go("disputes.list") })
-    };
-
     self.viewEvidence = (image) => {
         $modal.open({
             templateUrl : 'disputes/modals/evidence-view.html',
@@ -189,6 +165,12 @@ function DisputeController(dispute, $http, $modal, $state, $location,
                 }
             }
         })
+    };
+
+    self.deleteDispute = () => {
+        DisputesService
+            .del(self.dispute)
+            .then(() => { $state.go("disputes.list") })
     };
 
     if ($location.search().invitation != null) {
@@ -233,25 +215,16 @@ function DisputeController(dispute, $http, $modal, $state, $location,
         skipLabel: 'Exit',
         doneLabel: 'Thanks'
     };
-
-    $scope.CompletedEvent = function () {
-        $http
-            .post('/api/intro', { state : true})
-            .success(() => {})
-            .error(() => {
-                console.log('failed');
-            });
-    };
+    $scope.CompletedEvent = function () { DisputesService.saveIntroState() };
 
     $timeout(function(){
-        $http
-            .get('/api/intro')
-            .success(function(result) {
+        DisputesService
+            .getIntroStatus()
+            .then((result) => {
                 if (result == null) {
                     $scope.CallMe();
                 }
             })
-            .error((error, status) => { reject(error, status); });
     }, 1000);
 
     // DEV

@@ -22,7 +22,7 @@
                             .col-lg-9.col-md-9.col-sm-8
                                 h2 Plaintiff - Argument
 
-                    .arg-body(ng-if='self.dispute.Arguments.plaintiff')
+                    .arg-body#step2(ng-if='self.dispute.Arguments.plaintiff')
                         p {{ self.dispute.Arguments.plaintiff.argument }}
 
                     div(ng-if="self.role == 'plaintiff'")
@@ -184,7 +184,7 @@
                 .form-group(ng-if='self.user')
                     textarea.form-control(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="self.comment")
                 .form-group(ng-if='self.user')
-                    button.btn.btn-default(type='submit', ng-click='self.addComment(self.comment)') Submit Comment
+                    button.btn.btn-default(type='submit', ng-click='self.saveComment(self.comment)') Submit Comment
 
     .col-md-3.col-sm-3.right-content-area
         .top-right-content
