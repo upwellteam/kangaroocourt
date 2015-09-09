@@ -10,48 +10,41 @@
   text-shadow: none;
   font-size: 13px;
   margin: 2px;
+  &:focus {
+    text-decoration: none;
+    outline: none;
+  }
 }
 
 .introjs-nextbutton, .introjs-nextbutton:focus {
   background: #4caf50;
   color: #fff;
-  text-decoration: none;
-  outline: none;
-  &:hover {
-    color: #fff;
-    background-color: #59b75c;
-  }
+}
+.introjs-nextbutton:hover {
+  background: #59b75c;
+  color: #fff;
 }
 
 .introjs-prevbutton, .introjs-prevbutton:focus {
   background: #f44336;
   color: #fff;
-  text-decoration: none;
-  outline: none;
-  &:hover {
-    color: #fff;
-    background-color: #f55549;
-  }
+}
+.introjs-prevbutton:hover {
+  background: #f55549;
+  color: #fff;
 }
 
-.introjs-skipbutton {
+.introjs-skipbutton, .introjs-skipbutton:focus {
+  background: #fff;
   color: #333;
-  background-color: #fff;
-  border-color: #ccc;
-  &:hover {
-    color: #333;
-    background-color: #e6e6e6;
-    border-color: #adadad;
-  }
+}
+.introjs-skipbutton:hover {
+  background: #e6e6e6;
+  color: #333;
 }
 
-.introjs-disabled,
-.introjs-disabled:hover,
-.introjs-disabled:focus {
+.introjs-disabled, .introjs-disabled:hover, .introjs-disabled:focus, .introjs-disabled:active  {
   color: #9a9a9a;
   border-color: #d4d4d4;
-  box-shadow: none;
-  cursor: default;
   background: #f4f4f4;
-  text-decoration: none;
 }

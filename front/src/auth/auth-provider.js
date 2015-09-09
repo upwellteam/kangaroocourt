@@ -74,19 +74,18 @@ function AuthenticationProvider() {
             }
 
             refreshToken() {
-                var deferred = $q.defer();
+                var self = this, deferred = $q.defer();
 
-                if (this.tokenRefreshing) {
+                if (self.tokenRefreshing) {
                     var unsubscribe = $root.$on('auth:token-refreshed', function(){
                         deferred.resolve();
                         unsubscribe();
                     });
                 }
-
                 this.tokenRefreshing = true;
 
                 $http
-                    .post('/api/refresh-token', { refresh_token : this.token.refresh_token})
+                    .post('/api/refresh-token', { refresh_token : self.token.refresh_token})
                     .success((response) => {
                         self.setToken(response);
                         self.tokenRefreshing  = false;
@@ -96,7 +95,7 @@ function AuthenticationProvider() {
                         deferred.resolve();
                     })
                     .error((err) => {
-                        console.warn(err);
+                        $root.$emit('auth:token-refresh-error');
 
                         self.clearUser();
                         self.clearToken();

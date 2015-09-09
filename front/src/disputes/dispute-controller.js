@@ -198,16 +198,21 @@ function DisputeController(CONFIG, dispute, FileUploader,
                 element: '#step4',
                 intro: "Invite friend to judge! You can invite only 5 friends to this case!",
                 position: 'bottom'
+            },
+            {
+                element: '#step5',
+                intro: "Discuss with friends and find out who is right and who is wrong!",
+                position: 'top'
             }
         ],
         showStepNumbers: false,
         showBullets: false,
         exitOnOverlayClick: false,
-        exitOnEsc:true,
+        exitOnEsc: true,
         nextLabel: '<span>NEXT</span>',
         prevLabel: '<span>PREVIOUS</span>',
         skipLabel: '<span>SKIP</span>',
-        doneLabel: '<span>CLOSE</span>'
+        doneLabel: '<span style="color: #4caf50;">THANKS</span>'
     };
     $scope.CompletedEvent = function () { DisputesService.saveIntroState() };
 

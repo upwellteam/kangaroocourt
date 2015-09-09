@@ -181,9 +181,9 @@
                                                                                   ng-show='comment.User.id == self.user.id',
                                                                                   title='Remove comment')
                 .form-group(ng-if='self.user')
-                    textarea.form-control(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="self.comment")
+                    textarea.form-control#step5(type="text", rows='3', placeholder='Enter your comments on the case....', ng-model="self.comment")
                 .form-group(ng-if='self.user')
-                    button.btn.btn-default(type='submit', ng-click='self.saveComment(self.comment)') Submit Comment
+                    button.btn.btn-default#step5(type='submit', ng-click='self.saveComment(self.comment)') Submit Comment
 
     .col-md-3.col-sm-3.right-content-area
         .top-right-content
