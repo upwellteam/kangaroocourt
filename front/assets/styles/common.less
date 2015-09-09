@@ -1,8 +1,7 @@
 /* ==========================================================================
-   Common Styles
+   Base styles
    ========================================================================== */
 html, button, input, select, textarea { color: #222; }
-
 html {
   font-size: 1em;
   line-height: 1.4;
@@ -19,10 +18,43 @@ main {
   padding-bottom: 100px;
 }
 
-body{
+body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: normal;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+audio, canvas, img, video {
+  vertical-align: middle;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
 }
 
 .hidden {
@@ -32,18 +64,22 @@ body{
 
 .clearfix:before,
 .clearfix:after {
-  content: " "; /* 1 */
-  display: table; /* 2 */
+  content: " ";
+  display: table;
 }
-
 .clearfix:after {
   clear: both;
 }
-
+@media only screen and (max-width: 1198px) {
+  .container {
+    width: 100%;
+  }
+}
 /* ==========================================================================
    Common Right Content Area
    ========================================================================== */
 .right-content-area {
+  color: #727272;
   .top-right-content {
     background: rgba(0, 0, 0, 0) url("../images/rtbg.png") no-repeat scroll e("0 0 / 100% 100%");
     height: auto;
@@ -56,7 +92,6 @@ body{
     border-bottom: 1px solid #e6e6e6;
   }
   h3 {
-    color: #727272;
     font-size: 14px;
     font-weight: bold;
     line-height: 1;
@@ -65,7 +100,6 @@ body{
     display: block;
   }
   span {
-    color: #727272;
     display: inline-block;
     font-size: 12px;
     font-weight: normal;
@@ -73,30 +107,6 @@ body{
     width: 100%;
     &.line-height { line-height: 28px; }
   }
-  .btn-danger {
-    float: right;
-    margin-top: 15px;
-    .fa { margin-right: 5px; }
-  }
-}
-
-/* ==========================================================================
-   Main Content Area
-   ========================================================================== */
-.arg-add {
-  height: auto;
-  padding: 15px 15px;
-}
-
-.arg-vote {
-  border-top: 1px solid #e5e5e5;
-}
-
-.progress {
-  margin-bottom: 0;
-  margin-top: 3px;
-  border-radius: 10px;
-  height: 13px;
 }
 
 /* ==========================================================================
@@ -146,30 +156,11 @@ footer{
 }
 
 /* ==========================================================================
-   Material Buttons
+   Material Button
    ========================================================================== */
 .btn {
   border: 0;
   border-radius: 2px;
   text-transform: uppercase;
   transition: background-color 0.2s ease, box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ==========================================================================
-   Common Responsive stuff
-   ========================================================================== */
-@media only screen and (max-width: 767px) and (min-width: 480px) {
-  .arg-heading {
-    height: 120px;
-  }
-}
-
-.index4-cd1 {
-  height: 50px;
-  width: 50px;
-  margin-top: 7px;
-}
-.index4-cd2 {
-  height: 50px;
-  width: 50px;
 }

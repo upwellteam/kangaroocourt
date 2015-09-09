@@ -4,6 +4,12 @@ body.disputes-single {
    ========================================================================== */
   .folio-headline {
     margin-bottom: 20px;
+    @media only screen and (max-width: 767px) {
+      text-align: center;
+      h2 {
+        margin: 15px 0 !important;
+      }
+    }
     span {
       color: #aaaaaa;
       font-size: 18px;
@@ -37,7 +43,6 @@ body.disputes-single {
    Body area
    ========================================================================== */
   .folio-body {
-    border-bottom: 1px solid #f2f2f2;
     padding-bottom: 36px;
     .argument {
       border: 1px solid #e3e3e3;
@@ -74,7 +79,7 @@ body.disputes-single {
       }
       .arg-body {
         margin: 0 24px;
-        height: 130px !important;
+        height: 130px;
         padding-top: 12px;
       }
       .arg-add {
@@ -168,6 +173,11 @@ body.disputes-single {
           width: 178px;
           margin: 0 auto;
         }
+        .progress {
+          margin-top: 3px;
+          border-radius: 10px;
+          height: 13px;
+        }
       }
 
     }
@@ -182,6 +192,18 @@ body.disputes-single {
       margin: 0 15px;
     }
     .form-group {
+      ul {
+        list-style: outside none none;
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        float: left;
+        width: 100%;
+        @media only screen and (max-width: 479px){
+          float: none;
+        }
+      }
       .form-control {
         border-radius: 0;
         color: #ababab;
@@ -212,6 +234,131 @@ body.disputes-single {
         float: right;
         color: #2196f3;
         cursor: pointer;
+      }
+    }
+  }
+  .index4-cd1 {
+    height: 50px;
+    width: 50px;
+    margin-top: 7px;
+  }
+  .index4-cd2 {
+    height: 50px;
+    width: 50px;
+  }
+  .left-group1 {
+    display: block;
+    float: left;
+    padding-left: 14%;
+    @media only screen and (min-width: 992px) and (max-width: 1199px){
+      padding-left: 0;
+    }
+    .index4-cd1 {
+      height: 50px;
+      width: 50px;
+      margin-top: 7px;
+    }
+  }
+  .left-group2 {
+    display: none;
+    margin-bottom: 25px;
+    padding-left: 5%;
+    width: 100%;
+    .index4-cd2 {
+      height: 50px;
+      width: 50px;
+    }
+  }
+  .right-group1 {
+    display: block;
+    float: right;
+    margin-left: 20px;
+    width: 615px;
+    .tafo-cmnt1 {
+      border: 1px solid #e5e5e5;
+      float: right;
+      padding: 24px 23px;
+      position: relative;
+      width: 615px;
+      background: none repeat scroll 0 0 #fafafa;
+    }
+    .tafo-cmnt1::before {
+      background: none repeat scroll 0 0 #fafafa;
+      border-bottom: 1px solid #e5e5e5;
+      border-left: 1px solid #e5e5e5;
+      border-top: 0 none;
+      content: "";
+      height: 20px;
+      left: -11px;
+      position: absolute;
+      top: 21px;
+      transform: rotate(44deg);
+      width: 20px;
+    }
+  }
+  .right-group2 {
+    width: 100%;
+    display: none;
+    .tafo-cmnt2 {
+      border: 1px solid #e5e5e5;
+      padding: 24px 23px;
+      position: relative;
+      width: 100%;
+      background: none repeat scroll 0 0 #fafafa;
+    }
+    .tafo-cmnt2::after {
+      background: none repeat scroll 0 0 #fafafa;
+      border-left: 1px solid #e5e5e5;
+      border-top: 1px solid #e5e5e5;
+      content: "";
+      height: 20px;
+      left: 7%;
+      position: absolute;
+      top: -11px;
+      transform: rotate(44deg);
+      width: 20px;
+    }
+  }
+  .tafo-cmnt1 h2, .tafo-cmnt2 h2 {
+    clear: both;
+    color: #444444;
+    display: block;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+  .tafo-cmnt1 .ago, .tafo-cmnt2 .ago {
+    color: #c0c0c0;
+    float: right;
+    font-size: 13px;
+  }
+  .tafo-cmnt1 > p, .tafo-cmnt2 > p {
+    clear: both;
+    display: block;
+    font-size: 14px !important;
+    width: 100%;
+    color: #727272;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .folio-comment .form-group {
+      .left-group1 {
+        display: none;
+      }
+      .right-group1 {
+        display: none;
+      }
+      .left-group2 {
+        width: 100%;
+        display: block;
+        margin-bottom: 25px;
+        padding-left: 5%;
+      }
+      .right-group2 {
+        width: 100%;
+        display: block;
       }
     }
   }

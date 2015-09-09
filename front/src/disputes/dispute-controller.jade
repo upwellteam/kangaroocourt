@@ -174,9 +174,8 @@
                                                                                   title='Remove comment')
                         .right-group2
                             header.tafo-cmnt2
-                                .title
-                                    h2 {{ comment.User.name }}
-                                    span.ago {{ comment.createdAt | relativeDate}}
+                                h2 {{ comment.User.name }}
+                                span.ago {{ comment.createdAt | relativeDate}}
                                 p {{ comment.text }}
                                 span.glyphicon.glyphicon-trash#btn-remove-comment(ng-click='self.removeComment(comment.id)',
                                                                                   ng-show='comment.User.id == self.user.id',
@@ -204,7 +203,3 @@
 
             a.juror(ng-if="self.role == 'plaintiff' || self.role == 'defendant'", ng-click='self.inviteJuries(self.dispute, self.user)')
                 | Invite Jurors
-
-        //button.btn.btn-danger(ng-click='self.deleteDispute()', ng-if='self.user.id == self.dispute.PlaintiffId')
-        //    i.fa.fa-trash
-        //    | Remove case

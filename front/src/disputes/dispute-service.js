@@ -47,15 +47,6 @@ class DisputesService {
         })
     }
 
-    del(dispute) {
-        return $q(function(resolve, reject){
-            $http
-                .delete(`/api/disputes/${dispute.id}`)
-                .success(() => { resolve() })
-                .error(() => { reject(); })
-        })
-    }
-
     saveArgument(argument, disputeId) {
         return $q(function(resolve, reject){
             $http

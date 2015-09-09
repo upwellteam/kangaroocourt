@@ -167,12 +167,6 @@ function DisputeController(CONFIG, dispute, FileUploader,
         })
     };
 
-    self.deleteDispute = () => {
-        DisputesService
-            .del(self.dispute)
-            .then(() => { $state.go("disputes.list") })
-    };
-
     if ($location.search().invitation != null) {
         $modal.open({
             templateUrl : 'disputes/modals/auth-controller.html',

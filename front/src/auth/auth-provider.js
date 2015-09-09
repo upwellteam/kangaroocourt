@@ -88,7 +88,7 @@ function AuthenticationProvider() {
                 $http
                     .post('/api/refresh-token', { refresh_token : this.token.refresh_token})
                     .success((response) => {
-                        self.setToken(response.token);
+                        self.setToken(response);
                         self.tokenRefreshing  = false;
 
                         $root.$emit('auth:token-refreshed');
