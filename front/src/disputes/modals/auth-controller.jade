@@ -1,16 +1,14 @@
 .modal-header
-    p.modal-title Welcome
+    p.modal-title Welcome to Kangarocourt!
 
 .modal-body
     p To participate in the dispute, you should Login via Facebook!
 
-.modal-body
-    .login
+    .login.btn
         a(ng-href='{{modal.Authentication.oAuthLinks().facebook}}')
             i.fa.fa-facebook-square
             | Log in with Facebook
 
-.modal-footer
-    .login#auth-btn-back
+    .back.btn
         a(ui-sref="disputes.list({ category : ''})")
-            | Main page
+            | Return to Main page

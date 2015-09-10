@@ -3,13 +3,8 @@ var Interval, Timeout, location, state;
 var DisputesService;
 
 class CreateDisputeController {
-    constructor(DISPUTE_CATEGORIES,
-                $state,
-                $modalInstance,
-                $interval,
-                $timeout,
-                Authentication,
-                $DisputesService
+    constructor($state, $modalInstance, $interval, $timeout,
+                DISPUTE_CATEGORIES, Authentication, $DisputesService
     ) {
         Interval = $interval;
         Timeout = $timeout;
@@ -33,7 +28,6 @@ class CreateDisputeController {
 
     submit() {
         var self = this;
-
         self.dispute.name = self.dispute.description.slice(0, 30)+'...';
         DisputesService
             .create(self.dispute)
@@ -71,15 +65,8 @@ class CreateDisputeController {
     }
 }
 
-CreateDisputeController.$inject = [
-    'DISPUTE_CATEGORIES',
-    '$state',
-    '$modalInstance',
-    '$interval',
-    '$timeout',
-    'Authentication',
-    'DisputesService'
-];
+CreateDisputeController.$inject = ['$state', '$modalInstance', '$interval', '$timeout',
+                                   'DISPUTE_CATEGORIES', 'Authentication', 'DisputesService'];
 
 angular
     .module('kangaroo.menu')

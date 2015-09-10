@@ -138,6 +138,7 @@ function DisputeController(CONFIG, dispute, FileUploader,
             controller: 'InviteJuriesController',
             controllerAs : 'modal',
             size: 'sm',
+            windowClass : 'invite-modal',
             resolve : {
                 dispute: function(){
                     return dispute
@@ -155,7 +156,7 @@ function DisputeController(CONFIG, dispute, FileUploader,
             controller : 'EvidenceModalController',
             controllerAs : 'modal',
             size: 'md',
-            windowClass : 'evidence-preview',
+            windowClass : 'evidence-view',
             resolve : {
                 image: function () {
                     return image;
@@ -173,7 +174,8 @@ function DisputeController(CONFIG, dispute, FileUploader,
             controller : 'authModal',
             controllerAs : 'modal',
             size: 'sm',
-            backdrop : 'static'
+            backdrop : 'static',
+            windowClass : 'auth-modal'
         })
     }
 

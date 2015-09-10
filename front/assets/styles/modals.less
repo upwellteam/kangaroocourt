@@ -4,22 +4,13 @@
 .modal-content {
   .modal-header {
     background: #388e3c none repeat scroll 0 0;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: none;
     color: #fff;
-    min-height: 16.4286px;
     padding: 9px;
     text-align: center;
-    .close {
-      color: #fff;
-      margin-top: -2px;
-      opacity: 0.5;
-    }
   }
   .modal-body {
     .form-group {
-      textarea{
-        padding: 6px 12px;
-      }
       .text-top {
         height: 10px;
         .text-top-left {
@@ -31,6 +22,33 @@
           color: #a4a4a4;
           float: right;
           font-size: 14px;
+        }
+      }
+    }
+    &.amount {
+      height: 120px;
+      background: #4caf50;
+      font-size: 18px;
+      color: #98ee9d;
+      text-align: center;
+      .bet {
+        height: 60px;
+        font-size: 42px;
+        font-weight: bold;
+        color: #fff;
+      }
+      .fa {
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        font-size: 20px;
+        height: 40px;
+        width: 40px;
+        margin-top: 9px;
+        padding: 9px;
+        color: #fff;
+        &:hover {
+          background-color: darken(#4caf50, 3%);
+          cursor: pointer;
         }
       }
     }
@@ -47,46 +65,8 @@
       .switch {
         border-radius: 1px;
         float: left;
-        small {
-          border-radius: 1px;
-        }
+        small { border-radius: 1px; }
       }
-    }
-    .modal-button {
-      float: right;
-      background-color: #FF5252;
-      color: #fff;
-      padding: 10px 15px;
-      border: none;
-    }
-  }
-  #amount {
-    height: 120px;
-    background: #4caf50;
-    font-size: 18px;
-    text-align: center;
-    color: #98ee9d;
-    margin-top: -1px;
-    #bet {
-      height: 60px;
-      background: #4caf50;
-      font-size: 42px;
-      font-weight: bold;
-      border: none;
-      color: #ffffff;
-      padding: 2px;
-      margin: 0 16px;
-      box-shadow: none
-    }
-    .bet-minus, .bet-plus {
-      border: 2px solid #ddd;
-      border-radius: 50%;
-      font-size: 20px;
-      height: 40px;
-      width: 40px;
-      overflow: hidden;
-      margin-top: 9px;
-      padding: 6px 4px 6px 6px;
     }
   }
 }
@@ -94,48 +74,42 @@
 /* ==========================================================================
    Modal Auth
    ========================================================================== */
-.login {
-  background: #5171a7 none repeat scroll 0 0;
-  color: #fff;
-  font-size: 18px;
-  margin: 0 auto;
-  padding: 10px;
-  text-align: center;
-  width: 85%;
-  cursor: pointer;
-  a {
+.auth-modal {
+  .login {
+    background: #5171a7;
     color: #fff;
-    text-decoration: none;
-    &:hover{
+    width: 85%;
+    padding: 10px;
+    &:hover { background-color: darken(#5171a7, 10%) }
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .fa { margin-right: 10px; }
+  }
+
+  .back {
+    margin-top: 15px;
+    background: #4caf50;
+    color: #fff;
+    width: 85%;
+    padding: 10px;
+    &:hover { background-color: darken(#4caf50, 10%) }
+    a {
+      color: #fff;
       text-decoration: none;
     }
   }
-  .fa {
-    margin-right: 10px;
-  }
-}
-
-#auth-btn-back {
-  background: #4caf50 none repeat scroll 0 0;
-  color: #fff;
-  font-size: 18px;
-  margin: 0 auto;
-  padding: 10px;
-  text-align: center;
-  width: 85%;
 }
 
 /* ==========================================================================
    Modal Invite
    ========================================================================== */
-.modal {
-  .modal-body {
-    text-align: center;
-  }
+.invite-modal {
+  .modal-body { text-align: center; }
   .modal-footer .btn-success{
     float: right;
     width: 100px;
-    height: 35px;
     border-radius: 1px;
   }
 }
@@ -143,7 +117,7 @@
 /* ==========================================================================
    Modal Preview Evidence
    ========================================================================== */
-.modal.evidence-preview {
+.evidence-preview {
   img {
     width: 100%; height: 100%;
     padding: 5px;

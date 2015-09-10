@@ -1,22 +1,20 @@
 .modal-header
-    button.close(type='button', ng-click='modal.close()')
+    btn.close(ng-click='modal.close()')
         span(aria-hidden='true') &times;
     p.modal-title File complaint
 
-.modal-body#amount
+.modal-body.amount
     p Amount wagered
     .col-md-4.col-sm-4.col-xs-4
-        .btn.btn-success.bet-minus(ng-click='modal.changeBet(-1)',
-                                   ng-mousedown='modal.startChange(-1)',
-                                   ng-mouseup='modal.endChange()')
-            span.glyphicon.glyphicon-minus
+        btn.fa.fa-minus(ng-click='modal.changeBet(-1)',
+                        ng-mousedown='modal.startChange(-1)',
+                        ng-mouseup='modal.endChange()')
     .col-md-4.col-sm-4.col-xs-4
-        #bet ${{modal.dispute.bet}}
+        span.bet ${{modal.dispute.bet}}
     .col-md-4.col-sm-4.col-xs-4
-        .btn.btn-success.bet-plus(ng-click='modal.changeBet(1)',
-                                  ng-mousedown='modal.startChange(1)',
-                                  ng-mouseup='modal.endChange()')
-            span.glyphicon.glyphicon-plus
+        btn.fa.fa-plus(ng-click='modal.changeBet(1)',
+                       ng-mousedown='modal.startChange(1)',
+                       ng-mouseup='modal.endChange()')
 
 .modal-body
     .form-group
@@ -34,6 +32,6 @@
         select.form-control(ng-model="modal.dispute.category", ng-options="category for category in modal.categories")
 .modal-footer
     .modal-check
-        switch#private(name="private", ng-model="modal.dispute.isPrivate", class="green")
+        switch(ng-model="modal.dispute.isPrivate")
         span.text Private?
-    button.btn.modal-button(ng-click='modal.submit()') New complaint
+    button.btn.btn-danger(ng-click='modal.submit()') Create

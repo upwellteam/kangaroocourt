@@ -1,6 +1,4 @@
-.row(ng-intro-options='IntroOptions', ng-intro-method='CallMe',
-     ng-intro-oncomplete='CompletedEvent', ng-intro-onexit='ExitEvent', ng-intro-onchange='ChangeEvent',
-     ng-intro-onbeforechange='BeforeChangeEvent', ng-intro-autostart='false')
+.row(ng-intro-options='IntroOptions', ng-intro-method='CallMe', ng-intro-oncomplete='CompletedEvent')
     .col-md-9.col-sm-9.content-folio
         .folio-headline.row
             .col-md-2.col-sm-2
@@ -11,26 +9,22 @@
                 h2 {{ self.dispute.name }}
                 p {{ self.dispute.description }}
         .folio-body.row
-
-            // Plaintiff
             .col-md-6.col-sm-6#step1
                 .argument
-                    .arg-heading
-                        .row
-                            .col-lg-3.col-md-3.col-sm-4
-                                img.img-disputants.img-responsive.one(ng-src='{{ self.dispute.Plaintiff.imgUrl }}')
-                            .col-lg-9.col-md-9.col-sm-8
-                                h2 Plaintiff - Argument
+                    .arg-heading.row
+                        .col-lg-3.col-md-3.col-sm-4
+                            img.img-disputants.img-responsive.one(ng-src='{{ self.dispute.Plaintiff.imgUrl }}')
+                        .col-lg-9.col-md-9.col-sm-8
+                            h2 Plaintiff - Argument
 
                     .arg-body#step2(ng-if='self.dispute.Arguments.plaintiff')
                         p {{ self.dispute.Arguments.plaintiff.argument }}
 
-                    div(ng-if="self.role == 'plaintiff'")
-                        .arg-add#step2(ng-if='!self.dispute.Arguments.plaintiff')
-                            textarea.form-control(type="text", ng-model="Plaintiff.argument", placeholder='Type your argument here...')
-                            btn.btn.btn-primary.add(ng-click='self.saveArgument(Plaintiff.argument)')
-                                i.fa.fa-plus
-                                span Add Argument
+                    .arg-add#step2(ng-if="self.role == 'plaintiff' && !self.dispute.Arguments.plaintiff")
+                        textarea.form-control(type="text", ng-model="Plaintiff.argument", placeholder='Type your argument here...')
+                        btn.btn.btn-primary.add(ng-click='self.saveArgument(Plaintiff.argument)')
+                            i.fa.fa-plus
+                            span Add Argument
 
                     .arg-add.clearfix.row(ng-if='self.dispute.Evidences.Plaintiff.length != 0'): ul
                         li.col-md-4(ng-repeat ="image in self.dispute.Evidences.Plaintiff")
@@ -83,25 +77,22 @@
                             span {{self.plaintiffValue}}%
                             progressbar(value='self.plaintiffValue', type='info')
 
-            // Defendant
             .col-md-6.col-sm-6
                 .argument
-                    .arg-heading
-                        .row
-                            .col-lg-3.col-md-3.col-sm-4
-                                img.img-disputants.img-responsive.two(ng-src="{{self.dispute.Defendant ? self.dispute.Defendant.imgUrl : '/images/no-avatar.png'}}")
-                            .col-lg-9.col-md-9.col-sm-8
-                                h2 Defendant - Argument
+                    .arg-heading.row
+                        .col-lg-3.col-md-3.col-sm-4
+                            img.img-disputants.img-responsive.two(ng-src="{{self.dispute.Defendant ? self.dispute.Defendant.imgUrl : '/images/no-avatar.png'}}")
+                        .col-lg-9.col-md-9.col-sm-8
+                            h2 Defendant - Argument
 
                     .arg-body(ng-if='self.dispute.Arguments.defendant')
                         p {{ self.dispute.Arguments.defendant.argument }}
 
-                    div(ng-if="self.role == 'defendant'")
-                        .arg-add(ng-show='!self.dispute.Arguments.defendant')
-                            textarea.form-control(type="text", ng-model="Defendant.argument", placeholder='Type your argument here...')
-                            btn.btn.btn-success.add(ng-click='self.saveArgument(Defendant.argument)')
-                                i.fa.fa-plus
-                                span Add Argument
+                    .arg-add(ng-if="self.role == 'defendant' && !self.dispute.Arguments.defendant")
+                        textarea.form-control(type="text", ng-model="Defendant.argument", placeholder='Type your argument here...')
+                        btn.btn.btn-success.add(ng-click='self.saveArgument(Defendant.argument)')
+                            i.fa.fa-plus
+                            span Add Argument
 
                     .arg-add.clearfix.row(ng-if='self.dispute.Evidences.Defendant.length != 0'): ul
                         li.col-md-4(ng-repeat ="image in self.dispute.Evidences.Defendant")
