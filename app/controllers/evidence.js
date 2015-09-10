@@ -9,8 +9,7 @@ var router = require('express').Router(),
 var app = require('../app.js'),
     config = app.get('config'),
     authenticate = require('../middleware/auth.js'),
-    errors = require('../errors'),
-    utils = require('../utils');
+    errors = require('../errors');
 
 var multer  = require('multer'),
     uploadDir = path.resolve(app.get('config').uploadDir),

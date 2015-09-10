@@ -7,7 +7,6 @@ var router = require('express').Router(),
 
 var authenticate = require('../middleware/auth.js'),
     errors = require('../errors'),
-    utils = require('../utils'),
     disputeTemplate = jade.compileFile(`${__dirname}/../templates/juryInvitation.jade`);
 
 /**

@@ -1,11 +1,5 @@
 var debug = require('debug')('kangaroo:models:dispute:photo');
 
-var path = require('path'),
-    Promise = require('bluebird'),
-    async = require('async');
-
-var utils = require('../../utils');
-
 /**
  *
  */

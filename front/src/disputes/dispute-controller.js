@@ -128,7 +128,7 @@ function DisputeController(CONFIG, dispute, FileUploader,
             })
     };
 
-    self.inviteJuries = (dispute, user) => {
+    self.inviteJuries = (dispute) => {
         $modal.open({
             templateUrl: 'disputes/modals/invite-juries.html',
             controller: 'InviteJuriesController',
@@ -138,9 +138,6 @@ function DisputeController(CONFIG, dispute, FileUploader,
             resolve : {
                 dispute: function(){
                     return dispute
-                },
-                user: function(){
-                    return user
                 }
             }
         })
@@ -226,6 +223,5 @@ function DisputeController(CONFIG, dispute, FileUploader,
         }
     }, 1000);
 
-    // DEV
     self.log = () => { console.log(self.dispute) }
 }

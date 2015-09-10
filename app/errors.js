@@ -2,8 +2,6 @@ var debug = require('debug')('kangaroo:api:errors');
 
 var Sequelize = require('sequelize');
 
-var utils = require('./utils');
-
 module.exports = function(err, req, res, next) {
     debug(`Error with ${req.url}`);
 

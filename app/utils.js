@@ -13,35 +13,6 @@ module.exports.pick = function(object, properties) {
     return underscore.pick(object, properties.split(' '));
 };
 
-/**
- * Temporary. Delete every error
- */
-function NotFoundError(message) {
-    this.name = 'NotFoundError';
-    this.message = message;
-}
-
-NotFoundError.prototype = Object.create(Error.prototype);
-NotFoundError.prototype.constructor = NotFoundError;
-
-module.exports.NotFoundError = NotFoundError;
-
-/**
- *
- */
-function NotAllowedError(message) {
-    this.name = 'NotAllowedError';
-    this.message = message;
-}
-
-NotAllowedError.prototype = Object.create(Error.prototype);
-NotAllowedError.prototype.constructor = NotAllowedError;
-
-module.exports.NotAllowedError = NotAllowedError;
-
-/**
- *
- */
 module.exports.readdirRecursiveSync = function(directory) {
     var result = [];
     readdir(directory);

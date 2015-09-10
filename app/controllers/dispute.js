@@ -5,7 +5,6 @@ var router = require('express').Router(),
 
 var authenticate = require('../middleware/auth.js'),
     errors = require('../errors'),
-    utils = require('../utils'),
     disputeTemplate = jade.compileFile(`${__dirname}/../templates/invitation.jade`);
 
 /**
@@ -199,11 +198,11 @@ router.get('/disputes/:id', function(req, res) {
         })
         .then(function(dispute) {
             if (!dispute) {
-                throw new utils.NotFoundError('no_such_dispute');
+                throw new errors.NotFoundError('no_such_dispute');
             }
             res.json(dispute);
         })
-        .catch(utils.NotFoundError, function(err){
+        .catch(errors.NotFoundError, function(err){
             res.status(404).json({ error : err.message });
         })
         .catch(function(err){
@@ -228,7 +227,7 @@ router.delete('/disputes/:id', function(req, res) {
         .then(function(){
             res.status(200).send('success')
         })
-        .catch(utils.NotFoundError, function(err){
+        .catch(errors.NotFoundError, function(err){
             res.status(404).json({ error : err.message });
         })
         .catch(function(err){

@@ -6,8 +6,7 @@ var router = require('express').Router(),
     request = Promise.promisify(require('request'));
 
 var authenticate = require('../middleware/auth.js'),
-    errors = require('../errors'),
-    utils = require('../utils');
+    errors = require('../errors');
 
 /**
  *
@@ -133,7 +132,7 @@ router.post('/refresh-token', function(req, res, next) {
         .find({ where : { refresh : req.body.refresh_token } })
         .then(function(token) {
             if (!token) {
-                throw utils.NotFoundError('invalid_refresh_token');
+                throw errors.NotFoundError('invalid_refresh_token');
             }
 
             return token.regenerate();

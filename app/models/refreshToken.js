@@ -1,7 +1,6 @@
 var debug = require('debug')('kangaroo:models:refreshToken');
 
-var app = require('../app.js'),
-    utils = require('../utils.js');
+var app = require('../app.js');
 
 /**
  *

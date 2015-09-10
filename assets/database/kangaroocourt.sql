@@ -60,6 +60,14 @@ CREATE TABLE IF NOT EXISTS `Evidence` (
   `UploaderId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `Intros` (
+  `id` int(11) NOT NULL,
+  `state` tinyint(1) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `UserId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `Invitations` (
   `id` int(11) NOT NULL,
   `type` enum('jury','defendant') COLLATE utf8_unicode_ci NOT NULL,
@@ -125,6 +133,10 @@ ALTER TABLE `Evidence`
   ADD KEY `DisputeId` (`DisputeId`),
   ADD KEY `UploaderId` (`UploaderId`);
 
+ALTER TABLE `Intros`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `UserId` (`UserId`);
+
 ALTER TABLE `Invitations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `DisputeId` (`DisputeId`);
@@ -155,6 +167,8 @@ ALTER TABLE `DisputesPhotos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Evidence`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Intros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Invitations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `Juries`
@@ -182,6 +196,9 @@ ALTER TABLE `DisputesPhotos`
 ALTER TABLE `Evidence`
   ADD CONSTRAINT `Evidence_ibfk_1` FOREIGN KEY (`DisputeId`) REFERENCES `Disputes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Evidence_ibfk_2` FOREIGN KEY (`UploaderId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE `Intros`
+  ADD CONSTRAINT `Intros_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 ALTER TABLE `Invitations`
   ADD CONSTRAINT `Invitations_ibfk_1` FOREIGN KEY (`DisputeId`) REFERENCES `Disputes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;

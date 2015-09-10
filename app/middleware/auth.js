@@ -2,8 +2,7 @@ var debug = require('debug')('kangaroo:middleware:authenticate');
 
 var Promise = require('bluebird');
 
-var errors = require('../errors'),
-    utils = require('../utils');
+var errors = require('../errors');
 
 module.exports = function authenticateMiddlewareGenerator(options) {
     return function authenticate(req, res, next) {

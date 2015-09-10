@@ -3,8 +3,7 @@ var debug = require('debug')('kangaroo:controller:argument');
 var router = require('express').Router();
 
 var authenticate = require('../middleware/auth.js'),
-    errors = require('../errors'),
-    utils = require('../utils');
+    errors = require('../errors');
 
 /**
  *
@@ -33,7 +32,6 @@ router.post('/argument', authenticate(), function(req, res) {
                 default :
                     throw new errors.NotAllowedError(`not allowed`)
             }
-            // TODO: Check argument for existance for current participant
             return models.Argument.create({
                     argument : data.argument,
                     role : data.role,
