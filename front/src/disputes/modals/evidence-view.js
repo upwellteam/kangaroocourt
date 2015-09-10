@@ -17,8 +17,18 @@ function EvidenceModalController ($modalInstance, image, dispute, DisputesServic
         DisputesService
             .deleteEvidence(modal.image.id)
             .then(() => {
-                // TODO: removing image after clicking button
-                modal.dismiss();
+                modal.dispute.Evidences.Plaintiff.forEach(function(el, i){
+                    if (modal.image.id == el.id) {
+                        modal.dispute.Evidences.Plaintiff.splice(i, 1);
+                        modal.dismiss();
+                    }
+                });
+                modal.dispute.Evidences.Defendant.forEach(function(el, i){
+                    if (modal.image.id == el.id) {
+                        modal.dispute.Evidences.Plaintiff.splice(i, 1);
+                        modal.dismiss();
+                    }
+                });
             })
     };
 }

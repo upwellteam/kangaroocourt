@@ -65,7 +65,8 @@ var paths = {
         'front/vendor/angular-animate/angular-animate.js',
         'front/vendor/angular-file-upload/dist/angular-file-upload.min.js',
         'front/vendor/intro.js/intro.js',
-        'front/vendor/angular-intro.js/src/angular-intro.js'
+        'front/vendor/angular-intro.js/src/angular-intro.js',
+        'front/vendor/angular-messages/angular-messages.js'
     ]
 };
 

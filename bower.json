@@ -24,7 +24,8 @@
     "font-awesome": "~4.4.0",
     "jquery": "*",
     "moment": "*",
-    "angular-intro.js": "~1.2.7"
+    "angular-intro.js": "~1.2.7",
+    "angular-messages": "~1.4.5"
   },
   "resolutions": {
     "angular": "1.4.5"

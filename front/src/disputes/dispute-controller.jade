@@ -62,10 +62,10 @@
                         div(ng-if="self.role == 'plaintiff' && self.uploader.queue.length != 0")
                             .progress(style='')
                                 .progress-bar(role='progressbar', ng-style="{ 'width': uploader.progress + '%' }", style='width: 0%;')
-                            button.btn.btn-success.btn-s(ng-click='self.uploader.uploadAll()', ng-disabled='!self.uploader.getNotUploadedItems().length')
+                            button.btn.btn-success.btn-md(ng-click='self.uploader.uploadAll()', ng-disabled='!self.uploader.getNotUploadedItems().length')
                                 span.fa.fa-upload
                                 |  Upload all
-                            button.btn.btn-danger.btn-s(ng-click='self.uploader.clearQueue()', ng-disabled='!self.uploader.queue.length')
+                            button.btn.btn-danger.btn-md(ng-click='self.uploader.clearQueue()', ng-disabled='!self.uploader.queue.length')
                                 span.fa.fa-trash
                                 |  Remove all
 
