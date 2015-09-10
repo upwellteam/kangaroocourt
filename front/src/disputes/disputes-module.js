@@ -11,7 +11,7 @@ function configure($stateProvider) {
         .state('disputes', {
             abstract : true,
             url : '/disputes',
-            template : '<div ui-view></div>'
+            template : '<div ui-view class="slide"></div>'
         })
         .state('disputes.list', {
             url : '/list/:category',

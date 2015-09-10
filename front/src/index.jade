@@ -13,7 +13,7 @@ html(ng-app="kangaroocourt", ng-scrict-di)
     body(ng-class="$state.current.name|expandState")
         menu
 
-        main.container(ui-view)
+        main.container.slide(ui-view)
 
         footer.footer-area
             .container

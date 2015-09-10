@@ -167,3 +167,16 @@ footer{
   text-transform: uppercase;
   transition: background-color 0.2s ease, box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ==========================================================================
+   Animation
+   ========================================================================== */
+.slide {
+  &.ng-enter {
+    transition: 0.5s linear all;
+    opacity: 0;
+  }
+  &.ng-enter.ng-enter-active {
+    opacity: 1;
+  }
+}
