@@ -3,21 +3,17 @@ angular
     .controller('DisputeController', DisputeController);
 
 DisputeController.$inject = ['CONFIG', 'dispute', 'FileUploader',
-                             '$modal', '$state', '$location', '$scope', '$timeout',
+                             '$modal', '$location', '$scope', '$timeout',
                              'Authentication', 'DisputesService', 'CommonService'];
 
 function DisputeController(CONFIG, dispute, FileUploader,
-                           $modal, $state, $location, $scope, $timeout,
+                           $modal, $location, $scope, $timeout,
                            Authentication, DisputesService, CommonService) {
     var self = this;
     this.Authentication = Authentication;
     this.user = Authentication.user;
     this.MAX_EVIDENCE = CONFIG.max_evidence;
     this.dispute = dispute;
-
-    this.collapse = {
-        uploader : false
-    };
 
     this.role = null;
     if (self.user && self.dispute.DefendantId == self.user.id) {
@@ -156,7 +152,7 @@ function DisputeController(CONFIG, dispute, FileUploader,
             controller : 'EvidenceModalController',
             controllerAs : 'modal',
             size: 'md',
-            windowClass : 'evidence-view',
+            windowClass : 'evidence-preview',
             resolve : {
                 image: function () {
                     return image;
