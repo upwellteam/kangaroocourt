@@ -214,6 +214,33 @@ router.get('/disputes/:id', function(req, res) {
 /**
  *
  */
+router.patch('/disputes/:id', authenticate(), function(req, res, next) {
+    debug('[PATCH] /disputes/:id');
+
+    var models = res.app.get('models'),
+        user = res.locals.user,
+        data = req.body;
+
+    models.Dispute
+        .findById(req.params.id)
+        .then(function(dispute) {
+            if (!dispute) {
+                throw errors.NotFoundError('masseuse_not_found');
+            }
+            return dispute
+                .set('description', data.description)
+                .set('name', data.name)
+                .save()
+        })
+        .then(function(dispute){
+            res.json(dispute)
+        })
+        .catch(next);
+});
+
+/**
+ *
+ */
 router.delete('/disputes/:id', function(req, res) {
     debug('DELETE /disputes/:id');
 
@@ -236,12 +263,4 @@ router.delete('/disputes/:id', function(req, res) {
         })
 });
 
-/**
- *
- */
-// TODO: router.put();
-
-/**
- *
- */
 module.exports = router;

@@ -47,6 +47,17 @@ class DisputesService {
         })
     }
 
+    editDispute(disputeId, data) {
+        return $q(function(resolve, reject){
+            $http
+                .patch(`/api/disputes/${disputeId}`, data)
+                .success(function(result) {
+                    resolve(result);
+                })
+                .error((error, status) => { reject(error, status); })
+        })
+    }
+
     saveArgument(argument, disputeId) {
         return $q(function(resolve, reject){
             $http

@@ -128,6 +128,29 @@ function DisputeController(CONFIG, dispute, FileUploader,
             })
     };
 
+    self.editing = false;
+    self.edit = {
+        name : dispute.name,
+        description : dispute.description
+    };
+    self.editDispute = () => {
+        DisputesService
+            .editDispute(self.dispute.id, self.edit)
+            .then(() => {
+                self.editing = false;
+                self.dispute.name = self.edit.name;
+                self.dispute.description = self.edit.description;
+            })
+            .catch((err) => { console.log(err, status) })
+    };
+    self.cancelEdit = () => {
+        self.editing = false;
+        self.edit = {
+            name : dispute.name,
+            description : dispute.description
+        };
+    };
+
     self.inviteJuries = (dispute) => {
         $modal.open({
             templateUrl: 'disputes/modals/invite-juries.html',

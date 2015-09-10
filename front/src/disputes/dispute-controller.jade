@@ -3,11 +3,20 @@
         .folio-headline.row
             .col-md-2.col-sm-2
                 //img(ng-src="{{self.dispute.DisputesPhotos[0].path}}")
-            .col-md-10.col-sm-10
+            .col-md-10.col-sm-10(ng-if="self.editing == false")
                 span(ng-click='self.log()') CLAIM
+                    i.fa.fa-pencil(ng-click='self.editing = !self.editing')
                     span.private(ng-if='self.dispute.isPrivate') PRIVATE
                 h2 {{ self.dispute.name }}
                 p {{ self.dispute.description }}
+            .col-md-10.col-sm-10(ng-if="self.editing == true")
+                span(ng-click='self.log()') CLAIM
+                    span.private(ng-if='self.dispute.isPrivate') PRIVATE
+                input.form-control(type='text', placeholder='Name', ng-model="self.edit.name")
+                textarea.form-control(type='text', placeholder='Description', ng-model="self.edit.description")
+                btn.btn.btn-success(ng-click='self.editDispute()') Save
+                btn.btn.btn-danger(ng-click='self.cancelEdit()') Cancel
+
         .folio-body.row
             .col-md-6.col-sm-6#step1
                 .argument
