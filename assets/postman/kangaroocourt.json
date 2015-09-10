@@ -1,0 +1,112 @@
+{
+	"id": "3784f830-d3e5-eead-16a1-00d8730a2a87",
+	"name": "kangaroocourt",
+	"description": "",
+	"order": [
+		"4fa835e3-4f74-eaab-ad55-f915f4b5e84c",
+		"d4e8007b-116d-4af8-0b5b-d7ba910b9013"
+	],
+	"folders": [
+		{
+			"id": "f4188763-81b1-454d-f8c4-8f488560b6ab",
+			"name": "disputes",
+			"description": "",
+			"write": true,
+			"order": [
+				"d64bba8e-37f8-0fe3-f4f0-e37e77863e2a",
+				"ddebd8ca-9fd9-40e2-d916-5d4d60cf4c9d"
+			],
+			"collection": "3784f830-d3e5-eead-16a1-00d8730a2a87",
+			"owner": "144409",
+			"collection_name": "kangaroocourt",
+			"collection_owner": "144409",
+			"collection_id": "3784f830-d3e5-eead-16a1-00d8730a2a87"
+		}
+	],
+	"timestamp": 1441553937263,
+	"owner": "144409",
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "4fa835e3-4f74-eaab-ad55-f915f4b5e84c",
+			"headers": "Authentication: 2113fb51-9d05-4a7d-abc4-6b26c120ebbb\nContent-Type: application/json\n",
+			"url": "http://kangaroocourt.loc:3000/api/intro",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1441555025560,
+			"name": "/intro",
+			"description": "",
+			"collectionId": "3784f830-d3e5-eead-16a1-00d8730a2a87",
+			"responses": [],
+			"rawModeData": "{\n    \"state\" : true\n}"
+		},
+		{
+			"id": "d4e8007b-116d-4af8-0b5b-d7ba910b9013",
+			"headers": "Authentication: 2113fb51-9d05-4a7d-abc4-6b26c120ebbb\n",
+			"url": "http://kangaroocourt.loc:3000/api/intro/",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1441554987257,
+			"name": "/intro",
+			"description": "",
+			"collectionId": "3784f830-d3e5-eead-16a1-00d8730a2a87",
+			"responses": []
+		},
+		{
+			"id": "d64bba8e-37f8-0fe3-f4f0-e37e77863e2a",
+			"headers": "Authentication: 36a062c0-6041-4358-858e-4f0c467be236\nContent-Type: application/json\n",
+			"url": "http://kangaroocourt.loc:3000/api/disputes/1",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "PATCH",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1441904788188,
+			"name": "/disputes",
+			"description": "",
+			"collectionId": "3784f830-d3e5-eead-16a1-00d8730a2a87",
+			"responses": [],
+			"rawModeData": "{\n    \"data\" : \"data\"\n}\n"
+		},
+		{
+			"id": "ddebd8ca-9fd9-40e2-d916-5d4d60cf4c9d",
+			"headers": "",
+			"url": "http://kangaroocourt.loc:3000/api/disputes/1",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"collectionId": "3784f830-d3e5-eead-16a1-00d8730a2a87",
+			"data": [],
+			"dataMode": "params",
+			"name": "/disputes",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1441904454318,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "f4188763-81b1-454d-f8c4-8f488560b6ab"
+		}
+	]
+}
