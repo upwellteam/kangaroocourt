@@ -3,7 +3,6 @@
         .single-content.row(ng-repeat="dispute in self.disputes")
             .col-md-2.col-sm-2(ng-show="!! dispute.imgUrl")
                 img(ng-src='/uploads/{{dispute.DisputesPhotos[0].filename}}')
-
             div(ng-class="dispute.imgUrl ? 'col-md-10 col-sm-10' : 'col-md-12 col-sm-12'")
                 .only-content-text
                     h2: a(ui-sref='disputes.single({ id : dispute.id })') {{ dispute.name }}

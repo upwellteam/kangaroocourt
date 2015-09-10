@@ -15,7 +15,7 @@ nav.navbar
             ul.dropdown-menu
                 li: a(ui-sref='profile.disputes')
                     i.fa.fa-briefcase
-                    |  My Cases
+                    | My Cases
                 li: a(ng-click='self.logout()')
                     i.fa.fa-power-off
                     | Logout
@@ -23,9 +23,10 @@ nav.navbar
             a + New complaint
 
 .container.navigation
-    button.btn.hidden-sm.hidden-md.hidden-lg(ng-click="self.toggleCollapsedMenu()")#collapse-btn
-        span MENU
-        span.glyphicon.glyphicon-list
+    .clearfix
+        button.btn.hidden-sm.hidden-md.hidden-lg(ng-click="self.toggleCollapsedMenu()")#collapse-btn
+            span CATEGORIES
+            span.glyphicon.glyphicon-list
 
     div(collapse="self.collapsedMenu")
         ul.ul-mainmenu.hidden-sm.hidden-md.hidden-lg

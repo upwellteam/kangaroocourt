@@ -26,6 +26,24 @@ menu {
     }
     .navbar-right {
       li {
+        @media only screen and (max-width: 767px){
+          &.dropdown {
+            width: 50%;
+            float: left;
+          }
+          &.create {
+            width: 50%;
+            float: right;
+            text-align: center;
+          }
+        }
+        @media only screen and (max-width: 420px){
+          &.dropdown, &.create {
+            width: auto;
+            float: none;
+            margin: 10px 0;
+          }
+        }
         &.open > a { background: none; }
         a {
           cursor: pointer;
@@ -37,6 +55,7 @@ menu {
           outline: none;
           .fa {
             margin-right: 4px;
+            width: 14px;
           }
           .avatar {
             width: 36px;
@@ -94,6 +113,9 @@ menu .navigation {
   margin-right: auto;
   margin-left: auto;
   padding: 0 30px;
+  @media only screen and (max-width: 767px){
+    padding-right: 10px;
+  }
   #collapse-btn {
     float: right;
     background-color: #2196f3;
